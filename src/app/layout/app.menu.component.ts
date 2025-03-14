@@ -14,18 +14,7 @@ export class AppMenuComponent implements OnInit {
             {
                 label: 'Dashboards',
                 icon: 'pi pi-home',
-                items: [
-                    {
-                        label: 'E-Commerce',
-                        icon: 'pi pi-fw pi-home',
-                        routerLink: ['/']
-                    },
-                    {
-                        label: 'Banking',
-                        icon: 'pi pi-fw pi-image',
-                        routerLink: ['/dashboard-banking']
-                    }
-                ]
+                routerLink: ['/admin/dashboards']
             },
             { separator: true },
             {
@@ -35,7 +24,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Listar Cliente',
                         icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/apps/calendar']
+                        routerLink: ['/admin/apps/calendar']
                     }
                 ]
             },
@@ -47,7 +36,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Listar Processos',
                         icon: 'pi pi-fw pi-calendar',
-                        routerLink: ['/apps/calendar']
+                        routerLink: ['/admin/apps/calendar']
                     }
                 ]
             },
@@ -64,7 +53,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Documentation',
                         icon: 'pi pi-fw pi-info-circle',
-                        routerLink: ['/documentation']
+                        routerLink: ['/admin/documentation']
                     }
                 ]
             }
