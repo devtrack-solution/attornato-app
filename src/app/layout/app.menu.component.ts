@@ -42,18 +42,13 @@ export class AppMenuComponent implements OnInit {
             },
             { separator: true },
             {
-                label: 'Start',
-                icon: 'pi pi-fw pi-download',
+                label: 'Cadastros',
+                icon: 'pi pi-plus',
                 items: [
                     {
-                        label: 'Buy Now',
+                        label: 'Grupo de Processo',
                         icon: 'pi pi-fw pi-shopping-cart',
-                        url: ['https://www.primefaces.org/store']
-                    },
-                    {
-                        label: 'Documentation',
-                        icon: 'pi pi-fw pi-info-circle',
-                        routerLink: ['/admin/documentation']
+                        routerLink: ['/admin/settings/process-group']
                     }
                 ]
             }
