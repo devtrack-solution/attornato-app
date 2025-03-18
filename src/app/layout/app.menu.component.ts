@@ -19,11 +19,11 @@ export class AppMenuComponent implements OnInit {
             { separator: true },
             {
                 label: 'Clientes',
-                icon: 'pi pi-th-large',
+                icon: 'pi pi-users',
                 items: [
                     {
                         label: 'Listar Cliente',
-                        icon: 'pi pi-fw pi-calendar',
+                        icon: 'pi pi-users',
                         routerLink: ['/admin/apps/calendar']
                     }
                 ]
@@ -31,11 +31,11 @@ export class AppMenuComponent implements OnInit {
             { separator: true },
             {
                 label: 'Processos',
-                icon: 'pi pi-th-large',
+                icon: 'pi pi-file-edit',
                 items: [
                     {
                         label: 'Listar Processos',
-                        icon: 'pi pi-fw pi-calendar',
+                        icon: 'pi pi-file-edit',
                         routerLink: ['/admin/apps/calendar']
                     }
                 ]
@@ -46,9 +46,19 @@ export class AppMenuComponent implements OnInit {
                 icon: 'pi pi-plus',
                 items: [
                     {
-                        label: 'Grupo de Processo',
-                        icon: 'pi pi-fw pi-shopping-cart',
+                        label: 'Grupo de Processos',
+                        icon: 'pi pi-fw pi-plus',
                         routerLink: ['/admin/settings/process-group']
+                    },
+                    {
+                        label: 'Grupo de Clientes',
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/admin/settings/customers-group']
+                    },
+                    {
+                        label: 'Local de Trâmite',
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/admin/settings/local-procedure']
                     }
                 ]
             }

@@ -7,12 +7,11 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ProcessGroupService {
+export class CustomersGroupService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}group-process`;
-  private machineData: any
+  private apiUrl = `${environment.apiUrl}customers-groups`;
 
-  constructor(private readonly http: HttpClient) { }
+  constructor() { }
 
   /**
    * Exemplo de método que faz uma requisição GET com um cabeçalho x-idempotency-key único
@@ -21,7 +20,7 @@ export class ProcessGroupService {
    * @param isActive
    * @returns Observable com a resposta da API
    */
-  getProcessGroups(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+  getCustomersGroups(limit: number, offset: number, isActive: boolean = true): Observable<any> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -36,7 +35,7 @@ export class ProcessGroupService {
   }
 
 
-  async saveProcessGroup(body: any): Promise<void> {
+  async saveCustomersGroup(body: any): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -48,7 +47,7 @@ export class ProcessGroupService {
     console.log('resultado', response);
   }
 
-  async ediProcessGroup(id: any, body: any): Promise<void> {
+  async ediCustomersGroup(id: any, body: any): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -57,10 +56,9 @@ export class ProcessGroupService {
       'Content-Type': 'application/json'
     });
     const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${id}`, body, { headers }));
-    console.log('resultado', response);
   }
 
-  async deleteProcessGroup(id: any): Promise<void> {
+  async deleteCustomersGroup(id: any): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({

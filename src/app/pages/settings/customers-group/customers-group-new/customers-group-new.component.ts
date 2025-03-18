@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { FormGroup, FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
+import { FormlyModule, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ProcessGroupService } from '../service/process-group.serivce';
-import { MessageService } from 'primeng/api';
+import { CustomersGroupService } from '../service/customers-group.service';
 
 @Component({
-  selector: 'app-process-group-edit',
+  selector: 'app-customers-group-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,12 +24,12 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './process-group-edit.component.html',
-  styleUrl: './process-group-edit.component.scss'
+  templateUrl: './customers-group-new.component.html',
+  styleUrl: './customers-group-new.component.scss'
 })
-export class ProcessGroupEditComponent {
+export class CustomersGroupNewComponent implements OnInit {
 
-  form: FormGroup;
+  form = new FormGroup({})
   options: FormlyFormOptions = {}
   model: any = {}
   fields: FormlyFieldConfig[] | any
@@ -44,18 +45,13 @@ export class ProcessGroupEditComponent {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  processGroupService = inject(ProcessGroupService)
+  customersGroupService = inject(CustomersGroupService)
 
   constructor(
     protected modalService: NgbModal,
-    private messageService: MessageService,
-    private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
-      name: [''] // Inicialmente vazio
-    });
-  }
-
+    private readonly router: Router,
+    private messageService: MessageService
+  ) { }
   async ngOnInit() {
     this.fields = [
       {
@@ -81,9 +77,8 @@ export class ProcessGroupEditComponent {
 
   }
 
-  async openLg(process: any): Promise<void> {
-    this.model = process
-    this.form.patchValue({ name: process.name }); // Preenche o formulário com os dados do processo
+  async openLg(): Promise<void> {
+    //await this.openModalService()
     this.display = true
   }
 
@@ -140,15 +135,15 @@ export class ProcessGroupEditComponent {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.processGroupService.ediProcessGroup(this.model.id, { name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo atualizado com sucesso!' });
+      await this.customersGroupService.saveCustomersGroup({ name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo cadastrado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();
       }, 1000);
     } catch (error) {
-      console.log('Erro ao salvar grupo de processo', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de processo!' });
+      console.log('Erro ao salvar grupo de cliente', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de cliente!' });
     }
   }
 

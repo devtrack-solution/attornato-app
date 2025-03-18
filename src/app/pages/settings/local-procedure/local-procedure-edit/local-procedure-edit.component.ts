@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
@@ -7,11 +7,11 @@ import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ProcessGroupService } from '../service/process-group.serivce';
+import { LocalProcedureService } from '../service/local-procedure.service';
 import { MessageService } from 'primeng/api';
 
 @Component({
-  selector: 'app-process-group-edit',
+  selector: 'app-local-procedure-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,10 +23,10 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './process-group-edit.component.html',
-  styleUrl: './process-group-edit.component.scss'
+  templateUrl: './local-procedure-edit.component.html',
+  styleUrl: './local-procedure-edit.component.scss'
 })
-export class ProcessGroupEditComponent {
+export class LocalProcedureEditComponent implements OnInit {
 
   form: FormGroup;
   options: FormlyFormOptions = {}
@@ -44,7 +44,7 @@ export class ProcessGroupEditComponent {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  processGroupService = inject(ProcessGroupService)
+  localProcedureService = inject(LocalProcedureService)
 
   constructor(
     protected modalService: NgbModal,
@@ -140,7 +140,7 @@ export class ProcessGroupEditComponent {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.processGroupService.ediProcessGroup(this.model.id, { name: name });
+      await this.localProcedureService.ediLocalProcedure(this.model.id, { name: name });
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo atualizado com sucesso!' });
       setTimeout(() => {
         this.display = false

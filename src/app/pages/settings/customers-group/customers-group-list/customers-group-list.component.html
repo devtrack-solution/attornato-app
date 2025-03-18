@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-sm-12">
+        <br/>
+        <h4>LISTA DE GRUPO DE CLIENTES</h4> 
+        <br/>
+        <div style="width: 100%;" class="d-flex justify-content-end">
+            <button pButton iconPos="right" class="p-button-primary ml-auto mt-3 border-round"  (click)="openCreateCustomersGroup()" title="Novo Grupo"><i class="pi pi-plus"></i></button>
+        </div>
+        <br/>         
+        <p-table #dt [value]="customersGroupList?.data" [tableStyle]="{ 'min-width': '50rem' }"
+            styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
+            responsiveLayout="scroll" [rowHover]="true" [showCurrentPageReport]="true">
+            <ng-template #header pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-customers pTemplate="body">
+                <tr [ngClass]="rowClass(customers)" [ngStyle]="rowStyle(customers)">
+                    <td>{{ customers?.name }}</td>
+                    <td class="text-center" style="width: 200px;">
+                        <div class="action-buttons">
+                            <button pButton class="p-button p-button-primary m-1" (click)="openEditCustomersGroup(customers)"
+                                title="Editar">
+                                <i class="pi pi-pencil"></i>
+                            </button>
+                            <button pButton iconPos="right" class="p-button p-button-danger m-1" (click)="deleteCustomersGroup(customers)"
+                                title="Excluir">
+                                <i class="pi pi-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7" style="text-align: center">Não possui nenhum registro.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<app-customers-group-new #showCreate></app-customers-group-new>
+<app-customers-group-edit #showUpdate></app-customers-group-edit>

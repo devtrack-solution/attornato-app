@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
+import { FormlyModule, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ProcessGroupService } from '../service/process-group.serivce';
-import { MessageService } from 'primeng/api';
+import { CustomersGroupService } from '../service/customers-group.service';
 
 @Component({
-  selector: 'app-process-group-edit',
+  selector: 'app-customers-group-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,10 +23,10 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './process-group-edit.component.html',
-  styleUrl: './process-group-edit.component.scss'
+  templateUrl: './customers-group-edit.component.html',
+  styleUrl: './customers-group-edit.component.scss'
 })
-export class ProcessGroupEditComponent {
+export class CustomersGroupEditComponent {
 
   form: FormGroup;
   options: FormlyFormOptions = {}
@@ -44,7 +44,7 @@ export class ProcessGroupEditComponent {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  processGroupService = inject(ProcessGroupService)
+  customersGroupService = inject(CustomersGroupService)
 
   constructor(
     protected modalService: NgbModal,
@@ -140,15 +140,15 @@ export class ProcessGroupEditComponent {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.processGroupService.ediProcessGroup(this.model.id, { name: name });
+      await this.customersGroupService.ediCustomersGroup(this.model.id, { name: name });
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo atualizado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();
       }, 1000);
     } catch (error) {
-      console.log('Erro ao salvar grupo de processo', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de processo!' });
+      console.log('Erro ao salvar grupo de cliente', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de cliente!' });
     }
   }
 
