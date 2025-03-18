@@ -4,7 +4,7 @@
         <h4>LISTA DE GRUPO DE PROCESSOS</h4> 
         <br/>
         <div style="width: 100%;" class="d-flex justify-content-end">
-            <button pButton iconPos="right" class="p-button-primary ml-auto mt-3 border-round"  (click)="openCreateProcessGroup()" title="Novo Grupo"><i class="pi pi-plus"></i></button>
+            <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round"  (click)="openCreateProcessGroup()" title="Novo Grupo"><i class="pi pi-plus"></i></button>
         </div>
         <br/>         
         <p-table #dt [value]="processGroupList?.data" [tableStyle]="{ 'min-width': '50rem' }"
@@ -22,7 +22,7 @@
                     <td>{{ process?.name }}</td>
                     <td class="text-center" style="width: 200px;">
                         <div class="action-buttons">
-                            <button pButton class="p-button p-button-primary m-1" (click)="openEditProcessGroup(process)"
+                            <button pButton class="p-button p-button-help m-1" (click)="openEditProcessGroup(process)"
                                 title="Editar">
                                 <i class="pi pi-pencil"></i>
                             </button>
