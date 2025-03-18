@@ -1,53 +1,16 @@
-<ng-template #modalContent let-modal>
-    <div class="modal-header" >
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close(modal)"></button>
-    </div> 
-    <div class="modal-body">
-      <div class="card table-card">
-        <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between">
-            <h3>Cadastrar Perfil</h3>
-          </div>
-          <div class="card-body row btn-page">
-            <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit(modal)">
-              <formly-form
-                [form]="form"
-                [fields]="fields"
-                [options]="options"
-                [model]="model"
-                autocomplete="off"
-                aria-label="Formulário de Cadastrar empresa"
-                title="Formulário de Cadastrar empresa"
-              ></formly-form>
-              <div class="d-flex flex-wrap text-danger gap-2 align-items-center justify-content-center mb-3" aria-live="assertive">
-                {{ message }}
-              </div>
-              <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center">
-                <button
-                  type="submit"
-                  class="btn btn-success d-inline-flex"
-                  aria-label="Salvar empresa"
-                  title="Salvar empresa"
-                >
-                  <i class="ti ti-circle-check me-1" aria-hidden="true"></i>
-                  Salvar
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-danger d-inline-flex"
-                  aria-label="Cancelar a operação"
-                  title="Cancelar a operação"
-                  (click)="voltar(modal)"
-                >
-                  <i class="ti btn-outline-danger me-1 m-1" aria-hidden="true"></i>
-                  Cancelar
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+<p-dialog header="Cadastrar Grupo de Processo" [(visible)]="this.display" [modal]="true" showEffect="fade"
+  [style]="{width: '30vw'}" [breakpoints]="{'960px': '75vw'}">
+  <div class="card-body row btn-page">
+    <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit(name.value)">
+      <label><b>Nome</b></label>
+      <input pInputText  id="name" type="text" class="form-control form-control-lg formSave" #name />
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+    <button pButton icon="pi pi-check" (click)="this.onSubmit(name.value)" label="Salvar"
+      class="p-button-outlined p-button-success"></button>
+    <button pButton icon="pi pi-check" (click)="this.close()" label="Cancelar"
+      class="p-button-outlined p-button-danger"></button>
   </ng-template>
-  
-  
+</p-dialog>
+<p-toast></p-toast>

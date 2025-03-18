@@ -3,14 +3,18 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppLayoutModule } from './layout/app.layout.module';
+import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     imports: [
+        AppLayoutModule,
         AppRoutingModule,
-        AppLayoutModule
+        SharedModule, 
+        BrowserAnimationsModule
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy }

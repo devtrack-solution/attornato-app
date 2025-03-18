@@ -9,30 +9,40 @@ import { ProcessGroupEditComponent } from '../process-group-edit/process-group-e
 import { ProcessGroupNewComponent } from '../process-group-new/process-group-new.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmationService } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { ProcessGroupService } from '../service/process-group.serivce';
+import { ProcessGroupNamespace } from 'src/app/shared/components/types/process-group.type';
 
 @Component({
   selector: 'app-process-group-list',
   standalone: true,
   imports: [CommonModule, SharedModule, TableModule, ProcessGroupEditComponent, ProcessGroupNewComponent,
-    PaginatorModule, ButtonModule
+    PaginatorModule, ButtonModule, DialogModule
   ],
   templateUrl: './process-group-list.component.html',
   styleUrl: './process-group-list.component.scss'
 })
 export class ProcessGroupListComponent implements OnInit {
 
-  processGroupList: any[] = []
+  display: boolean = false
+  processGroupList: ProcessGroupNamespace.ProcessGroupList | any
   @ViewChild('showUpdate') showUpdate: any;
-  @ViewChild('showCreate') showCreate: any;
+  @ViewChild('showCreate', { static: false }) showCreate: any;
   private router = inject(Router);
 
 
-  constructor(private readonly sweetAlertService: SweetAlertService) { }
+  constructor(private readonly sweetAlertService: SweetAlertService, private processGroupsService: ProcessGroupService) { }
 
   ngOnInit() {
-    this.processGroupList = [{ name: 'grupo 01' }];
+    this.processGroupsService.getProcessGroups(100, 0, true).subscribe((processGroupList: ProcessGroupNamespace.ProcessGroupList) => {
+      this.processGroupList = processGroupList;
+    });
   }
 
+  ngAfterViewInit() {
+    console.log("showCreate:", this.showCreate); // Verifique se a referência está sendo capturada corretamente
+  }
 
   rowClass(product: any): string {
     if (product.quantity === 0) {
@@ -60,6 +70,11 @@ export class ProcessGroupListComponent implements OnInit {
   }
 
   async openCreateProcessGroup() {
+    if (!this.showCreate) {
+      console.error("showCreate não foi inicializado corretamente.");
+      return;
+    }
+
     await this.showCreate.openLg();
   }
 
@@ -69,7 +84,6 @@ export class ProcessGroupListComponent implements OnInit {
   }
 
   async confirmForRemove(id: string): Promise<any> {
-    console.log('oi')
     this.sweetAlertService.confirmAlert({
       title: 'Deseja remover essa Máquina?',
       text: 'Ao remover esse Máquina, todo o acesso associado a ele serão removidos!',
@@ -81,7 +95,7 @@ export class ProcessGroupListComponent implements OnInit {
         Swal.fire('', 'Os dados da Máquina não foram modificados!', 'error');
       } else {
         try {
-          //await this.processGroupService.deleteMachine(id)
+          await this.processGroupsService.deleteProcessGroup(id)
           await Swal.fire('', 'A Máquina foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {

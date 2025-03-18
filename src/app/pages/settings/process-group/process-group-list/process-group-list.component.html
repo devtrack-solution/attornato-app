@@ -3,11 +3,11 @@
         <br/>
         <h4>LISTA DE GRUPO DE PROCESSOS</h4> 
         <br/>
-        <div class="d-flex justify-content-end">
-            <button pButton class="p-button-primary ml-auto mt-3 border-round"  (click)="openCreateProcessGroup()" title="Novo Grupo"><i class="pi pi-plus"></i></button>
+        <div style="width: 100%;" class="d-flex justify-content-end">
+            <button pButton iconPos="right" class="p-button-primary ml-auto mt-3 border-round"  (click)="openCreateProcessGroup()" title="Novo Grupo"><i class="pi pi-plus"></i></button>
         </div>
-                    
-        <p-table #dt [value]="processGroupList" [tableStyle]="{ 'min-width': '50rem' }"
+        <br/>         
+        <p-table #dt [value]="processGroupList?.data" [tableStyle]="{ 'min-width': '50rem' }"
             styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
             currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
             responsiveLayout="scroll" [rowHover]="true" [showCurrentPageReport]="true">
@@ -20,15 +20,15 @@
             <ng-template #body let-process pTemplate="body">
                 <tr [ngClass]="rowClass(process)" [ngStyle]="rowStyle(process)">
                     <td>{{ process?.name }}</td>
-                    <td class="text-center">
+                    <td class="text-center" style="width: 200px;">
                         <div class="action-buttons">
-                            <button type="button" class="btn btn-secondary" (click)="openEditProcessGroup(process)"
+                            <button pButton class="p-button p-button-primary m-1" (click)="openEditProcessGroup(process)"
                                 title="Editar">
-                                <i class="ti ti-pencil"></i>
+                                <i class="pi pi-pencil"></i>
                             </button>
-                            <button type="button" class="btn btn-danger" (click)="deleteProcessGroup(process)"
+                            <button pButton iconPos="right" class="p-button p-button-danger m-1" (click)="deleteProcessGroup(process)"
                                 title="Excluir">
-                                <i class="ti ti-trash"></i>
+                                <i class="pi pi-trash"></i>
                             </button>
                         </div>
                     </td>

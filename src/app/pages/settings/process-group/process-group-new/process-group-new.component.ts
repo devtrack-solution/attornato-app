@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFormOptions, FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ProcessGroupService } from '../service/process-group.serivce';
 
 @Component({
   selector: 'app-process-group-new',
@@ -15,7 +19,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     SharedModule,
     FormsModule,
     FormlyBootstrapModule,
-
+    NgbModule,
+    DialogModule,
+    ButtonModule,
+    FormlyModule
   ],
   templateUrl: './process-group-new.component.html',
   styleUrl: './process-group-new.component.scss'
@@ -36,11 +43,14 @@ export class ProcessGroupNewComponent implements OnInit {
   isOpened = false;
   tags: any;
   roles: any;
-  @ViewChild('modalContent') modalContent: any;
+  display: boolean = false
+  @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
+  processGroupService = inject(ProcessGroupService)
 
   constructor(
     protected modalService: NgbModal,
     private readonly router: Router,
+    private messageService: MessageService
   ) { }
   async ngOnInit() {
     this.fields = [
@@ -50,8 +60,8 @@ export class ProcessGroupNewComponent implements OnInit {
           //nome
           {
             key: 'name',
-            type: 'input',
-            className: 'col-12 col-md-6',
+            type: 'primeng-input',
+            className: 'col-12 col-md-12',
             props: {
               label: 'Nome',
               placeholder: 'Informe o nome',
@@ -68,47 +78,73 @@ export class ProcessGroupNewComponent implements OnInit {
   }
 
   async openLg(): Promise<void> {
-    await this.openModalService()
+    //await this.openModalService()
+    this.display = true
   }
 
   async openModalService() {
     if (!this.isOpened) {
-      this.modalService.open(this.modalContent, { size: 'md' }).result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      try {
+
+        if (!this.modalContent) {
+          console.error("modalContent não está definido!");
+          return;
         }
-      );
-      this.isOpened = true;
-    } else {
-      this.isOpened = false
+        
+        const modalRef = this.modalService.open(this.modalContent, { size: 'md' });
+  
+        if (modalRef.result && typeof modalRef.result.then === 'function') {
+          modalRef.result.then(
+            (result: any) => {
+              this.closeResult = `Closed with: ${result}`;
+            },
+            (reason: any) => {
+              this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+            }
+          );
+        } else {
+          console.error("modalRef.result não possui then(), modal possivelmente não foi aberto corretamente.");
+        }
+  
+        this.isOpened = true;
+      } catch (error) {
+        console.error("Erro ao abrir modal:", error);
+      }
+    } else { 
+      this.isOpened = false;
     }
   }
+  
+  
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
-      this.isOpened = false;
-      return 'by pressing ESC';
+      return 'com tecla ESC';
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      this.isOpened = false;
-      return 'by clicking on a backdrop';
+      return 'com clique fora do modal';
     } else {
-      return `with: ${reason}`;
+      return `com motivo desconhecido: ${reason}`;
     }
   }
 
 
-  async close(modal: any) {
-    modal.close();
-    this.isOpened = false;
+  async close() {
+    this.display = false
+    location.reload();
   }
 
-  async onSubmit(modal: any): Promise<void> {
-    //await API.post(`roles`, this.model);
-    modal.close();
-    this.isOpened = false;
-    location.reload();
+  async onSubmit(name: any): Promise<void> {
+    this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
+    try {
+      await this.processGroupService.saveProcessGroup({ name: name});
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo cadastrado com sucesso!' });
+      setTimeout(() => {
+        this.display = false
+        location.reload();
+      }, 1000);
+    } catch (error) {
+      console.log('Erro ao salvar grupo de processo', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de processo!' });
+    }
   }
 
   async voltar(modal: any) {
