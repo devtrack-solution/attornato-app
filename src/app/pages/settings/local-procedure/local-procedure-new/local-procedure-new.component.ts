@@ -137,7 +137,7 @@ export class LocalProcedureNewComponent implements OnInit {
       this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
       try {
         await this.localProcedureService.saveLocalProcedure({ name: name});
-        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo cadastrado com sucesso!' });
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Local cadastrado com sucesso!' });
         setTimeout(() => {
           this.display = false
           location.reload();

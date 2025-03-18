@@ -13,6 +13,10 @@ const routes: Routes = [
   {
     path: 'local-procedure', data: { breadcrumb: 'Local de Trâmite' },
     loadChildren: () => import('./local-procedure/local-procedure.module').then((module) => module.LocalProcedureModule),
+  },
+  {
+    path: 'roles', data: { breadcrumb: 'Perfil' },
+    loadChildren: () => import('./roles/roles.module').then((module) => module.RolesModule),
   }
 ];
 

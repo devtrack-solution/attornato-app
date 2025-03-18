@@ -59,6 +59,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Local de Trâmite',
                         icon: 'pi pi-fw pi-plus',
                         routerLink: ['/admin/settings/local-procedure']
+                    },
+                    {
+                        label: 'Perfil',
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/admin/settings/roles']
                     }
                 ]
             }

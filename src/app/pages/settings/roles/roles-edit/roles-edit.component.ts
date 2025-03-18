@@ -4,14 +4,14 @@ import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { LocalProcedureService } from '../service/local-procedure.service';
-import { MessageService } from 'primeng/api';
+import { RolesService } from '../service/roles.service';
 
 @Component({
-  selector: 'app-local-procedure-edit',
+  selector: 'app-roles-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,10 +23,10 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './local-procedure-edit.component.html',
-  styleUrl: './local-procedure-edit.component.scss'
+  templateUrl: './roles-edit.component.html',
+  styleUrl: './roles-edit.component.scss'
 })
-export class LocalProcedureEditComponent implements OnInit {
+export class RolesEditComponent implements OnInit {
 
   form: FormGroup;
   options: FormlyFormOptions = {}
@@ -44,7 +44,7 @@ export class LocalProcedureEditComponent implements OnInit {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  localProcedureService = inject(LocalProcedureService)
+  rolesService = inject(RolesService)
 
   constructor(
     protected modalService: NgbModal,
@@ -81,9 +81,9 @@ export class LocalProcedureEditComponent implements OnInit {
 
   }
 
-  async openLg(process: any): Promise<void> {
-    this.model = process
-    this.form.patchValue({ name: process.name }); // Preenche o formulário com os dados do processo
+  async openLg(role: any): Promise<void> {
+    this.model = role
+    this.form.patchValue({ name: role.name }); // Preenche o formulário com os dados do processo
     this.display = true
   }
 
@@ -140,15 +140,15 @@ export class LocalProcedureEditComponent implements OnInit {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.localProcedureService.ediLocalProcedure(this.model.id, { name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Local atualizado com sucesso!' });
+      await this.rolesService.ediRole(this.model.id, { name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Perfil atualizado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();
       }, 1000);
     } catch (error) {
-      console.log('Erro ao salvar grupo de processo', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de processo!' });
+      console.log('Erro ao salvar perfil', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um perfil!' });
     }
   }
 

@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
-import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
+import { FormlyModule, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { LocalProcedureService } from '../service/local-procedure.service';
-import { MessageService } from 'primeng/api';
+import { RolesService } from '../service/roles.service';
 
 @Component({
-  selector: 'app-local-procedure-edit',
+  selector: 'app-roles-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,12 +24,12 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './local-procedure-edit.component.html',
-  styleUrl: './local-procedure-edit.component.scss'
+  templateUrl: './roles-new.component.html',
+  styleUrl: './roles-new.component.scss'
 })
-export class LocalProcedureEditComponent implements OnInit {
+export class RolesNewComponent implements OnInit {
 
-  form: FormGroup;
+  form = new FormGroup({})
   options: FormlyFormOptions = {}
   model: any = {}
   fields: FormlyFieldConfig[] | any
@@ -44,18 +45,13 @@ export class LocalProcedureEditComponent implements OnInit {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  localProcedureService = inject(LocalProcedureService)
+  rolesService = inject(RolesService)
 
   constructor(
     protected modalService: NgbModal,
-    private messageService: MessageService,
-    private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
-      name: [''] // Inicialmente vazio
-    });
-  }
-
+    private readonly router: Router,
+    private messageService: MessageService
+  ) { }
   async ngOnInit() {
     this.fields = [
       {
@@ -81,9 +77,8 @@ export class LocalProcedureEditComponent implements OnInit {
 
   }
 
-  async openLg(process: any): Promise<void> {
-    this.model = process
-    this.form.patchValue({ name: process.name }); // Preenche o formulário com os dados do processo
+  async openLg(): Promise<void> {
+    //await this.openModalService()
     this.display = true
   }
 
@@ -140,15 +135,15 @@ export class LocalProcedureEditComponent implements OnInit {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.localProcedureService.ediLocalProcedure(this.model.id, { name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Local atualizado com sucesso!' });
+      await this.rolesService.saveRole({ name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Perfil cadastrado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();
       }, 1000);
     } catch (error) {
-      console.log('Erro ao salvar grupo de processo', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de processo!' });
+      console.log('Erro ao salvar perfil', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um perfil!' });
     }
   }
 
