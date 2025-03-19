@@ -82,9 +82,9 @@ export class OriginEditComponent implements OnInit {
 
   }
 
-  async openLg(process: any): Promise<void> {
-    this.model = process
-    this.form.patchValue({ name: process.name }); // Preenche o formulário com os dados do processo
+  async openLg(origin: any): Promise<void> {
+    this.model = origin
+    this.form.patchValue({ name: origin.name }); // Preenche o formulário com os dados do processo
     this.display = true
   }
 

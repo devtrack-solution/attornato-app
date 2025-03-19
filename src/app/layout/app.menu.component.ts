@@ -46,40 +46,59 @@ export class AppMenuComponent implements OnInit {
                 icon: 'pi pi-plus',
                 items: [
                     {
-                        label: 'Grupo de Processos',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: ['/admin/settings/process-group']
+                        label: 'Processos',
+                        icon: 'pi pi-plus',
+                        items: [
+                            {
+                                label: 'Grupo de Processos',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/process-group']
+                            },
+                            {
+                                label: 'Local de Trâmite',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/local-procedure']
+                            },
+                            {
+                                label: 'Parceiro',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/partner']
+                            },
+                            {
+                                label: 'Prognóstico',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/prognosis']
+                            },
+                            {
+                                label: 'Origem',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/origin']
+                            }
+                        ]
                     },
                     {
-                        label: 'Grupo de Clientes',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: ['/admin/settings/customers-group']
+                        label: 'Clientes',
+                        icon: 'pi pi-plus',
+                        items: [
+                            {
+                                label: 'Grupo de Clientes',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/customers-group']
+                            },
+                            {
+                                label: 'Perfil',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/roles']
+                            },
+                            {
+                                label: 'Tipos de Contato',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/contact-types']
+                            }
+                        ]
                     },
-                    {
-                        label: 'Local de Trâmite',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: ['/admin/settings/local-procedure']
-                    },
-                    {
-                        label: 'Perfil',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: ['/admin/settings/roles']
-                    },
-                    {
-                        label: 'Tipos de Contato',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: ['/admin/settings/contact-types']
-                    },
-                    {
-                        label: 'Prognóstico',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: ['/admin/settings/prognosis']
-                    },
-                    {
-                        label: 'Origem',
-                        icon: 'pi pi-fw pi-plus',
-                        routerLink: ['/admin/settings/origin']
-                    }
+                    
+                    
                 ]
             }
         ];

@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class OriginService {
   private httpClient = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}origins`;
-  private machineData: any
+   
 
   constructor(private readonly http: HttpClient) { }
 

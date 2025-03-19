@@ -81,9 +81,9 @@ export class LocalProcedureEditComponent implements OnInit {
 
   }
 
-  async openLg(process: any): Promise<void> {
-    this.model = process
-    this.form.patchValue({ name: process.name }); // Preenche o formulário com os dados do processo
+  async openLg(localProcedure: any): Promise<void> {
+    this.model = localProcedure
+    this.form.patchValue({ name: localProcedure.name }); // Preenche o formulário com os dados do processo
     this.display = true
   }
 

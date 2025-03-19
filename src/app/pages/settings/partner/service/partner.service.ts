@@ -7,10 +7,9 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ProcessGroupService {
+export class PartnerService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}group-process`;
-   
+  private apiUrl = `${environment.apiUrl}partners`;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -21,7 +20,7 @@ export class ProcessGroupService {
    * @param isActive
    * @returns Observable com a resposta da API
    */
-  getProcessGroups(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+  getPartners(limit: number, offset: number, isActive: boolean = true): Observable<any> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -36,7 +35,7 @@ export class ProcessGroupService {
   }
 
 
-  async saveProcessGroup(body: any): Promise<void> {
+  async savePartner(body: any): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -48,7 +47,7 @@ export class ProcessGroupService {
     console.log('resultado', response);
   }
 
-  async ediProcessGroup(id: any, body: any): Promise<void> {
+  async ediPartner(id: any, body: any): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -60,7 +59,7 @@ export class ProcessGroupService {
     console.log('resultado', response);
   }
 
-  async deleteProcessGroup(id: any): Promise<void> {
+  async deletePartner(id: any): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({

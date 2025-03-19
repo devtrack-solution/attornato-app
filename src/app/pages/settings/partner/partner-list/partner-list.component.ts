@@ -4,35 +4,35 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
-import { OriginNamespace } from 'src/app/shared/components/types/origin.type';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { OriginEditComponent } from '../origin-edit/origin-edit.component';
-import { OriginNewComponent } from '../origin-new/origin-new.component';
+import { PartnerEditComponent } from '../partner-edit/partner-edit.component';
+import { PartnerNewComponent } from '../partner-new/partner-new.component';
+import { PartnerService } from '../service/partner.service';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
-import { OriginService } from '../service/origin.service';
+import { PartnerNamespace } from 'src/app/shared/components/types/partner.type';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-origin-list',
+  selector: 'app-partner-list',
   standalone: true,
-  imports: [CommonModule, SharedModule, TableModule, OriginEditComponent, OriginNewComponent,
+  imports: [CommonModule, SharedModule, TableModule, PartnerEditComponent, PartnerNewComponent,
     PaginatorModule, ButtonModule, DialogModule],
-  templateUrl: './origin-list.component.html',
-  styleUrl: './origin-list.component.scss'
+  templateUrl: './partner-list.component.html',
+  styleUrl: './partner-list.component.scss'
 })
-export class OriginListComponent implements OnInit {
+export class PartnerListComponent implements OnInit {
 
   display: boolean = false
-  originList: OriginNamespace.OriginList | any
+  partnerList: PartnerNamespace.PartnerList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
 
 
-  constructor(private readonly sweetAlertService: SweetAlertService, private orginService: OriginService) { }
+  constructor(private readonly sweetAlertService: SweetAlertService, private partnerService: PartnerService) { }
 
   ngOnInit() {
-    this.orginService.getOrigins(100, 0, true).subscribe((originList: OriginNamespace.OriginList) => {
-      this.originList = originList;
+    this.partnerService.getPartners(100, 0, true).subscribe((partnerList: PartnerNamespace.PartnerList) => {
+      this.partnerList = partnerList;
     });
   }
 
@@ -61,11 +61,11 @@ export class OriginListComponent implements OnInit {
     }*/
   }
 
-  async openEditOrigin(process: any): Promise<void> {
+  async openEditPartner(process: any): Promise<void> {
     await this.showUpdate.openLg(process);
   }
 
-  async openCreateOrigin() {
+  async openCreatePartner() {
     if (!this.showCreate) {
       console.error("showCreate não foi inicializado corretamente.");
       return;
@@ -75,27 +75,27 @@ export class OriginListComponent implements OnInit {
   }
 
 
-  async deleteOrigin(process: any) {
+  async deletePartner(process: any) {
     await this.confirmForRemove(process.id);
   }
 
   async confirmForRemove(id: string): Promise<any> {
     this.sweetAlertService.confirmAlert({
-      title: 'Deseja remover essa Origem?',
-      text: 'Ao remover essa Origem, todo o acesso associado a ele serão removidos!',
+      title: 'Deseja remover esse Parceiro?',
+      text: 'Ao remover esse Parceiro, todo o acesso associado a ele serão removidos!',
       icon: AlertIcon.WARNING,
-      confirmText: 'A Origem foi removido com sucesso!',
-      cancellText: 'Os dados da Origem não foram modificados!'
+      confirmText: 'O Parceiro foi removido com sucesso!',
+      cancellText: 'Os dados da Parceiro não foram modificados!'
     }).then(async (willDelete) => {
       if (willDelete.dismiss) {
-        Swal.fire('', 'Os dados da Origem não foram modificados!', 'error');
+        Swal.fire('', 'Os dados do Parceiro não foram modificados!', 'error');
       } else {
         try {
-          await this.orginService.deleteOrigin(id)
-          await Swal.fire('', 'A Origem foi removida com sucesso!', 'success');
+          await this.partnerService.deletePartner(id)
+          await Swal.fire('', 'O Parceiro foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {
-          Swal.fire('', 'Os dados da Origem não foram modificados!', 'error');
+          Swal.fire('', 'Os dados do Parceiro não foram modificados!', 'error');
           console.error(e);
         }
       }

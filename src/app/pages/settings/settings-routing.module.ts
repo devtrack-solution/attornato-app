@@ -29,6 +29,10 @@ const routes: Routes = [
   {
     path: 'origin', data: { breadcrumb: 'Origem' },
     loadChildren: () => import('./origin/origin.module').then((module) => module.OriginModule),
+  },
+  {
+    path: 'partner', data: { breadcrumb: 'Parceiro' },
+    loadChildren: () => import('./partner/partner.module').then((module) => module.PartnerModule),
   }
 ];
 

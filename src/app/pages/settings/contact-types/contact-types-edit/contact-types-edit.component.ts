@@ -81,9 +81,9 @@ export class ContactTypesEditComponent implements OnInit {
 
   }
 
-  async openLg(process: any): Promise<void> {
-    this.model = process
-    this.form.patchValue({ name: process.name }); // Preenche o formulário com os dados do processo
+  async openLg(contactType: any): Promise<void> {
+    this.model = contactType
+    this.form.patchValue({ name: contactType.name }); // Preenche o formulário com os dados do processo
     this.display = true
   }
 

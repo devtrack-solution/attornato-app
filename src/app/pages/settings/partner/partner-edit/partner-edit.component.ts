@@ -8,10 +8,10 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CustomersGroupService } from '../service/customers-group.service';
+import { PartnerService } from '../service/partner.service';
 
 @Component({
-  selector: 'app-customers-group-edit',
+  selector: 'app-partner-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,10 +23,10 @@ import { CustomersGroupService } from '../service/customers-group.service';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './customers-group-edit.component.html',
-  styleUrl: './customers-group-edit.component.scss'
+  templateUrl: './partner-edit.component.html',
+  styleUrl: './partner-edit.component.scss'
 })
-export class CustomersGroupEditComponent implements OnInit{
+export class PartnerEditComponent implements OnInit{
 
   form: FormGroup;
   options: FormlyFormOptions = {}
@@ -44,7 +44,7 @@ export class CustomersGroupEditComponent implements OnInit{
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  customersGroupService = inject(CustomersGroupService)
+  partnerService = inject(PartnerService)
 
   constructor(
     protected modalService: NgbModal,
@@ -81,9 +81,9 @@ export class CustomersGroupEditComponent implements OnInit{
 
   }
 
-  async openLg(customersGroup: any): Promise<void> {
-    this.model = customersGroup
-    this.form.patchValue({ name: customersGroup.name }); // Preenche o formulário com os dados do processo
+  async openLg(partner: any): Promise<void> {
+    this.model = partner
+    this.form.patchValue({ name: partner.name }); // Preenche o formulário com os dados do processo
     this.display = true
   }
 
@@ -140,15 +140,15 @@ export class CustomersGroupEditComponent implements OnInit{
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.customersGroupService.ediCustomersGroup(this.model.id, { name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo atualizado com sucesso!' });
+      await this.partnerService.ediPartner(this.model.id, { name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Parceiro atualizado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();
       }, 1000);
     } catch (error) {
-      console.log('Erro ao salvar grupo de cliente', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de cliente!' });
+      console.log('Erro ao salvar Parceiro', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um Parceiro!' });
     }
   }
 
