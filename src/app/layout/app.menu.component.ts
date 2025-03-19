@@ -74,6 +74,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Prognóstico',
                         icon: 'pi pi-fw pi-plus',
                         routerLink: ['/admin/settings/prognosis']
+                    },
+                    {
+                        label: 'Origem',
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/admin/settings/origin']
                     }
                 ]
             }

@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'prognosis', data: { breadcrumb: 'Prognóstico' },
     loadChildren: () => import('./prognosis/prognosis.module').then((module) => module.PrognosisModule),
+  },
+  {
+    path: 'origin', data: { breadcrumb: 'Origem' },
+    loadChildren: () => import('./origin/origin.module').then((module) => module.OriginModule),
   }
 ];
 
