@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path: 'roles', data: { breadcrumb: 'Perfil' },
     loadChildren: () => import('./roles/roles.module').then((module) => module.RolesModule),
+  },
+  {
+    path: 'contact-types', data: { breadcrumb: 'Tipos de Contato' },
+    loadChildren: () => import('./contact-types/contact-types.module').then((module) => module.ContactTypesModule),
   }
 ];
 

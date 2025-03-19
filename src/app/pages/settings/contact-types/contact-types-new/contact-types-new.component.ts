@@ -1,17 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormsModule, FormGroup, FormBuilder } from '@angular/forms';
-import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyModule, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CustomersGroupService } from '../service/customers-group.service';
+import { ContactTypeService } from '../service/contact-types.service';
 
 @Component({
-  selector: 'app-customers-group-edit',
+  selector: 'app-contact-types-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -23,12 +24,12 @@ import { CustomersGroupService } from '../service/customers-group.service';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './customers-group-edit.component.html',
-  styleUrl: './customers-group-edit.component.scss'
+  templateUrl: './contact-types-new.component.html',
+  styleUrl: './contact-types-new.component.scss'
 })
-export class CustomersGroupEditComponent implements OnInit{
+export class ContactTypesNewComponent implements OnInit {
 
-  form: FormGroup;
+  form = new FormGroup({})
   options: FormlyFormOptions = {}
   model: any = {}
   fields: FormlyFieldConfig[] | any
@@ -44,18 +45,12 @@ export class CustomersGroupEditComponent implements OnInit{
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  customersGroupService = inject(CustomersGroupService)
+  contactTypesService = inject(ContactTypeService)
 
   constructor(
     protected modalService: NgbModal,
-    private messageService: MessageService,
-    private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
-      name: [''] // Inicialmente vazio
-    });
-  }
-
+    private messageService: MessageService
+  ) { }
   async ngOnInit() {
     this.fields = [
       {
@@ -81,9 +76,8 @@ export class CustomersGroupEditComponent implements OnInit{
 
   }
 
-  async openLg(process: any): Promise<void> {
-    this.model = process
-    this.form.patchValue({ name: process.name }); // Preenche o formulário com os dados do processo
+  async openLg(): Promise<void> {
+    //await this.openModalService()
     this.display = true
   }
 
@@ -140,8 +134,8 @@ export class CustomersGroupEditComponent implements OnInit{
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.customersGroupService.ediCustomersGroup(this.model.id, { name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo atualizado com sucesso!' });
+      await this.contactTypesService.saveContactType({ name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Grupo cadastrado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();

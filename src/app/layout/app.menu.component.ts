@@ -64,6 +64,11 @@ export class AppMenuComponent implements OnInit {
                         label: 'Perfil',
                         icon: 'pi pi-fw pi-plus',
                         routerLink: ['/admin/settings/roles']
+                    },
+                    {
+                        label: 'Tipos de Contato',
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/admin/settings/contact-types']
                     }
                 ]
             }
