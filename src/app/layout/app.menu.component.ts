@@ -99,6 +99,11 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Tipos de Contato',
                                 icon: 'pi pi-fw pi-plus',
                                 routerLink: ['/admin/settings/contact-types']
+                            },
+                            {
+                                label: 'Campo Livre 2',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/free-field2']
                             }
                         ]
                     },
