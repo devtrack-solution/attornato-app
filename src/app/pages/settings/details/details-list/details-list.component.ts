@@ -5,34 +5,34 @@ import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { PartnerEditComponent } from '../partner-edit/partner-edit.component';
-import { PartnerNewComponent } from '../partner-new/partner-new.component';
-import { PartnerService } from '../service/partner.service';
+import { DetailsEditComponent } from '../details-edit/details-edit.component';
+import { DetailsNewComponent } from '../details-new/details-new.component';
+import { DetailsService } from '../service/details.service';
+import { DetailsNamespace } from 'src/app/shared/components/types/details-types';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
-import { PartnerNamespace } from 'src/app/shared/components/types/partner.type';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-partner-list',
+  selector: 'app-details-list',
   standalone: true,
-  imports: [CommonModule, SharedModule, TableModule, PartnerEditComponent, PartnerNewComponent,
+  imports: [CommonModule, SharedModule, TableModule, DetailsEditComponent, DetailsNewComponent,
     PaginatorModule, ButtonModule, DialogModule],
-  templateUrl: './partner-list.component.html',
-  styleUrl: './partner-list.component.scss'
+  templateUrl: './details-list.component.html',
+  styleUrl: './details-list.component.scss'
 })
-export class PartnerListComponent implements OnInit {
+export class DetailsListComponent implements OnInit {
 
   display: boolean = false
-  partnerList: PartnerNamespace.PartnerList | any
+  detailsList: DetailsNamespace.DetailsList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
 
 
-  constructor(private readonly sweetAlertService: SweetAlertService, private partnerService: PartnerService) { }
+  constructor(private readonly sweetAlertService: SweetAlertService, private detailsService: DetailsService) { }
 
   ngOnInit() {
-    this.partnerService.getPartners(100, 0, true).subscribe((partnerList: PartnerNamespace.PartnerList) => {
-      this.partnerList = partnerList;
+    this.detailsService.getDetails(100, 0, true).subscribe((detailsList: DetailsNamespace.DetailsList) => {
+      this.detailsList = detailsList;
     });
   }
 
@@ -61,11 +61,11 @@ export class PartnerListComponent implements OnInit {
     }*/
   }
 
-  async openEditPartner(partner: any): Promise<void> {
-    await this.showUpdate.openLg(partner);
+  async openEditDetails(details: any): Promise<void> {
+    await this.showUpdate.openLg(details);
   }
 
-  async openCreatePartner() {
+  async openCreateDetails() {
     if (!this.showCreate) {
       console.error("showCreate não foi inicializado corretamente.");
       return;
@@ -75,27 +75,27 @@ export class PartnerListComponent implements OnInit {
   }
 
 
-  async deletePartner(partner: any) {
-    await this.confirmForRemove(partner.id);
+  async deleteDetails(details: any) {
+    await this.confirmForRemove(details.id);
   }
 
   async confirmForRemove(id: string): Promise<any> {
     this.sweetAlertService.confirmAlert({
-      title: 'Deseja remover esse Parceiro?',
-      text: 'Ao remover esse Parceiro, todo o acesso associado a ele serão removidos!',
+      title: 'Deseja remover esse Detalhe?',
+      text: 'Ao remover esse Detalhe, todo o acesso associado a ele serão removidos!',
       icon: AlertIcon.WARNING,
-      confirmText: 'O Parceiro foi removido com sucesso!',
-      cancellText: 'Os dados da Parceiro não foram modificados!'
+      confirmText: 'O Detalhe foi removido com sucesso!',
+      cancellText: 'Os dados da Detalhe não foram modificados!'
     }).then(async (willDelete) => {
       if (willDelete.dismiss) {
-        Swal.fire('', 'Os dados do Parceiro não foram modificados!', 'error');
+        Swal.fire('', 'Os dados do Detalhe não foram modificados!', 'error');
       } else {
         try {
-          await this.partnerService.deletePartner(id)
-          await Swal.fire('', 'O Parceiro foi removida com sucesso!', 'success');
+          await this.detailsService.deleteDetail(id)
+          await Swal.fire('', 'O Detalhe foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {
-          Swal.fire('', 'Os dados do Parceiro não foram modificados!', 'error');
+          Swal.fire('', 'Os dados do Detalhe não foram modificados!', 'error');
           console.error(e);
         }
       }

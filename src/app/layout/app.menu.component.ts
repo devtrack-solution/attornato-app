@@ -73,6 +73,11 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Origem',
                                 icon: 'pi pi-fw pi-plus',
                                 routerLink: ['/admin/settings/origin']
+                            },
+                            {
+                                label: 'Detalhes',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/details']
                             }
                         ]
                     },

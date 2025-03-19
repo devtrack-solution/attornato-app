@@ -33,6 +33,10 @@ const routes: Routes = [
   {
     path: 'partner', data: { breadcrumb: 'Parceiro' },
     loadChildren: () => import('./partner/partner.module').then((module) => module.PartnerModule),
+  },
+  {
+    path: 'details', data: { breadcrumb: 'Detalhes' },
+    loadChildren: () => import('./details/details.module').then((module) => module.DetailsModule),
   }
 ];
 
