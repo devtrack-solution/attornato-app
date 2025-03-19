@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'contact-types', data: { breadcrumb: 'Tipos de Contato' },
     loadChildren: () => import('./contact-types/contact-types.module').then((module) => module.ContactTypesModule),
+  },
+  {
+    path: 'prognosis', data: { breadcrumb: 'Prognóstico' },
+    loadChildren: () => import('./prognosis/prognosis.module').then((module) => module.PrognosisModule),
   }
 ];
 

@@ -1,6 +1,6 @@
-import { CommonModule, NgClass, NgStyle } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -9,7 +9,6 @@ import { ProcessGroupEditComponent } from '../process-group-edit/process-group-e
 import { ProcessGroupNewComponent } from '../process-group-new/process-group-new.component';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
-import { ConfirmationService } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ProcessGroupService } from '../service/process-group.serivce';
 import { ProcessGroupNamespace } from 'src/app/shared/components/types/process-group.type';
@@ -85,21 +84,21 @@ export class ProcessGroupListComponent implements OnInit {
 
   async confirmForRemove(id: string): Promise<any> {
     this.sweetAlertService.confirmAlert({
-      title: 'Deseja remover essa Máquina?',
-      text: 'Ao remover esse Máquina, todo o acesso associado a ele serão removidos!',
+      title: 'Deseja remover esse Grupo?',
+      text: 'Ao remover esse Grupo, todo o acesso associado a ele serão removidos!',
       icon: AlertIcon.WARNING,
-      confirmText: 'A Máquina foi removido com sucesso!',
-      cancellText: 'Os dados da Máquina não foram modificados!'
+      confirmText: 'O Grupo foi removido com sucesso!',
+      cancellText: 'Os dados da Grupo não foram modificados!'
     }).then(async (willDelete) => {
       if (willDelete.dismiss) {
-        Swal.fire('', 'Os dados da Máquina não foram modificados!', 'error');
+        Swal.fire('', 'Os dados do Grupo não foram modificados!', 'error');
       } else {
         try {
           await this.processGroupsService.deleteProcessGroup(id)
-          await Swal.fire('', 'A Máquina foi removida com sucesso!', 'success');
+          await Swal.fire('', 'O Grupo foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {
-          Swal.fire('', 'Os dados da Máquina não foram modificados!', 'error');
+          Swal.fire('', 'Os dados do Grupo não foram modificados!', 'error');
           console.error(e);
         }
       }
