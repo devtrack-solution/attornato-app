@@ -78,6 +78,21 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Detalhes',
                                 icon: 'pi pi-fw pi-plus',
                                 routerLink: ['/admin/settings/details']
+                            },
+                            {
+                                label: 'Responsável',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/responsible']
+                            },
+                            {
+                                label: 'Área de Atuação',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/practice-area']
+                            },
+                            {
+                                label: 'Status Processual',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/procedural-status']
                             }
                         ]
                     },
@@ -107,8 +122,8 @@ export class AppMenuComponent implements OnInit {
                             }
                         ]
                     },
-                    
-                    
+
+
                 ]
             }
         ];

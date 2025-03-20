@@ -41,6 +41,18 @@ const routes: Routes = [
   {
     path: 'free-field2', data: { breadcrumb: 'Campo Livre 2' },
     loadChildren: () => import('./free-field2/free-field2.module').then((module) => module.FreeField2Module),
+  },
+  {
+    path: 'procedural-status', data: { breadcrumb: 'Status Processual' },
+    loadChildren: () => import('./procedural-status/procedural-status.module').then((module) => module.ProceduralStatusModule),
+  },
+  {
+    path: 'responsible', data: { breadcrumb: 'Responsável' },
+    loadChildren: () => import('./responsible/responsible.module').then((module) => module.ResponsibleModule),
+  },
+  {
+    path: 'practice-area', data: { breadcrumb: 'Área da Atuação' },
+    loadChildren: () => import('./practice-area/practice-area.module').then((module) => module.PracticeAreaModule),
   }
 ];
 
