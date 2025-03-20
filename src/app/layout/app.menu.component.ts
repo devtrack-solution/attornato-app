@@ -93,6 +93,21 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Status Processual',
                                 icon: 'pi pi-fw pi-plus',
                                 routerLink: ['/admin/settings/procedural-status']
+                            },
+                            {
+                                label: 'Comarca',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/county']
+                            },
+                            {
+                                label: 'Objeto de Ação',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/object-action']
+                            },
+                            {
+                                label: 'Fase',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/phase']
                             }
                         ]
                     },

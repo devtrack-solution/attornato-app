@@ -53,6 +53,18 @@ const routes: Routes = [
   {
     path: 'practice-area', data: { breadcrumb: 'Área da Atuação' },
     loadChildren: () => import('./practice-area/practice-area.module').then((module) => module.PracticeAreaModule),
+  },
+  {
+    path: 'county', data: { breadcrumb: 'Comarca' },
+    loadChildren: () => import('./county/county.module').then((module) => module.CountyModule),
+  },
+  {
+    path: 'phase', data: { breadcrumb: 'Fase' },
+    loadChildren: () => import('./phase/phase.module').then((module) => module.PhaseModule),
+  },
+  {
+    path: 'object-action', data: { breadcrumb: 'Objeto de Ação' },
+    loadChildren: () => import('./object-action/object-action.module').then((module) => module.ObjectActionModule),
   }
 ];
 
