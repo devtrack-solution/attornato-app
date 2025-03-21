@@ -108,6 +108,16 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Fase',
                                 icon: 'pi pi-fw pi-plus',
                                 routerLink: ['/admin/settings/phase']
+                            },
+                            {
+                                label: 'Localizador',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/locator']
+                            },
+                            {
+                                label: 'Assunto',
+                                icon: 'pi pi-fw pi-plus',
+                                routerLink: ['/admin/settings/subjects']
                             }
                         ]
                     },

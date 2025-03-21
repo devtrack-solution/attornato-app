@@ -65,6 +65,14 @@ const routes: Routes = [
   {
     path: 'object-action', data: { breadcrumb: 'Objeto de Ação' },
     loadChildren: () => import('./object-action/object-action.module').then((module) => module.ObjectActionModule),
+  },
+  {
+    path: 'subjects', data: { breadcrumb: 'Assunto' },
+    loadChildren: () => import('./subjects/subjects.module').then((module) => module.SubjectsModule),
+  },
+  {
+    path: 'locator', data: { breadcrumb: 'Localizador' },
+    loadChildren: () => import('./locator/locator.module').then((module) => module.LocatorModule),
   }
 ];
 
