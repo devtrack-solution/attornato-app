@@ -1,1 +1,20 @@
-<p>customer-new works!</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="d-flex justify-content-end">
+          <button  pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round" (click)="voltar()" title="Nova Máquina">
+            <i class="pi pi-chevron-left"></i>
+            Voltar
+          </button>
+        </div>
+        <br />
+        <br />
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSubmit(model)">
+          <formly-form [form]="form" [fields]="fields" [model]="model" autocomplete="off"></formly-form>
+          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
+            {{ message }}
+          </div>
+        </form>
+    </div>
+  </div>
+  <p-toast></p-toast>
+  

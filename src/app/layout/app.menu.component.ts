@@ -24,7 +24,12 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Listar Cliente',
                         icon: 'pi pi-users',
-                        routerLink: ['/admin/apps/calendar']
+                        routerLink: ['/admin/customer']
+                    },
+                    {
+                        label: 'Cadastrar Cliente',
+                        icon: 'pi pi-users',
+                        routerLink: ['/admin/customer/new']
                     }
                 ]
             },
