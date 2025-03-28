@@ -30,6 +30,7 @@
         "@ng-bootstrap/ng-bootstrap": "^18.0.0",
         "@ngx-formly/bootstrap": "^6.3.12",
         "@ngx-formly/core": "^6.3.12",
+        "@ngx-formly/primeng": "^6.3.12",
         "@popperjs/core": "^2.11.8",
         "@types/uuid": "^10.0.0",
         "bootstrap": "^5.2.3",

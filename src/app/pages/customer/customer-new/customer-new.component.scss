@@ -1,0 +1,43 @@
+::ng-deep .mat-step-header {
+    color: black; /* Cor do texto */
+    border-radius: 8px; /* Borda arredondada */
+    margin: 8px; /* Espaçamento */
+    opacity: 90%;
+    height: 36px !important;
+  }
+  
+  ::ng-deep .mat-step-header .mat-step-icon {
+    background-color: white; /* Cor de fundo do ícone */
+    color: red; /* Cor do número/ícone */
+    display: none;
+  }
+  
+  ::ng-deep .mat-step-header[aria-selected='true'] {
+    background-color: #673AB7 !important; /* Cor ao ser selecionado */
+    color: rgb(219, 219, 219);
+    font-weight: bold !important; /* Negrito para o texto */
+    border-radius: 8px !important;
+    height: 36px;
+  }
+  
+  ::ng-deep .mat-step-icon .mat-icon {
+    font-size: 16px;
+    height: 16px;
+    width: 16px;
+    background-color: #673AB7;
+  }
+  
+  ::ng-deep .mat-stepper-horizontal-line {
+    border-top-width: 1px !important;
+    border-top-style: solid;
+    flex: auto;
+    height: 0;
+    border-top-color: var(--mat-stepper-line-color);
+    opacity: 10%;
+  }
+  
+  ::ng-deep .cdk-visually-hidden .ng-star-inserted {
+    display: none;
+  }
+  
+  

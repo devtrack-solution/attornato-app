@@ -4,6 +4,7 @@ import { FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
+import { FormlyPrimeNGModule } from '@ngx-formly/primeng';
 import { ButtonModule } from 'primeng/button';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -12,7 +13,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   selector: 'app-customer-new',
   standalone: true,
   imports: [FormlyModule, FormsModule, SharedModule, CommonModule, ButtonModule,
-    FormlyBootstrapModule
+    FormlyPrimeNGModule
   ],
   templateUrl: './customer-new.component.html',
   styleUrl: './customer-new.component.scss'
@@ -36,16 +37,14 @@ export class CustomerNewComponent implements OnInit {
         type: 'stepper',
         fieldGroup: [
           {
-            props: {
-              label: 'Dados da Máquina'
-            },
-            fieldGroupClassName: 'row',
+            props: { label: 'Dados Inicial' },
+            fieldGroupClassName: 'p-grid',
             fieldGroup: [
               {
                 key: 'name',
-                type: 'primeng-input',
-                className: 'col-12 col-md-6',
-                props: {
+                type: 'input',
+                className: 'p-col-12 p-md-6 p-fluid',
+                templateOptions: {
                   label: 'Nome',
                   placeholder: 'Informe o nome',
                   required: true
@@ -54,17 +53,17 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'machineCode',
                 type: 'primeng-input',
-                className: 'col-12 col-md-3',
+                className: 'p-col-12 p-md-6 p-fluid',
                 props: {
                   label: 'Código',
-                  placeholder: 'Informe o codigo',
+                  placeholder: 'Informe o código',
                   required: true
                 }
               },
               {
                 key: 'status',
                 type: 'select',
-                className: 'col-12 col-md-3',
+                className: 'p-col-12 p-md-3 p-fluid',
                 props: {
                   label: 'Status',
                   placeholder: 'Escolha o status',
@@ -72,7 +71,7 @@ export class CustomerNewComponent implements OnInit {
                   attributes: {
                     autocomplete: 'off'
                   },
-                  options: [{ label: '1', value: '1'}],
+                  options: [{ label: '1', value: '1' }],
                   labelProp: 'label',
                   valueProp: 'value'
                 }
@@ -80,27 +79,25 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'description',
                 type: 'textarea',
-                className: 'col-12 col-md-12',
+                className: 'p-col-12 p-fluid',
                 props: {
                   label: 'Descrição',
                   placeholder: 'Informe uma breve descrição da máquina',
                   required: true,
-                  rows: 7
+                  rows: 9
                 }
               }
             ]
           },
           {
-            props: {
-              label: 'Ficha Técnica'
-            },
+            props: { label: 'Dados Complementares' },
             key: 'technicalSpecification',
-            fieldGroupClassName: 'row',
+            fieldGroupClassName: 'p-grid',
             fieldGroup: [
               {
                 key: 'manufacturer',
                 type: 'input',
-                className: 'col-12 col-md-4',
+                className: 'p-col-12 p-md-4 p-fluid',
                 props: {
                   label: 'Fabricante',
                   placeholder: 'Informe o fabricante',
@@ -110,7 +107,7 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'manufactureYear',
                 type: 'number',
-                className: 'col-12 col-md-2',
+                className: 'p-col-12 p-md-2 p-fluid',
                 props: {
                   label: 'Ano da fabricação',
                   placeholder: 'Informe o ano',
@@ -121,29 +118,27 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'model',
                 type: 'input',
-                className: 'col-12 col-md-3',
+                className: 'p-col-12 p-md-3 p-fluid',
                 props: {
                   label: 'Modelo',
                   placeholder: 'Informe o modelo',
-                  required: false,
-                  min: 0
+                  required: false
                 }
               },
               {
                 key: 'serialNumber',
                 type: 'input',
-                className: 'col-12 col-md-3',
+                className: 'p-col-12 p-md-3 p-fluid',
                 props: {
                   label: 'Número de série',
                   placeholder: 'Informe a série',
-                  required: false,
-                  min: 0
+                  required: false
                 }
               },
               {
                 key: 'requiredAreaM2',
                 type: 'number',
-                className: 'col-12 col-md-2',
+                className: 'p-col-12 p-md-2 p-fluid',
                 props: {
                   label: 'Área (m²)',
                   placeholder: 'Informe a área',
@@ -154,7 +149,7 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'acquisitionAt',
                 type: 'input',
-                className: 'col-6 col-md-2',
+                className: 'p-col-12 p-md-2 p-fluid',
                 props: {
                   label: 'Data de Aquisição',
                   type: 'date',
@@ -163,8 +158,8 @@ export class CustomerNewComponent implements OnInit {
               },
               {
                 key: 'acquisitionValue',
-                type: 'money',
-                className: 'col-4 col-md-2',
+                type: 'input',
+                className: 'p-col-12 p-md-2 p-fluid',
                 props: {
                   label: 'Valor da aquisição (R$)',
                   placeholder: 'Informe o valor',
@@ -173,8 +168,8 @@ export class CustomerNewComponent implements OnInit {
               },
               {
                 key: 'depreciatedMarketValue',
-                type: 'money',
-                className: 'col-4 col-md-2',
+                type: 'input',
+                className: 'p-col-12 p-md-2 p-fluid',
                 props: {
                   label: 'Valor Depreciado (R$)',
                   placeholder: 'Informe o valor',
@@ -184,7 +179,7 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'usefulLife',
                 type: 'input',
-                className: 'col-4 col-md-2',
+                className: 'p-col-12 p-md-2 p-fluid',
                 props: {
                   label: 'Vida útil (Anos)',
                   placeholder: 'Informe a vida útil',
@@ -194,7 +189,7 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'energyConsumption',
                 type: 'input',
-                className: 'col-4 col-md-2',
+                className: 'p-col-12 p-md-2 p-fluid',
                 props: {
                   label: 'Consumo de energia (kw/h)',
                   placeholder: 'Informe o consumo de energia',
@@ -204,30 +199,31 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'manuals',
                 type: 'repeat',
+                className: 'p-col-12',
                 props: {
                   label: 'Adicionar Manuais',
                   required: false
                 },
                 fieldArray: {
-                  fieldGroupClassName: 'row',
+                  fieldGroupClassName: 'p-grid',
                   fieldGroup: [
                     {
                       key: 'link',
                       type: 'input',
-                      className: 'col-12 col-md-6',
+                      className: 'p-col-12 p-md-6 p-fluid',
                       props: {
                         label: 'Link',
                         placeholder: 'Informe o link',
-                        required: false,
                         attributes: {
-                          autocomplete: 'off'
+                          tooltip: 'Insira o link do manual',
+                          tooltipPosition: 'top'
                         }
                       }
                     },
                     {
                       key: 'description',
                       type: 'input',
-                      className: 'col-12 col-md-6',
+                      className: 'p-col-12 p-md-6 p-fluid',
                       props: {
                         label: 'Descrição',
                         placeholder: 'Informe a descrição',
@@ -244,7 +240,13 @@ export class CustomerNewComponent implements OnInit {
           }
         ]
       }
-    ];
+    ]
+
+  }
+
+  salvarFormulario(model: any) {
+    console.log('Modelo enviado:', model)
+    // aqui pode chamar o serviço que salva
   }
 
   async voltar() {

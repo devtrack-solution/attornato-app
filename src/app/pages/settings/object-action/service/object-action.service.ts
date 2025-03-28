@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ObjectActionService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}object-actions`;
+  private apiUrl = `${environment.apiUrl}action-objects`;
 
   constructor(private readonly http: HttpClient) { }
 

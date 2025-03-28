@@ -19,16 +19,21 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RepeatTypeComponent } from './components/types/repeat-section.type';
 import { DateMaskTypeComponent } from './components/types/date-mask.type';
+import { FormlyPrimeNGModule } from '@ngx-formly/primeng';
+import { FormStepperComponent } from './components/form-stepper/form-stepper.component';
+import { ButtonModule } from 'primeng/button';
+import { AccordionModule } from 'primeng/accordion';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
 @NgModule({
-  declarations: [FormlyPrimeInputComponent, FormlyFieldStepper, RepeatTypeComponent, DateMaskTypeComponent],
+  declarations: [FormlyPrimeInputComponent, FormlyFieldStepper, RepeatTypeComponent, DateMaskTypeComponent, FormStepperComponent],
   imports: [
     CommonModule,
     FormsModule,
     ToastModule,
-    FormlyBootstrapModule,
+    FormlyPrimeNGModule,
     TableModule,
     ReactiveFormsModule,
     NgbModule,
@@ -44,6 +49,9 @@ import { DateMaskTypeComponent } from './components/types/date-mask.type';
     MatIconModule,
     MatButtonModule,
     MatNativeDateModule,
+    ButtonModule,
+    AccordionModule,
+    TooltipModule,
     InputTextModule, // Importa o módulo do PrimeNG para inputs
     FormlyModule.forRoot({
       types: [
@@ -69,7 +77,7 @@ import { DateMaskTypeComponent } from './components/types/date-mask.type';
   ],
   exports: [
     FormlyModule,
-    FormlyBootstrapModule,
+    FormlyPrimeNGModule,
     TableModule,
     ReactiveFormsModule,
     NgbModule,
@@ -85,7 +93,9 @@ import { DateMaskTypeComponent } from './components/types/date-mask.type';
     MatIconModule,
     MatButtonModule,
     MatNativeDateModule,
-    MatStepperModule
+    MatStepperModule,
+    FormStepperComponent,
+    ButtonModule
   ],
   providers: [MessageService]
 })

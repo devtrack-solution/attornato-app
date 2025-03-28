@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProceduralStatusService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}procedural-status`;
+  private apiUrl = `${environment.apiUrl}procedural-statuss`;
    
 
   constructor(private readonly http: HttpClient) { }
