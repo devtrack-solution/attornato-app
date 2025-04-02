@@ -6,11 +6,11 @@ import { CustomerNewComponent } from "./customer-new/customer-new.component";
 
 const routes: Routes = [
     {
-      path: '',
+      path: '', data: { breadcrumb: 'Pesquisar Cliente' },
       component: CustomerListComponent
     },
     {
-      path: 'new',
+      path: 'new', data: { breadcrumb: 'Cadastro de Cliente' },
       component: CustomerNewComponent
     },
     {

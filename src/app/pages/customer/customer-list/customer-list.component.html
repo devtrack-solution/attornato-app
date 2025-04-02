@@ -1,1 +1,48 @@
-<p>customer-list works!</p>
+<div class="row">
+    <div class="col-sm-12">
+        <br />
+        <h4>Pesquisar Clientes</h4>
+        <br />
+        <div style="width: 100%;" class="d-flex justify-content-end">
+            <label><b>Nome</b></label>
+            <br/>
+            <input placeholder="Informe o nome do cliente" pInputText id="name" type="text" class="p-inputtext formSearch" #name />
+            <button pButton icon="pi pi-search" (click)="this.searchCustomers(name.value)" label="Pesquisar"
+                class="p-button p-button-help" style="margin-left: 1%;"></button>
+        </div>
+        <br />
+        <p-table #dt [value]="customersList?.data" [tableStyle]="{ 'min-width': '50rem' }"
+            styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
+            responsiveLayout="scroll" [rowHover]="true" [showCurrentPageReport]="true">
+            <ng-template #header pTemplate="header">
+                <tr>
+                    <th>Nome</th>
+                    <th class="text-center">Ações</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-customer pTemplate="body">
+                <tr [ngClass]="rowClass(customer)" [ngStyle]="rowStyle(customer)">
+                    <td>{{ customer?.name }}</td>
+                    <td class="text-center" style="width: 200px;">
+                        <div class="action-buttons">
+                            <button pButton class="p-button p-button-help m-1" (click)="openEditCustomers(customer)"
+                                title="Editar">
+                                <i class="pi pi-pencil"></i>
+                            </button>
+                            <button pButton iconPos="right" class="p-button p-button-danger m-1"
+                                (click)="deleteCustomers(customer)" title="Excluir">
+                                <i class="pi pi-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7" style="text-align: center">Não possui nenhum registro.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>

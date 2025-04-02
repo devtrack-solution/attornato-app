@@ -1,0 +1,177 @@
+/* ================================
+   Estilo personalizado para Formly + PrimeNG
+   por Laércio Ávila 😎
+================================= */
+
+/* FORMULARIO BASE */
+
+::ng-deep formly-form,
+::ng-deep formly-field,
+::ng-deep formly-group,
+::ng-deep form {
+  width: 100% !important;
+}
+
+::ng-deep .p-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* COLUNAS RESPONSIVAS */
+::ng-deep .p-col-12,
+::ng-deep .p-md-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  padding: 0 0.75rem;
+  box-sizing: border-box;
+}
+
+::ng-deep .p-md-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+::ng-deep .p-md-4 {
+  flex: 0 0 33.333%;
+  max-width: 33.333%;
+}
+
+::ng-deep .p-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+::ng-deep .p-md-2 {
+  flex: 0 0 16.666%;
+  max-width: 16.666%;
+}
+
+/* ESPAÇAMENTO ENTRE CAMPOS E GRUPOS */
+::ng-deep .formly-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem !important;
+}
+
+::ng-deep formly-group {
+  margin-bottom: 3rem;
+}
+
+/* CAMPOS MAIORES */
+::ng-deep input,
+::ng-deep select,
+::ng-deep textarea {
+  height: 3.5rem;
+  font-size: 1.1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  transition: border-color 0.2s ease;
+}
+
+::ng-deep textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+::ng-deep input:focus,
+::ng-deep select:focus,
+::ng-deep textarea:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+/* LABELS */
+::ng-deep label {
+  font-size: 1.05rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+/* BOTÕES */
+::ng-deep .p-button {
+  padding: 0.75rem 2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s ease;
+}
+
+::ng-deep .p-button:hover {
+  background-color: #155fa0;
+}
+
+/* TÍTULOS */
+::ng-deep .section-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  border-left: 5px solid #1976d2;
+  padding-left: 1rem;
+  color: #333;
+}
+
+/* RESPONSIVIDADE */
+@media screen and (max-width: 768px) {
+  ::ng-deep .p-md-12,
+  ::ng-deep .p-md-6,
+  ::ng-deep .p-md-4,
+  ::ng-deep .p-md-3,
+  ::ng-deep .p-md-2 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* DROPDOWN PRIME */
+::ng-deep .p-dropdown {
+  height: 3.5rem !important;
+  font-size: 1.1rem;
+}
+
+::ng-deep .p-dropdown .p-dropdown-label {
+  padding: 0.75rem 1rem;
+  line-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* =============================
+   AJUSTES DO COMPONENTE REPEAT
+============================= */
+
+/* Accordion ocupa toda a largura */
+::ng-deep p-accordion,
+::ng-deep p-accordionTab,
+::ng-deep .p-accordion-content {
+  width: 100% !important;
+}
+
+/* Garante largura total nos campos do repeat */
+::ng-deep formly-field-repeat {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Campos dentro do repeat respeitam 100% */
+::ng-deep formly-field-repeat formly-field,
+::ng-deep formly-field-repeat .formly-field {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Campos internos (accordion) do repeat */
+::ng-deep formly-field-repeat .p-grid > .p-col-12,
+::ng-deep formly-field-repeat .p-grid > .p-md-11 {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+/* Ajustes visuais para o botão "remover" do repeat */
+::ng-deep formly-field-repeat .p-grid > .p-md-1 {
+  max-width: 5% !important;
+  flex: 0 0 5% !important;
+}

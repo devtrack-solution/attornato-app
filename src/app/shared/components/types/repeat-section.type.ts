@@ -25,28 +25,24 @@ import { TooltipModule } from 'primeng/tooltip';
                 type="button"
                 icon="pi pi-minus"
                 class="p-button-danger"
-                (click)="remove(i)"
-                label="Remover"
-                pTooltip="Remover este manual"
+                (click)="remove(i)" style="width: 5%;margin:1%;"
               ></button>
             </div>
 
-            <div class="p-col-12 p-md-11">
+            <div class="p-col-12 p-md-12">
               <formly-field [field]="field"></formly-field>
             </div>
           </div>
         </p-accordionTab>
       </p-accordion>
-
+      <br/>
       <div class="d-flex justify-content-end">
         <button
           pButton
           type="button"
           icon="pi pi-plus"
           class="p-button-help"
-          (click)="add()"
-          label="Adicionar Manual"
-          pTooltip="Adicionar novo manual"
+          (click)="add()" style="width: 5%;"
         ></button>
       </div>
     </div>
@@ -59,10 +55,10 @@ import { TooltipModule } from 'primeng/tooltip';
   `]
 })
 export class RepeatTypeComponent extends FieldArrayType {
-  // Adiciona ❌ se tiver campos inválidos
+  
   getTabHeader(index: number): string {
     const fg = this.formControl?.get([index]) as any;
     const hasError = fg && fg.invalid && (fg.touched || fg.dirty);
-    return `Manual ${index + 1}${hasError ? ' ❌' : ''}`;
+    return `${ this.props.label} ${index + 1}${hasError ? ' ❌' : ''}`;
   }
 }

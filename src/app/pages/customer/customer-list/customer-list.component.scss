@@ -1,0 +1,29 @@
+.formSearch {
+    width: 40%; /* Vai garantir que o campo ocupe toda a largura disponível */
+  }
+
+  /* CAMPOS MAIORES */
+::ng-deep input,
+::ng-deep select,
+::ng-deep textarea {
+  height: 3.5rem;
+  font-size: 1.1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  transition: border-color 0.2s ease;
+}
+
+/* BOTÕES */
+::ng-deep .p-button {
+  padding: 0.75rem 2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s ease;
+  height: 3.5rem;
+}
+
+::ng-deep .p-button:hover {
+  background-color: #155fa0;
+}

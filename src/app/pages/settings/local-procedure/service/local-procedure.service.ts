@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LocalProcedureService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}local-procedures`;
+  private apiUrl = `${environment.apiUrl}local-procedure-names`;
 
   constructor(private readonly http: HttpClient) { }
 

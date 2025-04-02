@@ -1,5 +1,5 @@
-<div class="row ">
-  <div class="col-sm-12">
+<div class="p-grid">
+  <div class="p-col-12">
     <div class="d-flex justify-content-end">
       <button
         pButton
@@ -16,13 +16,14 @@
     <br />
     <br />
 
-    <!-- Aqui está a substituição -->
-    <app-form-stepper
-      [form]="form"
-      [model]="model"
-      [fields]="fields"
-      (submit)="salvarFormulario($event)"
-    ></app-form-stepper>
+    <div class="p-grid p-fluid">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
+        <formly-form [form]="form" [fields]="fields" [model]="model" autocomplete="off" class="p-col-12"></formly-form>
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
+          {{ message }}
+        </div>
+      </form>
+    </div>
 
     <!-- Erro ou mensagens -->
     <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger mt-3">

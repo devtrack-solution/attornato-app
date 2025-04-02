@@ -38,35 +38,16 @@ export class CustomerNewComponent implements OnInit {
         fieldGroup: [
           {
             props: { label: 'Dados Inicial' },
-            fieldGroupClassName: 'p-grid',
+            fieldGroupClassName: 'p-grid p-fluid',
             fieldGroup: [
+              
               {
-                key: 'name',
-                type: 'input',
-                className: 'p-col-12 p-md-6 p-fluid',
-                templateOptions: {
-                  label: 'Nome',
-                  placeholder: 'Informe o nome',
-                  required: true
-                }
-              },
-              {
-                key: 'machineCode',
-                type: 'primeng-input',
-                className: 'p-col-12 p-md-6 p-fluid',
-                props: {
-                  label: 'Código',
-                  placeholder: 'Informe o código',
-                  required: true
-                }
-              },
-              {
-                key: 'status',
+                key: 'groupCustomers',
                 type: 'select',
-                className: 'p-col-12 p-md-3 p-fluid',
+                className: 'p-col-12 p-md-3',
                 props: {
-                  label: 'Status',
-                  placeholder: 'Escolha o status',
+                  label: 'Grupo',
+                  placeholder: 'Escolha o grupo',
                   required: true,
                   attributes: {
                     autocomplete: 'off'
@@ -77,156 +58,261 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'description',
-                type: 'textarea',
-                className: 'p-col-12 p-fluid',
+                key: 'responsible',
+                type: 'input',
+                className: 'p-col-12 p-md-6',
                 props: {
-                  label: 'Descrição',
-                  placeholder: 'Informe uma breve descrição da máquina',
+                  label: 'Responsável',
+                  placeholder: 'Informe o responsável',
                   required: true,
-                  rows: 9
                 }
-              }
+              },
+              {
+                key: 'profile',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Perfil',
+                  placeholder: 'Escolha o perfil',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: '1', value: '1' }],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'companyName ',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Nome da Empresa',
+                  placeholder: 'Informe o nome da empresa',
+                  required: true,
+                }
+              },
+              {
+                key: 'tradeName',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Nome Comercial',
+                  placeholder: 'Informe o nome comercial',
+                  required: true,
+                }
+              },
+              {
+                key: 'businessArea',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Área de Negócio',
+                  placeholder: 'Informe a área de negócio',
+                  required: true,
+                }
+              },
+              {
+                key: 'cnpj',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'CNPJ',
+                  placeholder: 'Informe o cnpj',
+                  required: true,
+                }
+              },
+              {
+                key: 'stateRegistration',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Registro Estadual',
+                  placeholder: 'Informe o registro estadual',
+                  required: true,
+                }
+              },
+              {
+                key: 'municipalRegistration',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Registro Municipal',
+                  placeholder: 'Informe o registor municipal',
+                  required: true,
+                }
+              },
             ]
           },
           {
-            props: { label: 'Dados Complementares' },
-            key: 'technicalSpecification',
-            fieldGroupClassName: 'p-grid',
+            props: { label: 'Endereço / Contato' },
+            key: 'address',
+            fieldGroupClassName: 'p-grid p-fluid',
             fieldGroup: [
               {
-                key: 'manufacturer',
+                key: 'zipCode',
                 type: 'input',
-                className: 'p-col-12 p-md-4 p-fluid',
+                className: 'p-col-12 p-md-3',
                 props: {
-                  label: 'Fabricante',
-                  placeholder: 'Informe o fabricante',
+                  label: 'Cep',
+                  placeholder: 'Informe o cep',
                   required: true
                 }
               },
               {
-                key: 'manufactureYear',
-                type: 'number',
-                className: 'p-col-12 p-md-2 p-fluid',
+                key: 'address',
+                type: 'input',
+                className: 'p-col-12 p-md-6',
                 props: {
-                  label: 'Ano da fabricação',
-                  placeholder: 'Informe o ano',
+                  label: 'Endereço',
+                  placeholder: 'Informe o endereço',
                   required: true,
                   min: 0
                 }
               },
               {
-                key: 'model',
+                key: 'neighborhood',
                 type: 'input',
-                className: 'p-col-12 p-md-3 p-fluid',
+                className: 'p-col-12 p-md-3',
                 props: {
-                  label: 'Modelo',
-                  placeholder: 'Informe o modelo',
+                  label: 'Bairro',
+                  placeholder: 'Informe o bairro',
                   required: false
                 }
               },
               {
-                key: 'serialNumber',
+                key: 'city',
                 type: 'input',
-                className: 'p-col-12 p-md-3 p-fluid',
+                className: 'p-col-12 p-md-3',
                 props: {
-                  label: 'Número de série',
-                  placeholder: 'Informe a série',
+                  label: 'Cidade',
+                  placeholder: 'Informe a cidade',
                   required: false
                 }
               },
               {
-                key: 'requiredAreaM2',
-                type: 'number',
-                className: 'p-col-12 p-md-2 p-fluid',
+                key: 'state',
+                type: 'input',
+                className: 'p-col-12 p-md-3',
                 props: {
-                  label: 'Área (m²)',
-                  placeholder: 'Informe a área',
+                  label: 'Estado',
+                  placeholder: 'Informe o estado',
                   required: true,
                   min: 0
                 }
               },
               {
-                key: 'acquisitionAt',
-                type: 'input',
-                className: 'p-col-12 p-md-2 p-fluid',
-                props: {
-                  label: 'Data de Aquisição',
-                  type: 'date',
-                  required: false
-                }
-              },
-              {
-                key: 'acquisitionValue',
-                type: 'input',
-                className: 'p-col-12 p-md-2 p-fluid',
-                props: {
-                  label: 'Valor da aquisição (R$)',
-                  placeholder: 'Informe o valor',
-                  required: true
-                }
-              },
-              {
-                key: 'depreciatedMarketValue',
-                type: 'input',
-                className: 'p-col-12 p-md-2 p-fluid',
-                props: {
-                  label: 'Valor Depreciado (R$)',
-                  placeholder: 'Informe o valor',
-                  required: true
-                }
-              },
-              {
-                key: 'usefulLife',
-                type: 'input',
-                className: 'p-col-12 p-md-2 p-fluid',
-                props: {
-                  label: 'Vida útil (Anos)',
-                  placeholder: 'Informe a vida útil',
-                  required: true
-                }
-              },
-              {
-                key: 'energyConsumption',
-                type: 'input',
-                className: 'p-col-12 p-md-2 p-fluid',
-                props: {
-                  label: 'Consumo de energia (kw/h)',
-                  placeholder: 'Informe o consumo de energia',
-                  required: true
-                }
-              },
-              {
-                key: 'manuals',
+                key: 'contact',
                 type: 'repeat',
-                className: 'p-col-12',
+                className: 'p-col-12 p-md-12',
                 props: {
-                  label: 'Adicionar Manuais',
+                  label: 'Adicionar Contato',
                   required: false
                 },
                 fieldArray: {
                   fieldGroupClassName: 'p-grid',
                   fieldGroup: [
                     {
-                      key: 'link',
-                      type: 'input',
-                      className: 'p-col-12 p-md-6 p-fluid',
+                      key: 'contactType',
+                      type: 'select',
+                      className: 'p-col-12 p-md-6',
                       props: {
-                        label: 'Link',
-                        placeholder: 'Informe o link',
+                        label: 'Tipo de Contato',
+                        placeholder: 'Escolha o Tipo de contato',
+                        required: true,
                         attributes: {
-                          tooltip: 'Insira o link do manual',
-                          tooltipPosition: 'top'
-                        }
+                          autocomplete: 'off'
+                        },
+                        options: [{ label: '1', value: '1' }],
+                        labelProp: 'label',
+                        valueProp: 'value'
                       }
                     },
                     {
-                      key: 'description',
+                      key: 'contact',
                       type: 'input',
-                      className: 'p-col-12 p-md-6 p-fluid',
+                      className: 'p-col-12 p-md-6',
                       props: {
-                        label: 'Descrição',
-                        placeholder: 'Informe a descrição',
+                        label: 'Contato',
+                        placeholder: 'Informe o contato',
+                        required: false,
+                        attributes: {
+                          autocomplete: 'off'
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            props: { label: 'Pessoas Para Contato' },
+            key: 'contactOther',
+            fieldGroupClassName: 'p-grid p-fluid',
+            fieldGroup: [
+              {
+                key: 'freeField2',
+                type: 'select',
+                className: 'p-col-12 p-md-6',
+                props: {
+                  label: 'Campo Livre 2',
+                  placeholder: 'Escolha uma opção',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: '1', value: '1' }],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'freefield',
+                type: 'input',
+                className: 'p-col-12 p-md-6',
+                props: {
+                  label: 'Campo Livre',
+                  placeholder: 'Informe uma breve descrição',
+                  required: true,
+                  min: 0
+                }
+              },
+              {
+                key: 'contact',
+                type: 'repeat',
+                className: 'p-col-12 p-md-12',
+                props: {
+                  label: 'Adicionar Contato',
+                  required: false
+                },
+                fieldArray: {
+                  fieldGroupClassName: 'p-grid',
+                  fieldGroup: [
+                    {
+                      key: 'contactType',
+                      type: 'select',
+                      className: 'p-col-12 p-md-6',
+                      props: {
+                        label: 'Tipo de Contato',
+                        placeholder: 'Escolha o Tipo de contato',
+                        required: true,
+                        attributes: {
+                          autocomplete: 'off'
+                        },
+                        options: [{ label: '1', value: '1' }],
+                        labelProp: 'label',
+                        valueProp: 'value'
+                      }
+                    },
+                    {
+                      key: 'contact',
+                      type: 'input',
+                      className: 'p-col-12 p-md-6',
+                      props: {
+                        label: 'Contato',
+                        placeholder: 'Informe o contato',
                         required: false,
                         attributes: {
                           autocomplete: 'off'
