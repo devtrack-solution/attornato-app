@@ -24,6 +24,7 @@ import { FormStepperComponent } from './components/form-stepper/form-stepper.com
 import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 
 
@@ -51,6 +52,7 @@ import { TooltipModule } from 'primeng/tooltip';
     MatNativeDateModule,
     ButtonModule,
     AccordionModule,
+    RadioButtonModule,
     TooltipModule,
     InputTextModule, // Importa o módulo do PrimeNG para inputs
     FormlyModule.forRoot({

@@ -77,5 +77,15 @@
   flex-direction: column;
 }
 
+::ng-deep .p-radiobutton-box.p-highlight {
+  border-color: #9c27b0 !important; /* roxo */
+  background-color: #9c27b0 !important;
+  color: #fff !important;
+}
+
+::ng-deep .p-radiobutton-box.p-focus {
+  box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.4) !important; /* roxo */
+}
+
 
 

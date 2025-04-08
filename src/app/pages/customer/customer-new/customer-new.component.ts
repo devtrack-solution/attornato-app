@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
 import { FormlyPrimeNGModule } from '@ngx-formly/primeng';
 import { ButtonModule } from 'primeng/button';
+import { RadioButtonModule } from 'primeng/radiobutton';
 import { CustomerService } from 'src/app/shared/service/customer.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 
@@ -13,7 +13,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
   selector: 'app-customer-new',
   standalone: true,
   imports: [FormlyModule, FormsModule, SharedModule, CommonModule, ButtonModule,
-    FormlyPrimeNGModule
+    FormlyPrimeNGModule, RadioButtonModule
   ],
   templateUrl: './customer-new.component.html',
   styleUrl: './customer-new.component.scss'
@@ -23,16 +23,18 @@ export class CustomerNewComponent implements OnInit {
   form = new FormGroup({});
   options: FormlyFormOptions = {};
   model: any = {};
-  fields: FormlyFieldConfig[] | any;
+  fieldsFisica: FormlyFieldConfig[] | any;
+  fieldsJuridica: FormlyFieldConfig[] | any;
   fieldsCustomer: FormlyFieldConfig[] | any;
   private router = inject(Router);
   @ViewChild('showConfirm') showConfirm: any;
   customerService = inject(CustomerService)
+  tipoPessoa: 'fisica' | 'juridica' = 'juridica';
 
   message: string = '';
 
   ngOnInit(): void {
-    this.fields = [
+    this.fieldsJuridica = [
       {
         type: 'stepper',
         fieldGroup: [
