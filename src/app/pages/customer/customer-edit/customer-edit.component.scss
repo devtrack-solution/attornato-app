@@ -1,0 +1,92 @@
+@import 'src/assets/scss/formly-prime-ng-style';
+
+
+/* Espaçamento entre campos individuais */
+::ng-deep formly-field,
+::ng-deep .formly-field {
+  margin-bottom: 1.5rem !important; // 👈 espaço vertical entre campos
+}
+
+/* Espaçamento entre grupos de campos (como Dados Iniciais e Complementares) */
+::ng-deep formly-form > .p-grid > div:not(:last-child) {
+  margin-bottom: 2rem;
+}
+
+
+::ng-deep .mat-step-header {
+  color: black; /* Cor do texto */
+  border-radius: 8px; /* Borda arredondada */
+  margin: 8px; /* Espaçamento */
+  opacity: 90%;
+  height: 36px !important;
+}
+
+::ng-deep .mat-step-header .mat-step-icon {
+  background-color: white; /* Cor de fundo do ícone */
+  color: red; /* Cor do número/ícone */
+  display: none;
+}
+
+::ng-deep .mat-step-header[aria-selected='true'] {
+  background-color: #673AB7 !important; /* Cor ao ser selecionado */
+  color: rgb(219, 219, 219);
+  font-weight: bold !important; /* Negrito para o texto */
+  border-radius: 8px !important;
+  height: 36px;
+}
+
+::ng-deep .mat-step-icon .mat-icon {
+  font-size: 16px;
+  height: 16px;
+  width: 16px;
+  background-color: #673AB7;
+}
+
+::ng-deep .mat-stepper-horizontal-line {
+  border-top-width: 1px !important;
+  border-top-style: solid;
+  flex: auto;
+  height: 0;
+  border-top-color: var(--mat-stepper-line-color);
+  opacity: 10%;
+}
+
+::ng-deep .cdk-visually-hidden .ng-star-inserted {
+  display: none;
+}
+
+
+/* Garante que o accordion e os tabs expandam toda a largura */
+::ng-deep p-accordion,
+::ng-deep p-accordionTab,
+::ng-deep .p-accordion-content {
+  width: 100% !important;
+}
+
+/* Remove limites do wrapper do botão e do campo */
+::ng-deep .p-grid > .p-col-12.p-md-11 {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+
+/* Força os campos renderizados no repeat a ocuparem 100% */
+::ng-deep formly-field-repeat formly-field,
+::ng-deep formly-field-repeat .formly-field {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .p-radiobutton-box.p-highlight {
+  border-color: #9c27b0 !important; /* roxo */
+  background-color: #9c27b0 !important;
+  color: #fff !important;
+}
+
+::ng-deep .p-radiobutton-box.p-focus {
+  box-shadow: 0 0 0 0.2rem rgba(156, 39, 176, 0.4) !important; /* roxo */
+}
+
+
+
+

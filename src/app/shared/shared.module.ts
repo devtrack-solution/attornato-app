@@ -25,6 +25,9 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { FormlyFieldInput } from '@ngx-formly/primeng/input';
+import { FormlyFieldSelect } from '@ngx-formly/primeng/select';
+import { FormlyWrapperFormField } from '@ngx-formly/primeng/form-field/form-field.wrapper';
 
 
 
@@ -34,13 +37,10 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     CommonModule,
     FormsModule,
     ToastModule,
-    FormlyPrimeNGModule,
     TableModule,
     ReactiveFormsModule,
-    NgbModule,
     NgbDropdownModule,
     NgbNavModule,
-    NgbTooltipModule,
     NgbAccordionModule,
     NgbDatepickerModule,
     MatFormFieldModule,
@@ -73,19 +73,18 @@ import { RadioButtonModule } from 'primeng/radiobutton';
           }
         },
         { name: 'repeat', component: RepeatTypeComponent },
-        { name: 'dateMask', component: DateMaskTypeComponent }
-      ],
+        { name: 'dateMask', component: DateMaskTypeComponent },
+        { name: 'input', component: FormlyFieldInput },
+        { name: 'select', component: FormlyFieldSelect },
+      ]
     }),
   ],
   exports: [
     FormlyModule,
-    FormlyPrimeNGModule,
     TableModule,
     ReactiveFormsModule,
-    NgbModule,
     NgbDropdownModule,
     NgbNavModule,
-    NgbTooltipModule,
     NgbAccordionModule,
     NgbDatepickerModule,
     ToastModule,

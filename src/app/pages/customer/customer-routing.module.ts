@@ -14,7 +14,7 @@ const routes: Routes = [
       component: CustomerNewComponent
     },
     {
-      path: 'edit',
+      path: 'edit', data: { breadcrumb: 'Atualizar Cliente' }, 
       component: CustomerEditComponent
     },
   

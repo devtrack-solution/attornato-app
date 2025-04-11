@@ -11,22 +11,26 @@
                 class="p-button p-button-help" style="margin-left: 1%;"></button>
         </div>
         <br />
-        <p-table #dt [value]="customersList?.data" [tableStyle]="{ 'min-width': '50rem' }"
+        <p-table #dt [value]="customersList" [tableStyle]="{ 'min-width': '50rem' }"
             styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
             currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
             responsiveLayout="scroll" [rowHover]="true" [showCurrentPageReport]="true">
             <ng-template #header pTemplate="header">
                 <tr>
-                    <th>Nome</th>
+                    <th>Cliente</th>
+                    <th>Grupo Cliente</th>
+                    <th>Responsável</th>
                     <th class="text-center">Ações</th>
                 </tr>
             </ng-template>
             <ng-template #body let-customer pTemplate="body">
                 <tr [ngClass]="rowClass(customer)" [ngStyle]="rowStyle(customer)">
-                    <td>{{ customer?.name }}</td>
+                    <td>{{ customer?.companyName }}</td>
+                    <td>{{ customer?.groupCustomers }}</td>
+                    <td>{{ customer?.responsible }}</td>
                     <td class="text-center" style="width: 200px;">
                         <div class="action-buttons">
-                            <button pButton class="p-button p-button-help m-1" (click)="openEditCustomers(customer)"
+                            <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar()"
                                 title="Editar">
                                 <i class="pi pi-pencil"></i>
                             </button>

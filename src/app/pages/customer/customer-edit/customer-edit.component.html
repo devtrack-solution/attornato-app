@@ -1,1 +1,38 @@
-<p>customer-edit works!</p>
+<div class="p-grid">
+    <div class="p-col-12">
+      <div class="d-flex justify-content-end">
+        <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round" (click)="voltar()"
+          title="Voltar">
+          <i class="pi pi-chevron-left"></i>
+          Voltar
+        </button>
+      </div>
+  
+      <br />
+      <br />
+  
+      <div class="p-grid p-fluid">
+  
+        <div class="p-col-12">
+          <p-radioButton name="tipo" value="fisica" [(ngModel)]="tipoPessoa" inputId="fisica"
+            label="Pessoa Física"></p-radioButton>
+          <p-radioButton name="tipo" value="juridica" [(ngModel)]="tipoPessoa" inputId="juridica" label="Pessoa Jurídica"
+            class="ml-4"></p-radioButton>
+        </div>
+  
+        <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
+          <formly-form [form]="form" [fields]="tipoPessoa === 'fisica' ? fieldsFisica : fieldsJuridica" [model]="model" autocomplete="off" class="p-col-12"></formly-form>
+          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
+            {{ message }}
+          </div>
+        </form>
+      </div>
+  
+      <!-- Erro ou mensagens -->
+      <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger mt-3">
+        {{ message }}
+      </div>
+    </div>
+  </div>
+  
+  <p-toast></p-toast>
