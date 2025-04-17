@@ -41,7 +41,12 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: 'Listar Processos',
                         icon: 'pi pi-file-edit',
-                        routerLink: ['/admin/apps/calendar']
+                        routerLink: ['/admin/process']
+                    },
+                    {
+                        label: 'Cadastrar Processo',
+                        icon: 'pi pi-file-edit',
+                        routerLink: ['/admin/process/new']
                     }
                 ]
             },

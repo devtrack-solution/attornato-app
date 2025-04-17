@@ -3,8 +3,6 @@ import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
-import { FormlyPrimeNGModule } from '@ngx-formly/primeng';
-import { FormlyFormFieldModule } from '@ngx-formly/primeng/form-field';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';

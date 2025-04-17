@@ -54,6 +54,7 @@ import { FormlyWrapperFormField } from '@ngx-formly/primeng/form-field/form-fiel
     AccordionModule,
     RadioButtonModule,
     TooltipModule,
+    FormlyPrimeNGModule,
     InputTextModule, // Importa o módulo do PrimeNG para inputs
     FormlyModule.forRoot({
       types: [
@@ -74,8 +75,6 @@ import { FormlyWrapperFormField } from '@ngx-formly/primeng/form-field/form-fiel
         },
         { name: 'repeat', component: RepeatTypeComponent },
         { name: 'dateMask', component: DateMaskTypeComponent },
-        { name: 'input', component: FormlyFieldInput },
-        { name: 'select', component: FormlyFieldSelect },
       ]
     }),
   ],

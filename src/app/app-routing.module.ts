@@ -21,6 +21,7 @@ const routes: Routes = [
             { path: 'apps', data: { breadcrumb: 'Apps' }, loadChildren: () => import('./shared/components/apps/apps.module').then(m => m.AppsModule) },
             { path: 'settings', data: { breadcrumb: 'Cadastros' }, loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingModule) },
             { path: 'customer', data: { breadcrumb: 'Clientes' }, loadChildren: () => import('./pages/customer/customer.module').then(m => m.CustomerModule) },
+            { path: 'process', data: { breadcrumb: 'Processos' }, loadChildren: () => import('./pages/process/process.module').then(m => m.ProcessModule) },
         ]
     },
     { path: '', data: { breadcrumb: 'Auth' }, loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule) },
