@@ -25,14 +25,13 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { TooltipModule } from 'primeng/tooltip';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { FormlyFieldInput } from '@ngx-formly/primeng/input';
-import { FormlyFieldSelect } from '@ngx-formly/primeng/select';
-import { FormlyWrapperFormField } from '@ngx-formly/primeng/form-field/form-field.wrapper';
+import { InputCurrencyTypeComponent } from './components/types/input-currency.type';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 
 @NgModule({
-  declarations: [FormlyPrimeInputComponent, FormlyFieldStepper, RepeatTypeComponent, DateMaskTypeComponent, FormStepperComponent],
+  declarations: [FormlyPrimeInputComponent, FormlyFieldStepper, RepeatTypeComponent, DateMaskTypeComponent, FormStepperComponent, InputCurrencyTypeComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -55,6 +54,7 @@ import { FormlyWrapperFormField } from '@ngx-formly/primeng/form-field/form-fiel
     RadioButtonModule,
     TooltipModule,
     FormlyPrimeNGModule,
+    InputNumberModule,
     InputTextModule, // Importa o módulo do PrimeNG para inputs
     FormlyModule.forRoot({
       types: [
@@ -75,6 +75,7 @@ import { FormlyWrapperFormField } from '@ngx-formly/primeng/form-field/form-fiel
         },
         { name: 'repeat', component: RepeatTypeComponent },
         { name: 'dateMask', component: DateMaskTypeComponent },
+        { name: 'currency', component: InputCurrencyTypeComponent }
       ]
     }),
   ],

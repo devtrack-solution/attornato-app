@@ -1,38 +1,46 @@
 <div class="p-grid">
-    <div class="p-col-12">
-      <div class="d-flex justify-content-end">
-        <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round" (click)="voltar()"
-          title="Voltar">
-          <i class="pi pi-chevron-left"></i>
-          Voltar
-        </button>
+  <div class="p-col-12">
+    <div class="d-flex justify-content-end">
+      <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round" (click)="voltar()" title="Voltar">
+        <i class="pi pi-chevron-left"></i>
+        Voltar
+      </button>
+    </div>
+    <br />
+    <h4>Cadastrar Processos</h4>
+    <br />
+    <br />
+    <br />
+
+    <div class="p-grid p-fluid">
+
+      <div class="p-col-12">
+        <p-radioButton name="tipo" value="administrativo" [(ngModel)]="tipoPessoa" inputId="administrativo"
+          label="Processo Administrativo"></p-radioButton>
+        <p-radioButton name="tipo" value="juridico" [(ngModel)]="tipoPessoa" inputId="juridico"
+          label="Processo Jurídico" class="ml-4"></p-radioButton>
+          <br />
       </div>
-  
-      <br />
-      <br />
-  
-      <div class="p-grid p-fluid">
-  
-        <div class="p-col-12">
-          <p-radioButton name="tipo" value="fisica" [(ngModel)]="tipoPessoa" inputId="fisica"
-            label="Pessoa Física"></p-radioButton>
-          <p-radioButton name="tipo" value="juridica" [(ngModel)]="tipoPessoa" inputId="juridica" label="Pessoa Jurídica"
-            class="ml-4"></p-radioButton>
+      <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
+        <formly-form [form]="form" [fields]="tipoPessoa === 'administrativo' ? fieldsAdministrativo : fieldsJuridico"
+          [model]="model" autocomplete="off" class="p-col-12"></formly-form>
+        <div class="col-12 mt-4 text-center">
+          <button pButton label="Cancelar" icon="pi pi-cancel" class="p-button-danger" (click)="voltar()"
+            style="width: 10%;"></button>
+          <button pButton label="Salvar" icon="pi pi-save" class="p-button-success" type="submit"
+            [disabled]="!form.valid" style="width: 10%;margin-left: 1%;"></button>
         </div>
-  
-        <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
-          <formly-form [form]="form" [fields]="tipoPessoa === 'fisica' ? fieldsFisica : fieldsJuridica" [model]="model" autocomplete="off" class="p-col-12"></formly-form>
-          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
-            {{ message }}
-          </div>
-        </form>
-      </div>
-  
-      <!-- Erro ou mensagens -->
-      <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger mt-3">
-        {{ message }}
-      </div>
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
+          {{ message }}
+        </div>
+      </form>
+    </div>
+
+    <!-- Erro ou mensagens -->
+    <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger mt-3">
+      {{ message }}
     </div>
   </div>
-  
-  <p-toast></p-toast>
+</div>
+
+<p-toast></p-toast>

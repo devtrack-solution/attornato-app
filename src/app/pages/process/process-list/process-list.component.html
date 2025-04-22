@@ -1,1 +1,65 @@
-<p>process-list works!</p>
+<div class="row">
+    <div class="col-sm-12">
+        <br />
+        <h4>Pesquisar Processos</h4>
+        <br />
+        <div style="width: 100%;" class="d-flex justify-content-end">
+            <div class="p-col-12">
+                <p-radioButton name="numeracao" value="numeracao" [(ngModel)]="typeFilter" inputId="numeracao"
+                    label="Númeração"></p-radioButton>
+                <p-radioButton name="folder" value="folder" [(ngModel)]="typeFilter" inputId="folder" label="Pasta/IDs"
+                    class="ml-4"></p-radioButton>
+                <p-radioButton name="customers" value="customers" [(ngModel)]="typeFilter" inputId="customers"
+                    label="Cliente" class="ml-4"></p-radioButton>
+                <p-radioButton name="adverso" value="adverso" [(ngModel)]="typeFilter" inputId="adverso" label="Adverso"
+                    class="ml-4"></p-radioButton>
+                <br />
+            </div>
+            <br />
+            <input placeholder="Informe o termo" pInputText id="name" type="text" class="p-inputtext formSearch"
+                #name />
+            <button pButton icon="pi pi-search" (click)="this.searchProcess(name.value)" label="Pesquisar"
+                class="p-button p-button-help search" style="margin-left: 1%;"></button>
+        </div>
+        <br />
+        <p-table #dt [value]="processList" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines"
+            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
+            currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
+            responsiveLayout="scroll" [rowHover]="true" [showCurrentPageReport]="true">
+            <ng-template #header pTemplate="header">
+                <tr>
+                    <th style="width: 250px;">Númeração</th>
+                    <th>Cliente</th>
+                    <th style="width: 250px;">Pasta</th>
+                    <th style="width: 250px;">Adverso</th>
+                    <th class="text-center" style="width: 180px;">Ações</th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-process pTemplate="body">
+                <tr [ngClass]="rowClass(process)" [ngStyle]="rowStyle(process)">
+                    <td>{{ process?.nProcesso }}</td>
+                    <td>{{ process?.customerName }}</td>
+                    <td>{{ process?.folder }}</td>
+                    <td>{{ process?.adverso }}</td>
+                    <td class="text-center" style="width: 200px;">
+                        <div class="action-buttons">
+                            <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar()"
+                                title="Editar">
+                                <i class="pi pi-pencil"></i>
+                            </button>
+                            <button pButton iconPos="right" class="p-button p-button-danger m-1"
+                                (click)="deleteProcess(process)" title="Excluir">
+                                <i class="pi pi-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+                <tr>
+                    <td colspan="7" style="text-align: center">Não possui nenhum registro.</td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
