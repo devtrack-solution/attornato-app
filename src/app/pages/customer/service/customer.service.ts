@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CustomerService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}customers`;
+  private apiUrl = `${environment.apiUrl}clients`;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -35,7 +35,7 @@ export class CustomerService {
   }
 
 
-  async saveCustomer(body: any): Promise<void> {
+  async saveCustomer(body: any, type: any): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -43,7 +43,7 @@ export class CustomerService {
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
     console.log('resultado', response);
   }
 

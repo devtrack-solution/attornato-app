@@ -20,7 +20,7 @@
           class="ml-4"></p-radioButton>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
         <formly-form [form]="form" [fields]="tipoPessoa === 'fisica' ? fieldsFisica : fieldsJuridica" [model]="model" autocomplete="off" class="p-col-12"></formly-form>
         <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
           {{ message }}

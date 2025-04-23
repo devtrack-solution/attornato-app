@@ -19,6 +19,7 @@
   margin: 8px; /* Espaçamento */
   opacity: 90%;
   height: 36px !important;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 ::ng-deep .mat-step-header .mat-step-icon {
@@ -88,5 +89,14 @@
 }
 
 
+::ng-deep .mat-horizontal-stepper-content {
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  opacity: 1;
+  transform: translateX(0);
+}
 
+::ng-deep .mat-horizontal-stepper-content.ng-animating {
+  opacity: 0;
+  transform: translateX(30px);
+}
 

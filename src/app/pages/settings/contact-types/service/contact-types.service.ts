@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ContactTypeService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}contact-type`;
+  private apiUrl = `${environment.apiUrl}communication-channel`;
 
   constructor() { }
 
