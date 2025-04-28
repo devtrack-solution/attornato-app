@@ -11,10 +11,6 @@ import { CustomersGroupService } from '../../settings/customers-group/service/cu
 import { RolesService } from '../../settings/roles/service/roles.service';
 import { ContactTypeService } from '../../settings/contact-types/service/contact-types.service';
 import { FreeField2Service } from '../../settings/free-field2/service/free-field2.service';
-import { ContactTypesNamespace } from 'src/app/shared/components/types/contact-types.type';
-import { CustomersGroupNamespace } from 'src/app/shared/components/types/customers-group.type';
-import { RolesNamespace } from 'src/app/shared/components/types/roles.type';
-import { FreeField2Namespace } from 'src/app/shared/components/types/free-field2.type';
 import { firstValueFrom, forkJoin } from 'rxjs';
 import { CustomerService } from '../service/customer.service';
 
@@ -42,7 +38,7 @@ export class CustomerNewComponent implements OnInit {
   profileService = inject(RolesService)
   communicationChannelService = inject(ContactTypeService)
   freeFieldService = inject(FreeField2Service)
-  tipoPessoa: 'fisica' | 'juridica' = 'juridica';
+  tipoPessoa: 'fisica' | 'juridica' = 'fisica';
   communationChannelList: any = []
   profileList: any = []
   customersGroupList: any = []
@@ -71,7 +67,7 @@ export class CustomerNewComponent implements OnInit {
             fieldGroup: [
 
               {
-                key: 'groupCustomers',
+                key: 'groupCustomer',
                 type: 'custom-object-select',
                 className: 'p-col-12 p-md-3',
                 props: {
@@ -185,7 +181,7 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'address',
+                key: 'street',
                 type: 'input',
                 className: 'p-col-12 p-md-6',
                 props: {
@@ -276,7 +272,7 @@ export class CustomerNewComponent implements OnInit {
             fieldGroupClassName: 'p-grid p-fluid',
             fieldGroup: [
               {
-                key: 'freefield',
+                key: 'freeFieldOne',
                 type: 'input',
                 className: 'p-col-12 p-md-6',
                 props: {
@@ -287,7 +283,7 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'freeField2',
+                key: 'freeField',
                 type: 'custom-object-select',
                 className: 'p-col-12 p-md-6',
                 props: {
@@ -330,7 +326,7 @@ export class CustomerNewComponent implements OnInit {
             fieldGroup: [
 
               {
-                key: 'groupCustomers',
+                key: 'groupCustomer',
                 type: 'custom-object-select',
                 className: 'p-col-12 p-md-3',
                 props: {
@@ -345,13 +341,13 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'nameCustomer',
+                key: 'name',
                 type: 'input',
                 className: 'p-col-12 p-md-6',
                 props: {
                   label: 'Nome',
                   placeholder: 'Informe o nome',
-                  required: true,
+                  required: false,
                 }
               },
               {
@@ -370,7 +366,18 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'profession',
+                key: 'birthDate',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  type: 'date',
+                  label: 'Data Nascimento',
+                  placeholder: 'Informe a data',
+                  required: true,
+                }
+              },
+              {
+                key: 'occupation',
                 type: 'input',
                 className: 'p-col-12 p-md-4',
                 props: {
@@ -380,9 +387,9 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'schooling',
+                key: 'educationLevel',
                 type: 'input',
-                className: 'p-col-12 p-md-4',
+                className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Escolaridade',
                   placeholder: 'Informe a escolaridade',
@@ -391,8 +398,8 @@ export class CustomerNewComponent implements OnInit {
               },
               {
                 key: 'maritalStatus',
-                type: 'custom-object-select',
-                className: 'p-col-12 p-md-4',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Estado Civil',
                   placeholder: 'Estado civil',
@@ -405,13 +412,24 @@ export class CustomerNewComponent implements OnInit {
                   { label: 'Divorciado(a)', value: 'Divorciado(a)' },
                   { label: 'Viúvo(a)', value: 'Viúvo(a)' }
                   ],
-                  labelProp: 'label'
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'nationality',
+                type: 'input',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Nacionalidade',
+                  placeholder: 'Informe a nacionalidade',
+                  required: true,
                 }
               },
               {
                 key: 'cpf',
                 type: 'input',
-                className: 'p-col-12 p-md-4',
+                className: 'p-col-12 p-md-3',
                 props: {
                   label: 'CPF',
                   placeholder: 'Informe o CPF',
@@ -421,7 +439,7 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'rg',
                 type: 'input',
-                className: 'p-col-12 p-md-4',
+                className: 'p-col-12 p-md-3',
                 props: {
                   label: 'RG',
                   placeholder: 'Informe o RG',
@@ -431,7 +449,7 @@ export class CustomerNewComponent implements OnInit {
               {
                 key: 'pis',
                 type: 'input',
-                className: 'p-col-12 p-md-4',
+                className: 'p-col-12 p-md-3',
                 props: {
                   label: 'PIS',
                   placeholder: 'Informe o PIS',
@@ -442,7 +460,7 @@ export class CustomerNewComponent implements OnInit {
           },
           {
             props: { label: 'Endereço / Contato' },
-            key: 'address',
+            key: 'person.communicationAddress',
             fieldGroupClassName: 'p-grid p-fluid',
             fieldGroup: [
               {
@@ -456,7 +474,7 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'address',
+                key: 'street',
                 type: 'input',
                 className: 'p-col-12 p-md-6',
                 props: {
@@ -498,7 +516,7 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'contact',
+                key: 'contacts',
                 type: 'repeat',
                 className: 'p-col-12 p-md-12',
                 props: {
@@ -509,13 +527,13 @@ export class CustomerNewComponent implements OnInit {
                   fieldGroupClassName: 'p-grid',
                   fieldGroup: [
                     {
-                      key: 'contactType',
+                      key: 'communicationChannel',
                       type: 'custom-object-select',
                       className: 'p-col-12 p-md-6',
                       props: {
                         label: 'Tipo de Contato',
                         placeholder: 'Escolha o Tipo de contato',
-                        required: true,
+                        required: false,
                         attributes: {
                           autocomplete: 'off'
                         },
@@ -524,7 +542,7 @@ export class CustomerNewComponent implements OnInit {
                       }
                     },
                     {
-                      key: 'contact',
+                      key: 'value',
                       type: 'input',
                       className: 'p-col-12 p-md-6',
                       props: {
@@ -543,13 +561,64 @@ export class CustomerNewComponent implements OnInit {
           },
           {
             props: { label: 'Pessoas Para Contato' },
-            key: 'contactOther',
+            key: 'person.contactPerson',
             fieldGroupClassName: 'p-grid',
             fieldGroup: [
               {
-                key: 'freeField2',
-                type: 'custom-object-select',
+                key: 'phoneNumber',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  label: 'Telefone',
+                  placeholder: 'Informe o telefone',
+                  required: true,
+                }
+              },
+              {
+                key: 'mobilePhone',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  label: 'Celular',
+                  placeholder: 'Informe o telefone celular',
+                  required: true,
+                }
+              },
+              {
+                key: 'fatherName',
+                type: 'input',
                 className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Nome do Pai',
+                  placeholder: 'Informe o nome do pai',
+                  required: true,
+                }
+              },
+              {
+                key: 'motherName',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Nome da Mãe',
+                  placeholder: 'Informe o nome da mãe',
+                  required: true,
+                }
+              },
+              {
+                key: 'freeFieldOne',
+                type: 'input',
+                className: 'p-col-12 p-md-6',
+                props: {
+                  label: 'Campo Livre',
+                  placeholder: 'Informe uma breve descrição',
+                  required: true,
+                  min: 0
+                }
+              },
+              {
+                key: 'freeField',
+                type: 'custom-object-select',
+                className: 'p-col-12 p-md-6',
                 props: {
                   label: 'Campo Livre 2',
                   placeholder: 'Escolha uma opção',
@@ -559,17 +628,6 @@ export class CustomerNewComponent implements OnInit {
                   },
                   options: this.freeFieldList,
                   labelProp: 'name'
-                }
-              },
-              {
-                key: 'freefield',
-                type: 'input',
-                className: 'p-col-12 p-md-12',
-                props: {
-                  label: 'Campo Livre',
-                  placeholder: 'Informe uma breve descrição',
-                  required: true,
-                  min: 0
                 }
               }
             ]
@@ -582,20 +640,37 @@ export class CustomerNewComponent implements OnInit {
   async onSubmit() {
     if (this.form.valid) {
       this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
-    try {
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
-      setTimeout(() => {
-        this.customerService.saveCustomer(this.model, 'legal')
-        //this.router.navigate(['/admin/customer']);
-      }, 1000);
-    } catch (error) {
-      console.log('Erro ao salvar grupo de cliente', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de cliente!' });
-    }
+      try {
+        if (this.tipoPessoa == 'juridica') {
+          const requestIndentify = {
+            clientCategory: 'PJ'
+          }
+          const responseIndenty: any = await this.customerService.saveIdentifyCustomer(requestIndentify, 'identifier')
+          console.log('identifier', responseIndenty)
+          this.model.person.clientId = "" + responseIndenty.value
+          this.customerService.saveCustomer(this.model, 'legal')
+        } else {
+          const requestIndentify = {
+            clientCategory: 'PF'
+          }
+          const responseIndenty: any = await this.customerService.saveIdentifyCustomer(requestIndentify, 'identifier')
+          this.model.person.clientId = "" + responseIndenty.value
+          this.model.person.contactPerson.note = 'oi'
+          this.customerService.saveCustomer(this.model, 'individual')
+        }
+
+        setTimeout(async () => {
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
+          this.router.navigate(['/admin/customer']);
+        }, 1000);
+      } catch (error) {
+        console.log('Erro ao salvar grupo de cliente', error);
+        this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de cliente!' });
+      }
     } else {
       console.warn('Formulário inválido');
     }
-    
+
   }
 
   async voltar(): Promise<void> {
@@ -611,12 +686,12 @@ export class CustomerNewComponent implements OnInit {
         freeFields: this.freeFieldService.getFreeField2s(100, 0, true),
       })
     );
-  
+
     this.communationChannelList = result.contactTypes?.data;
     this.customersGroupList = result.customersGroups?.data;
     console.log("customers group", this.customersGroupList)
     this.profileList = result.roles?.data;
     this.freeFieldList = result.freeFields?.data;
-  
+
   }
 }

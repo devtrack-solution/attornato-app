@@ -20,7 +20,7 @@ export class CustomerService {
    * @param isActive
    * @returns Observable com a resposta da API
    */
-  getCustomers(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+  getCustomers(limit: number, offset: number, isActive: boolean = true, type: any): Observable<any> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -31,7 +31,7 @@ export class CustomerService {
 
     const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
 
-    return this.httpClient.get(this.apiUrl, { headers, params });
+    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers, params });
   }
 
 
@@ -45,6 +45,20 @@ export class CustomerService {
     });
     const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
     console.log('resultado', response);
+  }
+
+
+  async saveIdentifyCustomer(body: any, type: any): Promise<any> {
+    const idempotencyKey = uuidv4();
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${this.getAuthToken()}`,
+      'x-idempotency-key': idempotencyKey,
+      'Content-Type': 'application/json'
+    });
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
+    console.log('resultado', response)
+    return response
   }
 
   async ediCustomer(id: any, body: any): Promise<void> {

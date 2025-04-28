@@ -22,62 +22,26 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 export class CustomerListComponent implements OnInit {
 
   display: boolean = false
-  customersList: any
+  customersLegalList: any
+  customersIndividualList: any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
   private router = inject(Router);
   typeFilter: any = 'customers';
+  tipoPessoa: 'fisica' | 'juridica' = 'fisica';
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private customerService: CustomerService) { }
 
   ngOnInit() {
-    // this.customerService.getCustomers(100, 0, true).subscribe((customersList: any) => {
-    //  this.customersList = customersList;
-    //  });
-    this.customersList = [{
-      "groupCustomers": "Grupo Cliente 01",
-      "responsible": "Maria Silva",
-      "profile": "1",
-      "companyName": "Empresa Exemplo LTDA",
-      "tradeName": "Exemplo Comércio",
-      "businessArea": "Tecnologia da Informação",
-      "cnpj": "12.345.678/0001-90",
-      "stateRegistration": "123456789",
-      "municipalRegistration": "987654321",
-      "address": {
-        "zipCode": "12345-678",
-        "address": "Rua das Flores, 123",
-        "neighborhood": "Centro",
-        "city": "São Paulo",
-        "state": "SP",
-        "contact": [
-          {
-            "contactType": "1",
-            "contact": "(11) 98765-4321"
-          },
-          {
-            "contactType": "1",
-            "contact": "(11) 91234-5678"
-          }
-        ]
-      },
-      "contactOther": {
-        "freeField2": "Campo 01",
-        "freefield": "Descrição livre do contato",
-        "contact": [
-          {
-            "contactType": "Telefone",
-            "contact": "(11) 3344-5566"
-          },
-          {
-            "contactType": "Telefone",
-            "contact": "(11) 99887-7766"
-          }
-        ]
-      }
-    }];
-    console.log('json', this.customersList)
+    this.customerService.getCustomers(100, 0, true, 'legal').subscribe((customersLegalList: any) => {
+      this.customersLegalList = customersLegalList;
+    });
+
+    this.customerService.getCustomers(100, 0, true, 'individual').subscribe((customersIndividualList: any) => {
+      this.customersIndividualList = customersIndividualList;
+    });
+    
   }
 
   ngAfterViewInit() {
