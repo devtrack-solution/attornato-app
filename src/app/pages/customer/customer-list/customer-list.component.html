@@ -48,7 +48,7 @@
                         <td>{{ customer?.name }}</td>
                         <td class="text-center" style="width: 200px;">
                             <div class="action-buttons">
-                                <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar()"
+                                <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar(customer, 'fisica')"
                                     title="Editar">
                                     <i class="pi pi-pencil"></i>
                                 </button>
@@ -85,7 +85,7 @@
                         <td>{{ customer?.responsible }}</td>
                         <td class="text-center" style="width: 200px;">
                             <div class="action-buttons">
-                                <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar()"
+                                <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar(customer, 'juridica')"
                                     title="Editar">
                                     <i class="pi pi-pencil"></i>
                                 </button>

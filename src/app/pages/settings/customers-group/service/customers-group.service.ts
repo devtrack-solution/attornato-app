@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CustomersGroupService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}group-customer`;
+  private apiUrl = `${environment.apiUrl}clients/group-customer`;
 
   constructor() { }
 

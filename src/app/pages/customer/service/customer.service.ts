@@ -35,7 +35,7 @@ export class CustomerService {
   }
 
 
-  async saveCustomer(body: any, type: any): Promise<void> {
+  async saveCustomer(body: any, type: string): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -61,7 +61,7 @@ export class CustomerService {
     return response
   }
 
-  async ediCustomer(id: any, body: any): Promise<void> {
+  async ediCustomer(id: any, body: any, type: string): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -69,7 +69,7 @@ export class CustomerService {
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
-    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${id}`, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, { headers }));
     console.log('resultado', response);
   }
 
@@ -87,4 +87,25 @@ export class CustomerService {
   private getAuthToken(): string {
     return localStorage.getItem('auth_token') || 'authkey';
   }
+
+
+    setCustomer(customer: any, type: string) {
+        sessionStorage.setItem('currenCustomer', JSON.stringify(customer));
+        sessionStorage.setItem('currentTypePeople', type);
+    }
+
+    getCustomer() {
+        const data = sessionStorage.getItem('currenCustomer');
+        return data ? JSON.parse(data) : null; // Retorna a máquina ou null se não houver
+    }
+
+    getTypePeople(): string {
+        const data = sessionStorage.getItem('currentTypePeople');
+        return data ? data : 'fisica';
+    }
+
+    clearCustomer() {
+        sessionStorage.removeItem('currenCustomer');
+        sessionStorage.removeItem('currentTypePeople');
+    }
 }

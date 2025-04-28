@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class RolesService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}profile`;
+  private apiUrl = `${environment.apiUrl}clients/profile`;
 
   constructor(private readonly http: HttpClient) { }
 

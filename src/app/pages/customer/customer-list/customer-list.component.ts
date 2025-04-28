@@ -41,7 +41,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getCustomers(100, 0, true, 'individual').subscribe((customersIndividualList: any) => {
       this.customersIndividualList = customersIndividualList;
     });
-    
+
   }
 
   ngAfterViewInit() {
@@ -114,7 +114,8 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
-  async editar() {
-    this.router.navigate(['/admin/customer/edit']);
+  async editar(customer: any, type: string) {
+      this.customerService.setCustomer(customer, type)
+      this.router.navigate(['/admin/customer/edit']);
   }
 }

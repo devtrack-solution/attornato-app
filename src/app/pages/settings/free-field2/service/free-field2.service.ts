@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class FreeField2Service {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}free-fields`;
+  private apiUrl = `${environment.apiUrl}clients/person/contact-person/free-fields`;
 
   constructor() { }
 
