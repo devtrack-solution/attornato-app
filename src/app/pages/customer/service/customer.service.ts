@@ -69,11 +69,11 @@ export class CustomerService {
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
-    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, { headers }));
+        const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, { headers }));
     console.log('resultado', response);
   }
 
-  async deleteCustomer(id: any): Promise<void> {
+  async deleteCustomer(id: any, type: string): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -81,7 +81,7 @@ export class CustomerService {
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
-    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${id}`, { headers }));
+    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${type}/${id}`, { headers }));
   }
 
   private getAuthToken(): string {

@@ -83,15 +83,15 @@ export class CustomerListComponent implements OnInit {
   }
 
 
-  async deleteCustomers(customer: any) {
-    await this.confirmForRemove(customer.id);
+  async deleteCustomers(customer: any, type: string) {
+    await this.confirmForRemove(customer.id, type);
   }
 
   async searchCustomers(name: any) {
     console.log('olha o nome', name)
   }
 
-  async confirmForRemove(id: string): Promise<any> {
+  async confirmForRemove(id: string, type: string): Promise<any> {
     this.sweetAlertService.confirmAlert({
       title: 'Deseja remover esse Cliente?',
       text: 'Ao remover esse Cliente, todo o acesso associado a ele serão removidos!',
@@ -103,7 +103,7 @@ export class CustomerListComponent implements OnInit {
         Swal.fire('', 'Os dados do Cliente não foram modificados!', 'error');
       } else {
         try {
-          await this.customerService.deleteCustomer(id)
+          await this.customerService.deleteCustomer(id, type)
           await Swal.fire('', 'O Cliente foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {

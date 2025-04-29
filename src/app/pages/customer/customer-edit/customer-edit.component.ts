@@ -663,6 +663,7 @@ export class CustomerEditComponent implements OnInit {
             this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
             try {
                 const typeEndPoint = this.tipoPessoa === 'juridica' ? 'legal' : 'individual';
+                console.log('json', JSON.stringify(this.model));
                 await this.customerService.ediCustomer(this.model.id, this.model, typeEndPoint)
                 setTimeout(async () => {
                     await this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
