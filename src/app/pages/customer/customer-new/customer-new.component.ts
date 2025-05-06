@@ -67,15 +67,16 @@ export class CustomerNewComponent implements OnInit {
             fieldGroup: [
 
               {
-                key: 'groupCustomer',
-                type: 'custom-object-select',
+                key: 'groupCustomerId',
+                type: 'select',
                 className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Grupo de Cliente',
                   placeholder: 'Escolha o grupo',
                   required: false,
                   options: this.customersGroupList,
-                  labelProp: 'name'
+                  labelProp: 'name',
+                  valueProp: 'id'
                 }
               },
               {
@@ -89,8 +90,8 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'profile',
-                type: 'custom-object-select',
+                key: 'profileId',
+                type: 'select',
                 className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Perfil',
@@ -101,6 +102,7 @@ export class CustomerNewComponent implements OnInit {
                   },
                   options: this.profileList,
                   labelProp: 'name',
+                  valueProp: 'id'
                 }
               },
               {
@@ -234,8 +236,8 @@ export class CustomerNewComponent implements OnInit {
                   fieldGroupClassName: 'p-grid',
                   fieldGroup: [
                     {
-                      key: 'communicationChannel',
-                      type: 'custom-object-select',
+                      key: 'communicationChannelId',
+                      type: 'select',
                       className: 'p-col-12 p-md-6',
                       props: {
                         label: 'Tipo de Contato',
@@ -245,7 +247,8 @@ export class CustomerNewComponent implements OnInit {
                           autocomplete: 'off'
                         },
                         options: this.communationChannelList,
-                        labelProp: 'name'
+                        labelProp: 'name',
+                        valueProp: 'id'
                       }
                     },
                     {
@@ -283,8 +286,8 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'freeField',
-                type: 'custom-object-select',
+                key: 'freeFieldId',
+                type: 'select',
                 className: 'p-col-12 p-md-6',
                 props: {
                   label: 'Campo Livre 2',
@@ -294,7 +297,8 @@ export class CustomerNewComponent implements OnInit {
                     autocomplete: 'off'
                   },
                   options: this.freeFieldList,
-                  labelProp: 'name'
+                  labelProp: 'name',
+                  valueProp: 'id'
                 }
               },
               {
@@ -326,8 +330,8 @@ export class CustomerNewComponent implements OnInit {
             fieldGroup: [
 
               {
-                key: 'groupCustomer',
-                type: 'custom-object-select',
+                key: 'groupCustomerId',
+                type: 'select',
                 className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Grupo de Cliente',
@@ -337,7 +341,8 @@ export class CustomerNewComponent implements OnInit {
                     autocomplete: 'off'
                   },
                   options: this.customersGroupList,
-                  labelProp: 'name'
+                  labelProp: 'name',
+                  valueProp: 'id'
                 }
               },
               {
@@ -351,8 +356,8 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'profile',
-                type: 'custom-object-select',
+                key: 'profileId',
+                type: 'select',
                 className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Perfil',
@@ -362,7 +367,8 @@ export class CustomerNewComponent implements OnInit {
                     autocomplete: 'off'
                   },
                   options: this.profileList,
-                  labelProp: 'name'
+                  labelProp: 'name',
+                  valueProp: 'id'
                 }
               },
               {
@@ -527,8 +533,8 @@ export class CustomerNewComponent implements OnInit {
                   fieldGroupClassName: 'p-grid',
                   fieldGroup: [
                     {
-                      key: 'communicationChannel',
-                      type: 'custom-object-select',
+                      key: 'communicationChannelId',
+                      type: 'select',
                       className: 'p-col-12 p-md-6',
                       props: {
                         label: 'Tipo de Contato',
@@ -538,7 +544,8 @@ export class CustomerNewComponent implements OnInit {
                           autocomplete: 'off'
                         },
                         options: this.communationChannelList,
-                        labelProp: 'name'
+                        labelProp: 'name',
+                        valueProp: 'id'
                       }
                     },
                     {
@@ -616,8 +623,8 @@ export class CustomerNewComponent implements OnInit {
                 }
               },
               {
-                key: 'freeField',
-                type: 'custom-object-select',
+                key: 'freeFieldId',
+                type: 'select',
                 className: 'p-col-12 p-md-6',
                 props: {
                   label: 'Campo Livre 2',
@@ -627,7 +634,19 @@ export class CustomerNewComponent implements OnInit {
                     autocomplete: 'off'
                   },
                   options: this.freeFieldList,
-                  labelProp: 'name'
+                  labelProp: 'name',
+                  valueProp: 'id'
+                }
+              },
+              {
+                key: 'note',
+                type: 'input',
+                className: 'p-col-12 p-md-12',
+                props: {
+                  label: 'Observação',
+                  placeholder: 'Informe uma breve descrição',
+                  required: true,
+                  min: 0
                 }
               }
             ]
@@ -647,20 +666,18 @@ export class CustomerNewComponent implements OnInit {
           }
           const responseIndenty: any = await this.customerService.saveIdentifyCustomer(requestIndentify, 'identifier')
           console.log('identifier', responseIndenty)
-          this.model.person.clientId = "" + responseIndenty.value
+          this.model.person.clientId = "PJ" + responseIndenty.value
           this.customerService.saveCustomer(this.model, 'legal')
         } else {
           const requestIndentify = {
             clientCategory: 'PF'
           }
           const responseIndenty: any = await this.customerService.saveIdentifyCustomer(requestIndentify, 'identifier')
-          this.model.person.clientId = "" + responseIndenty.value
-          this.model.person.contactPerson.note = 'oi'
+          this.model.person.clientId = "PF" + responseIndenty.value
           this.customerService.saveCustomer(this.model, 'individual')
         }
-
+        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
         setTimeout(async () => {
-          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
           this.router.navigate(['/admin/customer']);
         }, 1000);
       } catch (error) {

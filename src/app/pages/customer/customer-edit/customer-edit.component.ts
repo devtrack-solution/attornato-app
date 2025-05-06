@@ -52,6 +52,7 @@ export class CustomerEditComponent implements OnInit {
         this.model = this.customerService.getCustomer();
         this.tipoPessoa = this.customerService.getTypePeople();
         this.customerService.clearCustomer();
+        console.log('model', this.model)
         this.populatePessoaFisica();
         this.populatePessoaJuridica();
     }
