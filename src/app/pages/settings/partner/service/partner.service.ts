@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PartnerService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}partner`;
+  private apiUrl = `${environment.apiUrl}process/partner`;
 
   constructor(private readonly http: HttpClient) { }
 

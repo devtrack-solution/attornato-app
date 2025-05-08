@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SubjectService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}subjects`;
+  private apiUrl = `${environment.apiUrl}process/subjects`;
    
 
   constructor(private readonly http: HttpClient) { }

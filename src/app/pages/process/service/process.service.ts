@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProcessService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}process`;
+  private apiUrl = `${environment.apiUrl}process/administrative`;
 
   constructor(private readonly http: HttpClient) { }
 

@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LocatorService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}locators`;
+  private apiUrl = `${environment.apiUrl}process/locators`;
    
 
   constructor(private readonly http: HttpClient) { }

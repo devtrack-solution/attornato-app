@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PracticeAreaService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}practice-areas`;
+  private apiUrl = `${environment.apiUrl}process/practice-areas`;
    
 
   constructor(private readonly http: HttpClient) { }

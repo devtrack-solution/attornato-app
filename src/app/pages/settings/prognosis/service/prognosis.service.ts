@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PrognosisService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}prognosis`;
+  private apiUrl = `${environment.apiUrl}process/prognosis`;
 
   constructor(private readonly http: HttpClient) { }
 

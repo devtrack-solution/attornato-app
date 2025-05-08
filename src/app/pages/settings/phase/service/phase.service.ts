@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PhaseService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}phases`;
+  private apiUrl = `${environment.apiUrl}process/phases`;
 
   constructor(private readonly http: HttpClient) { }
 

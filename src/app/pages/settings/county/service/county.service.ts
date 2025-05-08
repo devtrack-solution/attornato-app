@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CountysService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}counties`;
+  private apiUrl = `${environment.apiUrl}process/counties`;
 
   constructor(private readonly http: HttpClient) { }
 

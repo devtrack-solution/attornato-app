@@ -22,7 +22,7 @@
                 class="p-button p-button-help search" style="margin-left: 1%;"></button>
         </div>
         <br />
-        <p-table #dt [value]="processList" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines"
+        <p-table #dt [value]="processList?.data" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines"
             [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
             currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados"
             responsiveLayout="scroll" [rowHover]="true" [showCurrentPageReport]="true">

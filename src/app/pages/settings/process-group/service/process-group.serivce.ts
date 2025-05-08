@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ProcessGroupService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}group-process`;
+  private apiUrl = `${environment.apiUrl}process/group-process`;
    
 
   constructor(private readonly http: HttpClient) { }

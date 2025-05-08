@@ -33,15 +33,15 @@ export class ProcessListComponent implements OnInit {
   constructor(private readonly sweetAlertService: SweetAlertService, private processService: ProcessService) { }
 
   ngOnInit() {
-    // this.processService.getProcesss(100, 0, true).subscribe((processList: any) => {
-     // this.processList = processList;
-     // });
-    this.processList = [{
-      "nProcesso": "0000701-86.2020.5.08.0106",
-      "customerName": "Cliente Da Silva",
-      "adverso": "Exemplo Adverso",
-      "folder": "0000701-86.2020.5.08.0106",
-    }];
+     this.processService.getProcesss(100, 0, true).subscribe((processList: any) => {
+      this.processList = processList;
+      });
+ //   this.processList = [{
+    //  "nProcesso": "0000701-86.2020.5.08.0106",
+  //    "customerName": "Cliente Da Silva",
+   //   "adverso": "Exemplo Adverso",
+   //   "folder": "0000701-86.2020.5.08.0106",
+  //  }];
     console.log('json', this.processList)
   }
 

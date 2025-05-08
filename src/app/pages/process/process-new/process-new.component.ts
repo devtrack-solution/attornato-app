@@ -8,6 +8,23 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProcessService } from '../service/process.service';
+import { firstValueFrom, forkJoin } from 'rxjs';
+import { FreeField2Service } from '../../settings/free-field2/service/free-field2.service';
+import { ProcessGroupService } from '../../settings/process-group/service/process-group.serivce';
+import { ObjectActionService } from '../../settings/object-action/service/object-action.service';
+import { PracticeAreaService } from '../../settings/practice-area/service/practice-area.service';
+import { PrognosisService } from '../../settings/prognosis/service/prognosis.service';
+import { LocalProcedureService } from '../../settings/local-procedure/service/local-procedure.service';
+import { PhaseService } from '../../settings/phase/service/phase.service';
+import { ResponsibleService } from '../../settings/responsible/service/responsible.service';
+import { ProceduralStatusService } from '../../settings/procedural-status/service/procedural-status.service';
+import { CountysService } from '../../settings/county/service/county.service';
+import { DetailsService } from '../../settings/details/service/details.service';
+import { PartnerService } from '../../settings/partner/service/partner.service';
+import { OriginService } from '../../settings/origin/service/origin.service';
+import { SubjectService } from '../../settings/subjects/service/subjects.service';
+import { LocatorService } from '../../settings/locator/service/locator.service';
+import { CustomerService } from '../../customer/service/customer.service';
 
 @Component({
   selector: 'app-process-new',
@@ -28,7 +45,42 @@ export class ProcessNewComponent implements OnInit {
   private router = inject(Router);
   @ViewChild('showConfirm') showConfirm: any;
   processService = inject(ProcessService)
+  freeField2Service = inject(FreeField2Service)
+  groupProcessService = inject(ProcessGroupService)
+  actionObjectService = inject(ObjectActionService)
+  practiceAreaService = inject(PracticeAreaService)
+  prognosisService = inject(PrognosisService)
+  localProcedureNameService = inject(LocalProcedureService)
+  phaseService = inject(PhaseService)
+  responsibleService = inject(ResponsibleService)
+  proceduralStatusService = inject(ProceduralStatusService)
+  countyService = inject(CountysService)
+  detailService = inject(DetailsService)
+  partherService = inject(PartnerService)
+  originService = inject(OriginService)
+  subjectService = inject(SubjectService)
+  locatorService = inject(LocatorService)
+  clientService = inject(CustomerService)
+
   tipoPessoa: 'administrativo' | 'juridico' = 'administrativo';
+  freeField6List: any[] = []
+  groupProcessList: any[] = []
+  practiceAreaList: any[] = []
+  localProcedureNameList: any[] = []
+  proceduralStatusList: any[] = []
+  countyList: any[] = []
+  phaseList: any[] = []
+  actionObjectList: any[] = []
+  locatorList: any[] = []
+  subjectList: any[] = []
+  responsibleList: any[] = []
+  detailList: any[] = []
+  partherList: any[] = []
+  prognosisList: any[] = []
+  originList: any[] = []
+  freeField1List: any[] = []
+  freeField2List: any[] = []
+  clientList: any[] = []
 
   constructor(private messageService: MessageService) {
 
@@ -36,7 +88,8 @@ export class ProcessNewComponent implements OnInit {
 
   message: string = '';
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.loadLists()
     this.populatePprocessoJuridico();
     this.populateProcessoAdministrativo();
   }
@@ -45,167 +98,1192 @@ export class ProcessNewComponent implements OnInit {
 
     this.fieldsJuridico = [
       {
-        fieldGroupClassName: 'p-grid p-fluid',
+        type: 'stepper',
         fieldGroup: [
           {
-            key: 'customersName',
-            type: 'input',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'Nome',
-              placeholder: 'Informe o nome',
-              required: true,
-            }
-          },
-          {
-            key: 'groupProcess',
-            type: 'select',
-            className: 'p-col-12 p-md-4',
-            templateOptions: {
-              label: 'Grupo de Processo',
-              placeholder: 'Escolha o grupo',
-              required: true,
-              attributes: {
-                autocomplete: 'off'
+            props: { label: 'Dados Inicial' },
+            fieldGroupClassName: 'p-grid p-fluid',
+            fieldGroup: [
+
+              {
+                key: 'groupProcess',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                templateOptions: {
+                  label: 'Grupo de Processo',
+                  placeholder: 'Escolha o grupo',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Grupo Processo 01', value: 'Grupo Processo 01' }],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
               },
-              options: [{ label: 'Grupo Processo 01', value: 'Grupo Processo 01' }],
-              labelProp: 'label',
-              valueProp: 'value'
-            }
-          },
-          {
-            key: 'practiceArea',
-            type: 'select',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'Área de Atuação',
-              placeholder: 'Escolha a área',
-              required: true,
-              attributes: {
-                autocomplete: 'off'
+              {
+                key: 'practiceArea',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Área de Atuação',
+                  placeholder: 'Escolha a área',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Área 01', value: 'Área 01' },
+                  { label: 'Área 02', value: 'Área 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
               },
-              options: [{ label: 'Área 01', value: 'Área 01' },
-              { label: 'Área 02', value: 'Área 02' }
-              ],
-              labelProp: 'label',
-              valueProp: 'value'
-            }
+              {
+                key: 'nProcessAntigo',
+                type: 'input',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'N° Processo (Antigo)',
+                  placeholder: 'Informe o número do processo (antigo)',
+                  required: true,
+                }
+              },
+              {
+                key: 'nProcessCNJ',
+                type: 'input',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'N° Processo (CNJ)',
+                  placeholder: 'Informe o número do processo (cnj)',
+                  required: true,
+                }
+              },
+              {
+                key: 'folder',
+                type: 'input',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Pasta',
+                  placeholder: 'Informe a pasta',
+                  required: true,
+                }
+              },
+              {
+                key: 'label',
+                type: 'input',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Etiqueta',
+                  placeholder: 'Informe a etiqueta',
+                  required: true,
+                }
+              },
+              {
+                key: 'localProcedure',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Local de Trâmite',
+                  placeholder: 'Escolha o local',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Local Trâmite 01', value: 'Local Trâmite 01' },
+                  { label: 'Local Trâmite 02', value: 'Local Trâmite 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'proceduralStatus',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Status Processual',
+                  placeholder: 'Escolha o status',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Status Processual 01', value: 'Status Processual 01' },
+                  { label: 'Status Processual 02', value: 'Status Processual 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'county',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Comarca',
+                  placeholder: 'Escolha a comarca',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Comarca 01', value: 'Comarca 01' },
+                  { label: 'Comarca 02', value: 'Comarca 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'phase',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Fase',
+                  placeholder: 'Escolha a fase',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Fase 01', value: 'Fase 01' },
+                  { label: 'Fase 02', value: 'Fase 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'objectAction',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Objeto de Ação',
+                  placeholder: 'Escolha o Objeto de Ação',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Objeto de Ação 01', value: 'Objeto de Ação 01' },
+                  { label: 'Objeto de Ação 02', value: 'Objeto de Ação 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'locator',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Localizador',
+                  placeholder: 'Escolha o Localizador',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Localizador 01', value: 'Localizador 01' },
+                  { label: 'Localizador 02', value: 'Localizador 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'subjects',
+                type: 'select',
+                className: 'p-col-12 p-md-6',
+                props: {
+                  label: 'Assunto',
+                  placeholder: 'Escolha o Assunto',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Assunto 01', value: 'Assunto 01' },
+                  { label: 'Assunto 02', value: 'Assunto 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'responsible',
+                type: 'select',
+                className: 'p-col-12 p-md-6',
+                props: {
+                  label: 'Responsável',
+                  placeholder: 'Escolha o Responsável',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Responsável 01', value: 'Responsável 01' },
+                  { label: 'Responsável 02', value: 'Responsável 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              }
+            ]
           },
           {
-            key: 'nProcessAntigo',
-            type: 'input',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'N° Processo (Antigo)',
-              placeholder: 'Informe o número do processo (antigo)',
-              required: true,
-            }
+            props: { label: 'Dados Complementares' },
+            fieldGroupClassName: 'p-grid p-fluid',
+            fieldGroup: [
+              {
+                key: 'details',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                templateOptions: {
+                  label: 'Detalhes',
+                  placeholder: 'Escolha um detalhe',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Detalhe 01', value: 'Detalhe 01' }],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'partner',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Parceiro',
+                  placeholder: 'Escolha um parceiro',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Parceiro 01', value: 'Parceiro 01' },
+                  { label: 'Parceiro 02', value: 'Parceiro 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'prognosis',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Prognóstico',
+                  placeholder: 'Escolha um Prognóstico',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Prognóstico 01', value: 'Prognóstico 01' },
+                  { label: 'Prognóstico 02', value: 'Prognóstico 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'origin',
+                type: 'select',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Origem',
+                  placeholder: 'Escolha uma origem',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Origem 01', value: 'Origem 01' },
+                  { label: 'Origem 02', value: 'Origem 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'freeField1',
+                type: 'select',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Campo Livre 1',
+                  placeholder: 'Escolha uma opção',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Camnpo 01', value: 'Camnpo 01' },
+                  { label: 'Camnpo 02', value: 'Camnpo 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'freeField2',
+                type: 'select',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Campo Livre 2',
+                  placeholder: 'Escolha uma opção',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Camnpo 01', value: 'Camnpo 01' },
+                  { label: 'Camnpo 02', value: 'Camnpo 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'freeField3',
+                type: 'select',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Campo Livre 3',
+                  placeholder: 'Escolha uma opção',
+                  required: true,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: [{ label: 'Camnpo 01', value: 'Camnpo 01' },
+                  { label: 'Camnpo 02', value: 'Camnpo 02' }
+                  ],
+                  labelProp: 'label',
+                  valueProp: 'value'
+                }
+              },
+              {
+                key: 'freeField4',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Campo Livre 4',
+                  placeholder: 'Informe uma descrição',
+                  required: true,
+                }
+              },
+              {
+                key: 'freeField5',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Campo Livre 5',
+                  placeholder: 'Informe uma descrição',
+                  required: true,
+                }
+              },
+              {
+                key: 'freeField6',
+                type: 'input',
+                className: 'p-col-12 p-md-4',
+                props: {
+                  label: 'Campo Livre 6',
+                  placeholder: 'Informe uma descrição',
+                  required: true,
+                }
+              },
+            ]
           },
           {
-            key: 'nProcessCNJ',
-            type: 'input',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'N° Processo (CNJ)',
-              placeholder: 'Informe o número do processo (cnj)',
-              required: true,
-            }
+            props: { label: 'Datas / Valores' },
+            fieldGroupClassName: 'p-grid p-fluid',
+            fieldGroup: [
+              {
+                key: 'hiringAt',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  type: 'date',
+                  label: 'Contratação',
+                  placeholder: 'Informe a data',
+                  required: true,
+                }
+              },
+              {
+                key: 'transitJudgedAt',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  type: 'date',
+                  label: 'Trânsito Julgado',
+                  placeholder: 'Informe a data',
+                  required: true,
+                }
+              },
+              {
+                key: 'closureAt',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  type: 'date',
+                  label: 'Encerramento',
+                  placeholder: 'Informe a data',
+                  required: true,
+                }
+              },
+              {
+                key: 'sentenceAt',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  type: 'date',
+                  label: 'Sentença',
+                  placeholder: 'Informe a data',
+                  required: true,
+                }
+              },
+              {
+                key: 'distributionAt',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  type: 'date',
+                  label: 'Distribuição',
+                  placeholder: 'Informe a data',
+                  required: true,
+                }
+              },
+              {
+                key: 'executionAt',
+                type: 'input',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  type: 'date',
+                  label: 'Execução',
+                  placeholder: 'Informe a data',
+                  required: true,
+                }
+              },
+              {
+                key: 'valueCause',
+                type: 'currency',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  label: 'Valor da Causa',
+                  placeholder: 'Informe o valor',
+                  required: true,
+                }
+              },
+              {
+                key: 'otherValue',
+                type: 'currency',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  label: 'Outro Valor',
+                  placeholder: 'Informe o valor',
+                  required: true,
+                }
+              },
+              {
+                key: 'contingency',
+                type: 'currency',
+                className: 'p-col-12 p-md-2',
+                props: {
+                  label: 'Contingência',
+                  placeholder: 'Informe o valor',
+                  required: true,
+                }
+              }
+            ]
           },
           {
-            key: 'folder',
-            type: 'input',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'Pasta',
-              placeholder: 'Informe a pasta',
-              required: true,
-            }
-          }
-        ],
+            props: { label: 'Dados Finais' },
+            fieldGroupClassName: 'p-grid p-fluid',
+            fieldGroup: [
+              {
+                key: 'pedido',
+                type: 'input',
+                className: 'p-col-12 p-md-12',
+                props: {
+                  label: 'Pedido',
+                  placeholder: 'Descreva um pedido',
+                  required: true,
+                }
+              },
+              {
+                key: 'observacoes',
+                type: 'textarea',
+                className: 'p-col-12 p-md-12',
+                props: {
+                  label: 'Observações',
+                  placeholder: 'informa uma breve descrição',
+                  rows: 5,
+                  required: false,
+                },
+              },
+              {
+                key: 'secretJustice',
+                type: 'radio',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Segredo Justiça ?',
+                  required: true,
+                  options: [
+                    { label: 'Sim', value: 'sim' },
+                    { label: 'Não', value: 'nao' },
+                  ]
+                },
+              },
+              {
+                key: 'captureProgress',
+                type: 'radio',
+                className: 'p-col-12 p-md-3',
+                props: {
+                  label: 'Capturar Andamentos ?',
+                  required: true,
+                  options: [
+                    { label: 'Sim', value: 'sim' },
+                    { label: 'Não', value: 'nao' },
+                  ]
+                },
+              }
+            ]
+          },
+        ]
       }
     ]
   }
 
   populateProcessoAdministrativo() {
-    this.fieldsAdministrativo = [
-      {
-        fieldGroupClassName: 'p-grid p-fluid',
-        fieldGroup: [
-          {
-            key: 'customersName',
-            type: 'input',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'Nome',
-              placeholder: 'Informe o nome',
-              required: true,
+    this.fieldsAdministrativo = [{
+      type: 'stepper',
+      fieldGroup: [
+        {
+          props: { label: 'Dados Inicial' },
+          fieldGroupClassName: 'p-grid p-fluid',
+          fieldGroup: [
+            {
+              key: 'favorite',
+              type: 'checkbox',
+              className: 'p-col-12 p-md-12',
+              props: {
+                label: 'Processo Favorito',
+                required: true,
+              }
+            },
+            {
+              key: 'clientId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              templateOptions: {
+                label: 'Nome Cliente',
+                placeholder: 'Escolha o cliente',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.clientList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'groupProcessId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              templateOptions: {
+                label: 'Grupo de Processo',
+                placeholder: 'Escolha o grupo',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.groupProcessList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'practiceAreaId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Área de Atuação',
+                placeholder: 'Escolha a área',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.practiceAreaList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'cnjNumber',
+              type: 'input',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'N° Processo (CNJ)',
+                placeholder: 'Informe o número do processo (antigo)',
+                required: true,
+              }
+            },
+            {
+              key: 'processNumber',
+              type: 'input',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'N° Processo (Antigo)',
+                placeholder: 'Informe o número do processo (antigo)',
+                required: true,
+              }
+            },
+            {
+              key: 'folder',
+              type: 'input',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Pasta',
+                placeholder: 'Informe a pasta',
+                required: true,
+              }
+            },
+            {
+              key: 'label',
+              type: 'input',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Etiqueta',
+                placeholder: 'Informe a etiqueta',
+                required: true,
+              }
+            },
+            {
+              key: 'phaseId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Fase',
+                placeholder: 'Escolha a fase',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.phaseList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'localProcedureNameNumber',
+              type: 'select',
+              className: 'p-col-12 p-md-2',
+              props: {
+                label: 'Local de Trâmite',
+                placeholder: 'Escolha a numeração',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.localProceduralNumberList,
+                labelProp: 'label',
+                valueProp: 'value'
+              }
+            },
+            {
+              key: 'localProcedureNameId',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Local de Trâmite',
+                placeholder: 'Escolha o local',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.localProcedureNameList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'countyId',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Comarca',
+                placeholder: 'Escolha a comarca',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.countyList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'countyUf',
+              type: 'select',
+              className: 'p-col-12 p-md-2',
+              props: {
+                label: 'Comarca UF',
+                placeholder: 'Escolha a comarca',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.estados,
+                labelProp: 'label',
+                valueProp: 'value'
+              }
+            },
+            {
+              key: 'proceduralStatusId',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Status Processual',
+                placeholder: 'Escolha o status',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.proceduralStatusList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'actionObjectId',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Objeto de Ação',
+                placeholder: 'Escolha o Objeto de Ação',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.actionObjectList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'locatorId',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Localizador',
+                placeholder: 'Escolha o Localizador',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.locatorList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'subjectId',
+              type: 'select',
+              className: 'p-col-12 p-md-6',
+              props: {
+                label: 'Assunto',
+                placeholder: 'Escolha o Assunto',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.subjectList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'responsibleId',
+              type: 'select',
+              className: 'p-col-12 p-md-6',
+              props: {
+                label: 'Responsável',
+                placeholder: 'Escolha o Responsável',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.responsibleList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
             }
-          },
-          {
-            key: 'groupProcess',
-            type: 'select',
-            className: 'p-col-12 p-md-4',
-            templateOptions: {
-              label: 'Grupo de Processo',
-              placeholder: 'Escolha o grupo',
-              required: true,
-              attributes: {
-                autocomplete: 'off'
+          ]
+        },
+        {
+          props: { label: 'Dados Complementares' },
+          key: 'processDetail',
+          fieldGroupClassName: 'p-grid p-fluid',
+          fieldGroup: [
+            {
+              key: 'detailId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              templateOptions: {
+                label: 'Detalhes',
+                placeholder: 'Escolha um detalhe',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.detailList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'partnerId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Parceiro',
+                placeholder: 'Escolha um parceiro',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.partherList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'prognosisId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Prognóstico',
+                placeholder: 'Escolha um Prognóstico',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.prognosisList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'originId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Origem',
+                placeholder: 'Escolha uma origem',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.originList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'freeField1Id',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Campo Livre 1',
+                placeholder: 'Escolha uma opção',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.freeField1List,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'freeField2Id',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Campo Livre 2',
+                placeholder: 'Escolha uma opção',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.freeField2List,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            {
+              key: 'freeField3',
+              type: 'input',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Campo Livre 3',
+                placeholder: 'Informe uma descrição',
+                required: true,
+              }
+            },
+            {
+              key: 'freeField4',
+              type: 'input',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Campo Livre 4',
+                placeholder: 'Informe uma descrição',
+                required: true,
+              }
+            },
+            {
+              key: 'freeField5',
+              type: 'input',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Campo Livre 5',
+                placeholder: 'Informe uma descrição',
+                required: true,
+              }
+            },
+            {
+              key: 'freeField6Id',
+              type: 'select',
+              className: 'p-col-12 p-md-4',
+              props: {
+                label: 'Campo Livre 6',
+                placeholder: 'Escolha uma opção',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.freeField6List,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+          ]
+        },
+        {
+          props: { label: 'Datas / Valores' },
+          key: 'processFinancial',
+          fieldGroupClassName: 'p-grid p-fluid',
+          fieldGroup: [
+            {
+              key: 'hiring',
+              type: 'input',
+              className: 'p-col-12 p-md-2',
+              props: {
+                type: 'date',
+                label: 'Contratação',
+                placeholder: 'Informe a data',
+                required: true,
+              }
+            },
+            {
+              key: 'resJudicata',
+              type: 'input',
+              className: 'p-col-12 p-md-2',
+              props: {
+                type: 'date',
+                label: 'Trânsito Julgado',
+                placeholder: 'Informe a data',
+                required: true,
+              }
+            },
+            {
+              key: 'closure',
+              type: 'input',
+              className: 'p-col-12 p-md-2',
+              props: {
+                type: 'date',
+                label: 'Encerramento',
+                placeholder: 'Informe a data',
+                required: true,
+              }
+            },
+            {
+              key: 'sentence',
+              type: 'input',
+              className: 'p-col-12 p-md-2',
+              props: {
+                type: 'date',
+                label: 'Sentença',
+                placeholder: 'Informe a data',
+                required: true,
+              }
+            },
+            {
+              key: 'distribution',
+              type: 'input',
+              className: 'p-col-12 p-md-2',
+              props: {
+                type: 'date',
+                label: 'Distribuição',
+                placeholder: 'Informe a data',
+                required: true,
+              }
+            },
+            {
+              key: 'execution',
+              type: 'input',
+              className: 'p-col-12 p-md-2',
+              props: {
+                type: 'date',
+                label: 'Execução',
+                placeholder: 'Informe a data',
+                required: true,
+              }
+            },
+            {
+              key: 'causeValue',
+              type: 'currency',
+              className: 'p-col-12 p-md-2',
+              props: {
+                label: 'Valor da Causa',
+                placeholder: 'Informe o valor',
+                required: true,
+              }
+            },
+            {
+              key: 'otherValue',
+              type: 'currency',
+              className: 'p-col-12 p-md-2',
+              props: {
+                label: 'Outro Valor',
+                placeholder: 'Informe o valor',
+                required: true,
+              }
+            },
+            {
+              key: 'contingency',
+              type: 'currency',
+              className: 'p-col-12 p-md-2',
+              props: {
+                label: 'Contingência',
+                placeholder: 'Informe o valor',
+                required: true,
+              }
+            }
+          ]
+        },
+        {
+          props: { label: 'Dados Finais' },
+          fieldGroupClassName: 'p-grid p-fluid',
+          fieldGroup: [
+            {
+              key: 'request',
+              type: 'input',
+              className: 'p-col-12 p-md-12',
+              props: {
+                label: 'Pedido',
+                placeholder: 'Descreva um pedido',
+                required: true,
+              }
+            },
+            {
+              key: 'note',
+              type: 'textarea',
+              className: 'p-col-12 p-md-12',
+              props: {
+                label: 'Observações',
+                placeholder: 'informa uma breve descrição',
+                rows: 5,
+                required: false,
               },
-              options: [{ label: 'Grupo Processo 01', value: 'Grupo Processo 01' }],
-              labelProp: 'label',
-              valueProp: 'value'
-            }
-          },
-          {
-            key: 'practiceArea',
-            type: 'select',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'Área de Atuação',
-              placeholder: 'Escolha a área',
-              required: true,
-              attributes: {
-                autocomplete: 'off'
+            },
+            {
+              key: 'justiceSecret',
+              type: 'radio',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Segredo Justiça ?',
+                required: true,
+                options: [
+                  { label: 'Sim', value: 'sim' },
+                  { label: 'Não', value: 'nao' },
+                ]
               },
-              options: [{ label: 'Área 01', value: 'Área 01' },
-              { label: 'Área 02', value: 'Área 02' }
-              ],
-              labelProp: 'label',
-              valueProp: 'value'
+            },
+            {
+              key: 'captureProcedures',
+              type: 'radio',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Capturar Andamentos ?',
+                required: true,
+                options: [
+                  { label: 'Sim', value: 'sim' },
+                  { label: 'Não', value: 'nao' },
+                ]
+              },
             }
-          },
-          {
-            key: 'nProcessAntigo',
-            type: 'input',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'N° Processo (Antigo)',
-              placeholder: 'Informe o número do processo (antigo)',
-              required: true,
-            }
-          },
-          {
-            key: 'folder',
-            type: 'input',
-            className: 'p-col-12 p-md-4',
-            props: {
-              label: 'Pasta',
-              placeholder: 'Informe a pasta',
-              required: true,
-            }
-          }
-        ],
-      }
+          ]
+        },
+      ]
+    }
     ]
   }
+
+  localProceduralNumberList = Array.from({ length: 99 }, (_, i) => {
+    const nome = `${i.toString().padStart(2, '0')} °-°`;
+    return { label: nome, value: nome };
+  });
+
+  siglasUF = [
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+    'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+    'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+  ];
+  
+  estados = this.siglasUF.map(uf => ({ label: uf, value: uf }));
+
+  async loadLists(): Promise<void> {
+      const result = await firstValueFrom(
+        forkJoin({
+          actionObjectList : this.actionObjectService.getObjectActions(100, 0, true),
+          groupProcessList: this.groupProcessService.getProcessGroups(100, 0, true),
+          freeField1List: this.freeField2Service.getFreeField2s(100, 0, true),
+          practiceAreaList: this.practiceAreaService.getPracticeAreas(100, 0, true),
+          localProcedureNameList: this.localProcedureNameService.getLocalProcedures(100, 0, true),
+          proceduralStatusList: this.proceduralStatusService.getProceduralStatuss(100, 0, true),
+          prognosisList: this.prognosisService.getPrognosiss(100, 0, true),
+          countyList: this.countyService.getCountys(100, 0, true),
+          phaseList: this.phaseService.getPhases(100, 0, true),
+          locatorList: this.locatorService.getLocators(100, 0, true),
+          subjectList: this.subjectService.getSubjects(100, 0, true),
+          detailList: this.detailService.getDetails(100, 0, true),
+          partherList: this.partherService.getPartners(100, 0, true),
+          originList: this.originService.getOrigins(100, 0, true),
+          clientList: this.clientService.getCustomers(100, 0, true, 'individual'),
+          responsibleList: this.responsibleService.getResponsibles(100, 0, true),
+        })
+      );
+  
+      this.actionObjectList = result.actionObjectList?.data;
+      this.groupProcessList = result.groupProcessList?.data;
+      this.freeField1List = result.freeField1List?.data;
+      this.freeField2List = result.freeField1List?.data;
+      this.freeField6List = result.freeField1List?.data;
+      this.practiceAreaList = result.practiceAreaList?.data;
+      this.localProcedureNameList = result.localProcedureNameList?.data;
+      this.proceduralStatusList = result.proceduralStatusList?.data;
+      this.prognosisList = result.prognosisList?.data;
+      this.countyList = result.countyList?.data;
+      this.phaseList = result.phaseList?.data;
+      this.locatorList = result.locatorList?.data;
+      this.subjectList = result.subjectList?.data;
+      this.detailList = result.detailList?.data;
+      this.partherList = result.partherList?.data;
+      this.originList = result.originList?.data;
+      this.clientList = result.clientList?.data;
+      this.responsibleList = result.responsibleList?.data;
+    }
 
   async onSubmit(model: any) {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
+      await this.processService.saveProcess(this.model)
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
       setTimeout(() => {
-        this.router.navigate(['/admin/process']);
+   //     this.router.navigate(['/admin/process']);
       }, 1000);
     } catch (error) {
       console.log('Erro ao salvar grupo de cliente', error);

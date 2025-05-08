@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ResponsibleService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}responsibles`;
+  private apiUrl = `${environment.apiUrl}process/responsible`;
    
 
   constructor(private readonly http: HttpClient) { }

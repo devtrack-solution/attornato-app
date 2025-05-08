@@ -10,6 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProcessGroupService } from '../../process-group/service/process-group.serivce';
+import { PrognosisService } from '../service/prognosis.service';
 
 @Component({
   selector: 'app-prognosis-new',
@@ -45,7 +46,7 @@ export class PrognosisNewComponent implements OnInit {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  processGroupService = inject(ProcessGroupService)
+  prognosisService = inject(PrognosisService)
 
   constructor(
     protected modalService: NgbModal,
@@ -135,7 +136,7 @@ export class PrognosisNewComponent implements OnInit {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.processGroupService.saveProcessGroup({ name: name });
+      await this.prognosisService.savePrognosis({ name: name });
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Prognóstico cadastrado com sucesso!' });
       setTimeout(() => {
         this.display = false
