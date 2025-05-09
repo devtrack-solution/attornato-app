@@ -57,108 +57,106 @@ export class AppMenuComponent implements OnInit {
                 items: [
                     {
                         label: 'Processos',
-                        icon: 'pi pi-plus',
+                        icon: 'pi pi-folder', // ícone principal de processos
                         items: [
                             {
                                 label: 'Grupo de Processos',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-th-large',
                                 routerLink: ['/admin/settings/process-group']
                             },
                             {
                                 label: 'Local de Trâmite',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-map-marker',
                                 routerLink: ['/admin/settings/local-procedure']
                             },
                             {
                                 label: 'Parceiro',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-users',
                                 routerLink: ['/admin/settings/partner']
                             },
                             {
                                 label: 'Prognóstico',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-chart-line',
                                 routerLink: ['/admin/settings/prognosis']
                             },
                             {
                                 label: 'Origem',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-send',
                                 routerLink: ['/admin/settings/origin']
                             },
                             {
                                 label: 'Detalhes',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-info-circle',
                                 routerLink: ['/admin/settings/details']
                             },
                             {
                                 label: 'Responsável',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-user',
                                 routerLink: ['/admin/settings/responsible']
                             },
                             {
                                 label: 'Área de Atuação',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-briefcase',
                                 routerLink: ['/admin/settings/practice-area']
                             },
                             {
                                 label: 'Status Processual',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-flag',
                                 routerLink: ['/admin/settings/procedural-status']
                             },
                             {
                                 label: 'Comarca',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-globe',
                                 routerLink: ['/admin/settings/county']
                             },
                             {
                                 label: 'Objeto de Ação',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-box',
                                 routerLink: ['/admin/settings/object-action']
                             },
                             {
                                 label: 'Fase',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-step-forward',
                                 routerLink: ['/admin/settings/phase']
                             },
                             {
                                 label: 'Localizador',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-compass',
                                 routerLink: ['/admin/settings/locator']
                             },
                             {
                                 label: 'Assunto',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-comments',
                                 routerLink: ['/admin/settings/subjects']
                             }
                         ]
                     },
                     {
                         label: 'Clientes',
-                        icon: 'pi pi-plus',
+                        icon: 'pi pi-users', // ícone principal de clientes
                         items: [
                             {
                                 label: 'Grupo de Clientes',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-users',
                                 routerLink: ['/admin/settings/customers-group']
                             },
                             {
                                 label: 'Perfil',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-id-card',
                                 routerLink: ['/admin/settings/roles']
                             },
                             {
                                 label: 'Tipos de Contato',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-phone',
                                 routerLink: ['/admin/settings/contact-types']
                             },
                             {
                                 label: 'Campo Livre 2',
-                                icon: 'pi pi-fw pi-plus',
+                                icon: 'pi pi-pencil',
                                 routerLink: ['/admin/settings/free-field2']
                             }
                         ]
-                    },
-
-
+                    }
                 ]
             }
         ];
