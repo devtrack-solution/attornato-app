@@ -9,9 +9,9 @@
                 <h2>Login</h2>
                 <p>Esqueceu a senha? <a class="text-primary hover:underline cursor-pointer font-medium">Clique aqui</a>.</p>
             </div>
-            <input pInputText id="email" placeholder="Email" class="w-20rem"/>
-            <p-password  id="password" placeholder="Password" [feedback]="true" inputStyleClass="w-20rem"></p-password>
-            <button pButton label="CONTINUE" type="button" class="w-20rem" routerLink="/admin/dashboards"></button>
+            <input pInputText id="email" placeholder="Email" class="w-20rem" #username required/>
+            <input pInputText type="password"  id="password" placeholder="Password" class="w-20rem" #password required />
+            <button pButton label="CONTINUE" type="button" class="w-20rem" (click)="login(username.value, password.value)"></button>
         </div>
 
         <p class="text-color-secondary font-semibold">A problem? <a class="text-primary hover:underline cursor-pointer font-medium">Click here</a> and let us help you.</p>

@@ -33,6 +33,7 @@
         "@ngx-formly/primeng": "^6.3.12",
         "@popperjs/core": "^2.11.8",
         "@types/uuid": "^10.0.0",
+        "axios": "^1.9.0",
         "bootstrap": "^5.2.3",
         "chart.js": "^3.3.2",
         "primeflex": "^3.3.1",
