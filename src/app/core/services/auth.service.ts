@@ -12,6 +12,7 @@ export class AuthService {
   private httpClient = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}auth/login`;
   private apiUrlOnboarding = `${environment.apiUrl}auth/onboarding`;
+  private apiUrlPadrao = `${environment.apiUrl}`;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -37,6 +38,16 @@ export class AuthService {
     });
     const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers,  responseType: 'text' }));
     return response
+  }
+
+  async forgotPassword(url: any, body: any): Promise<any> {
+    const idempotencyKey = uuidv4();
+
+    const headers: HttpHeaders = new HttpHeaders({
+      'x-idempotency-key': idempotencyKey,
+      'Content-Type': 'application/json'
+    });
+    await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + url, body, { headers }));
   }
 
 
