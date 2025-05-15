@@ -103,7 +103,9 @@ import { DropdownModule } from 'primeng/dropdown';
     MatNativeDateModule,
     MatStepperModule,
     FormStepperComponent,
-    ButtonModule
+    ButtonModule,
+    ToastModule,
+    FormsModule
   ],
   providers: [MessageService]
 })

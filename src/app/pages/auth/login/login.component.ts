@@ -35,8 +35,8 @@ export class LoginComponent implements OnInit {
     this.authenticationService.loggedIn.subscribe((value: boolean) => {
       if (value) {
         setTimeout(() => {
-          document.location.href = ONBOARDING_ROUTE;
-        }, 100);
+          this.router.navigateByUrl(ONBOARDING_ROUTE);
+        }, 1000);
       } else {
         this.message = 'Falha na autenticação, verifique se os dados estão corretos!';
       }
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
   }
 
   async login(email: string, password: string): Promise<void> {
-    console.log('entrei', email + ' ' + password)
+    await this.messageService.add({ severity: 'info', summary: 'Aguarde', detail: 'Verificando acesso!' });
     try {
       await this.authenticationService.signIn(email, password);
       await this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Acesso liberado!' });

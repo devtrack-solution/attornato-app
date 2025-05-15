@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { LayoutService } from 'src/app/layout/service/app.layout.service';
 import { AppSidebarComponent } from './app.sidebar.component';
+import { AuthenticationService } from '../core/services/authentication.service';
 
 @Component({
     selector: 'app-topbar',
@@ -11,7 +12,7 @@ export class AppTopbarComponent {
 
     @ViewChild(AppSidebarComponent) appSidebar!: AppSidebarComponent;
 
-    constructor(public layoutService: LayoutService, public el: ElementRef) {}
+    constructor(public layoutService: LayoutService, public el: ElementRef, private authenticationService: AuthenticationService) {}
 
     onMenuButtonClick() {
         this.layoutService.onMenuToggle();
@@ -27,6 +28,10 @@ export class AppTopbarComponent {
 
     onRightMenuClick() {
         this.layoutService.showRightMenu();
+    }
+
+    async logout(): Promise<void> {
+        await this.authenticationService.signOut();
     }
 
     get logo() {
