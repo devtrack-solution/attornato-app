@@ -11,7 +11,6 @@ const routes: Routes = [
         path: 'admin', component: AppLayoutComponent,
         children: [
             { path: 'dashboards', loadChildren: () => import('./pages/dashboards/dashboards.module').then(m => m.DashboardsModule) },
-            { path: 'onboarding', loadChildren: () => import('./pages/onboarding/onboarding.module').then(m => m.OnboardingModule) },
             { path: 'uikit', data: { breadcrumb: 'UI Kit' }, loadChildren: () => import('./shared/components/uikit/uikit.module').then(m => m.UIkitModule) },
             { path: 'utilities', data: { breadcrumb: 'Utilities' }, loadChildren: () => import('./shared/components/utilities/utilities.module').then(m => m.UtilitiesModule) },
             { path: 'pages', data: { breadcrumb: 'Pages' }, loadChildren: () => import('./shared/components/pages/pages.module').then(m => m.PagesModule) },
@@ -25,6 +24,7 @@ const routes: Routes = [
             { path: 'process', data: { breadcrumb: 'Processos' }, loadChildren: () => import('./pages/process/process.module').then(m => m.ProcessModule) },
         ]
     },
+    { path: 'onboarding', loadChildren: () => import('./pages/onboarding/onboarding.module').then(m => m.OnboardingModule) },
     { path: '', data: { breadcrumb: 'Auth' }, loadChildren: () => import('./pages/auth/auth.module').then(m => m.AuthModule) },
     { path: 'landing', loadChildren: () => import('./shared/components/landing/landing.module').then(m => m.LandingModule) },
     { path: 'notfound', loadChildren: () => import('./shared/components/notfound/notfound.module').then(m => m.NotfoundModule) },
