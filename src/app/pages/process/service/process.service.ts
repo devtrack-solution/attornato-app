@@ -40,7 +40,7 @@ export class ProcessService {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
+      'Authorization': `Bearer ${this.getAuthToken()}`,
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
