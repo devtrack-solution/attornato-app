@@ -20,7 +20,7 @@ export class AuthService {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthTokenLogin()}`,
+      'Authorization': `Bearer ${this.getAuthTokenLogin()}`,
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
