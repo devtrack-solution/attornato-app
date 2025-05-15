@@ -24,7 +24,7 @@ export class AuthService {
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrlOnboarding, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrlOnboarding, body, { headers,  responseType: 'text' }));
     return response
   }
 

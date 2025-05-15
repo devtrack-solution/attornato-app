@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { environment } from 'src/environments/environment';
-import { AUTH_TOKEN } from 'src/app/app.constant';
+import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +72,6 @@ export class ProcessService {
   }
 
   private getAuthToken(): any {
-    return localStorage.getItem(AUTH_TOKEN);
+    return localStorage.getItem(AUTH_TOKEN_ONBOARDING);
   }
 }
