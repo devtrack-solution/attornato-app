@@ -51,7 +51,6 @@ export class OnboardingComponent implements OnInit{
     try {
       const responseToken = await this.authService.onboarding({roleId: role.id})
       localStorage.setItem(AUTH_TOKEN_ONBOARDING, responseToken);
-      localStorage.removeItem(AUTH_TOKEN)
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Acesso Liberado' });
       setTimeout(() => {
         this.router.navigateByUrl(HOME_PAGE_ROUTE);
