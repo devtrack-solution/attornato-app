@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { environment } from 'src/environments/environment';
-import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
+import { AUTH_TOKEN } from 'src/app/app.constant';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class AuthService {
   private apiUrlOnboarding = `${environment.apiUrl}auth/onboarding`;
   private apiUrlPadrao = `${environment.apiUrl}`;
 
-  constructor(private readonly http: HttpClient) { }
+  constructor() { }
 
  
   async onboarding(body: any): Promise<any> {
@@ -48,6 +48,20 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
     await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + url, body, { headers }));
+  }
+
+
+  async newPassword(url: any, body: any, username: any, code: any): Promise<any> {
+    const idempotencyKey = uuidv4();
+
+    const headers: HttpHeaders = new HttpHeaders({
+      'x-idempotency-key': idempotencyKey,
+      'Content-Type': 'application/json'
+    });
+
+    const params: HttpParams = new HttpParams().set('username', username).set('code', code);
+
+    await firstValueFrom(this.httpClient.patch(this.apiUrlPadrao + url, body, { headers, params }));
   }
 
 
