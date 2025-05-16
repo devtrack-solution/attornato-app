@@ -11,6 +11,7 @@ import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
 export class CustomerService {
   private httpClient = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}clients`;
+  private apiUrlPadrao = `${environment.apiUrl}`;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -57,7 +58,7 @@ export class CustomerService {
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers }));
     console.log('resultado', response)
     return response
   }
