@@ -62,7 +62,7 @@ export class ProcessNewComponent implements OnInit {
   locatorService = inject(LocatorService)
   clientService = inject(CustomerService)
 
-  tipoPessoa: 'administrativo' | 'juridico' = 'administrativo';
+  tipoPessoa: 'administrativo' | 'judicial' = 'administrativo';
   freeField6List: any[] = []
   groupProcessList: any[] = []
   practiceAreaList: any[] = []
@@ -171,7 +171,7 @@ export class ProcessNewComponent implements OnInit {
               }
             },
             {
-              key: 'localProcedureNameNumber',
+              key: 'localProcedureNumber',
               type: 'select',
               className: 'p-col-12 p-md-2',
               props: {
@@ -758,7 +758,7 @@ export class ProcessNewComponent implements OnInit {
               }
             },
             {
-              key: 'localProcedureNameNumber',
+              key: 'localProcedureNumber',
               type: 'select',
               className: 'p-col-12 p-md-2',
               props: {
@@ -1214,8 +1214,9 @@ export class ProcessNewComponent implements OnInit {
   }
 
   localProceduralNumberList = Array.from({ length: 99 }, (_, i) => {
+    const value = `${i.toString().padStart(2, '0')}`;
     const nome = `${i.toString().padStart(2, '0')} °-°`;
-    return { label: nome, value: nome };
+    return { label: nome, value: value };
   });
 
   siglasUF = [
@@ -1231,7 +1232,9 @@ export class ProcessNewComponent implements OnInit {
       forkJoin({
         actionObjectList: this.actionObjectService.getObjectActions(100, 0, true),
         groupProcessList: this.groupProcessService.getProcessGroups(100, 0, true),
-        freeField1List: this.freeField2Service.getFreeField2s(100, 0, true),
+        freeField1List: this.freeField2Service.getProcessFreeField1s(100, 0, true),
+        freeField2List: this.freeField2Service.getProcessFreeField2s(100, 0, true),
+        freeField6List: this.freeField2Service.getProcessFreeField6s(100, 0, true),
         practiceAreaList: this.practiceAreaService.getPracticeAreas(100, 0, true),
         localProcedureNameList: this.localProcedureNameService.getLocalProcedures(100, 0, true),
         proceduralStatusList: this.proceduralStatusService.getProceduralStatuss(100, 0, true),
@@ -1251,8 +1254,8 @@ export class ProcessNewComponent implements OnInit {
     this.actionObjectList = result.actionObjectList?.data;
     this.groupProcessList = result.groupProcessList?.data;
     this.freeField1List = result.freeField1List?.data;
-    this.freeField2List = result.freeField1List?.data;
-    this.freeField6List = result.freeField1List?.data;
+    this.freeField2List = result.freeField2List?.data;
+    this.freeField6List = result.freeField6List?.data;
     this.practiceAreaList = result.practiceAreaList?.data;
     this.localProcedureNameList = result.localProcedureNameList?.data;
     this.proceduralStatusList = result.proceduralStatusList?.data;
@@ -1271,7 +1274,22 @@ export class ProcessNewComponent implements OnInit {
   async onSubmit(model: any) {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.processService.saveProcess(this.model)
+      if (this.tipoPessoa == 'judicial') {
+          const requestIndentify = {
+            clientCategory: 'JUD'
+          }
+          const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
+          console.log('identifier', responseIndenty)
+          this.model.processId = "JUD" + responseIndenty.value
+          this.processService.saveProcess(this.model, 'judicials')
+        } else {
+          const requestIndentify = {
+            clientCategory: 'ADM'
+          }
+          const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
+          this.model.processId = "ADM" + responseIndenty.value
+          this.processService.saveProcess(this.model, 'administrative')
+        }
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
       setTimeout(() => {
         //     this.router.navigate(['/admin/process']);

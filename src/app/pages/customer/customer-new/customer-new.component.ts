@@ -700,7 +700,7 @@ export class CustomerNewComponent implements OnInit {
         contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
         customersGroups: this.groupCustomerService.getCustomersGroups(100, 0, true),
         roles: this.profileService.geRoles(100, 0, true),
-        freeFields: this.freeFieldService.getFreeField2s(100, 0, true),
+        freeFields: this.freeFieldService.getClientFreeField2s(100, 0, true),
       })
     );
 

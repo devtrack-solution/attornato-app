@@ -11,6 +11,7 @@ import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
 export class FreeField2Service {
   private httpClient = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}clients/person/contact-person/free-fields`;
+  private apiUrlpadrao = `${environment.apiUrl}`;
 
   constructor() { }
 
@@ -21,7 +22,7 @@ export class FreeField2Service {
    * @param isActive
    * @returns Observable com a resposta da API
    */
-  getFreeField2s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+  getClientFreeField2s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -33,6 +34,48 @@ export class FreeField2Service {
     const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
 
     return this.httpClient.get(this.apiUrl, { headers, params });
+  }
+
+  getProcessFreeField2s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+    const idempotencyKey = uuidv4();
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${this.getAuthToken()}`,
+      'x-idempotency-key': idempotencyKey,
+      'Content-Type': 'application/json'
+    });
+
+    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
+
+    return this.httpClient.get(this.apiUrlpadrao + 'process/process-detail/free-field-2', { headers, params });
+  }
+
+  getProcessFreeField1s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+    const idempotencyKey = uuidv4();
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${this.getAuthToken()}`,
+      'x-idempotency-key': idempotencyKey,
+      'Content-Type': 'application/json'
+    });
+
+    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
+
+    return this.httpClient.get(this.apiUrlpadrao + 'process/process-detail/free-field-1', { headers, params });
+  }
+
+  getProcessFreeField6s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+    const idempotencyKey = uuidv4();
+
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${this.getAuthToken()}`,
+      'x-idempotency-key': idempotencyKey,
+      'Content-Type': 'application/json'
+    });
+
+    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
+
+    return this.httpClient.get(this.apiUrlpadrao + 'process/process-detail/free-field-6', { headers, params });
   }
 
 

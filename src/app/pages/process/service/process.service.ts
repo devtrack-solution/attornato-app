@@ -10,7 +10,8 @@ import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
 })
 export class ProcessService {
   private httpClient = inject(HttpClient);
-  private apiUrl = `${environment.apiUrl}process/administrative`;
+  private apiUrl = `${environment.apiUrl}process`;
+  private apiUrlPadrao = `${environment.apiUrl}`;
 
   constructor(private readonly http: HttpClient) { }
 
@@ -35,8 +36,21 @@ export class ProcessService {
     return this.httpClient.get(this.apiUrl, { headers, params });
   }
 
+  async saveIdentifyCustomer(body: any, type: any): Promise<any> {
+    const idempotencyKey = uuidv4();
 
-  async saveProcess(body: any): Promise<void> {
+    const headers: HttpHeaders = new HttpHeaders({
+      Authorization: `Bearer ${this.getAuthToken()}`,
+      'x-idempotency-key': idempotencyKey,
+      'Content-Type': 'application/json'
+    });
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers }));
+    console.log('resultado', response)
+    return response
+  }
+
+
+  async saveProcess(body: any, type: string): Promise<void> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -44,7 +58,7 @@ export class ProcessService {
       'x-idempotency-key': idempotencyKey,
       'Content-Type': 'application/json'
     });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
     console.log('resultado', response);
   }
 

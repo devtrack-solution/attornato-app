@@ -33,7 +33,7 @@ export class FreeField2ListComponent implements OnInit {
   constructor(private readonly sweetAlertService: SweetAlertService, private freeField2Service: FreeField2Service) { }
 
   ngOnInit() {
-    this.freeField2Service.getFreeField2s(100, 0, true).subscribe((freeField2List: FreeField2Namespace.FreeField2List) => {
+    this.freeField2Service.getClientFreeField2s (100, 0, true).subscribe((freeField2List: FreeField2Namespace.FreeField2List) => {
       this.freeField2List = freeField2List;
     });
   }

@@ -17,8 +17,8 @@
       <div class="p-col-12">
         <p-radioButton name="tipo" value="administrativo" [(ngModel)]="tipoPessoa" inputId="administrativo"
           label="Processo Administrativo"></p-radioButton>
-        <p-radioButton name="tipo" value="juridico" [(ngModel)]="tipoPessoa" inputId="juridico"
-          label="Processo Jurídico" class="ml-4"></p-radioButton>
+        <p-radioButton name="tipo" value="judicial" [(ngModel)]="tipoPessoa" inputId="judicial"
+          label="Processo Judicial" class="ml-4"></p-radioButton>
           <br />
       </div>
       <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
