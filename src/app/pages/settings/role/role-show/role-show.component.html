@@ -1,0 +1,26 @@
+<ng-template #modalContent let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title h4" id="myLargeModalLabel">INFORMAÇÕES DO PERFIL</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close(modal)"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row mb-5">
+      <div class="col-12 col-md-6">
+        <span><strong>Nome:&nbsp;</strong></span>
+        <span>{{ content?.name }}</span>
+      </div>
+      <div class="col-12 col-md-6">
+        <span><strong>Descrição:&nbsp;</strong></span>
+        <span>{{ content?.description }}</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 text-start">
+        <span><strong>PERMISSÕES</strong></span>
+      </div>
+      <div class="col-12">
+        <span class="badge bg-success rounded f-12 m-1" *ngFor="let list of listPermission; let i = index">{{ list?.description }}</span>
+      </div>
+    </div>
+  </div>
+</ng-template>

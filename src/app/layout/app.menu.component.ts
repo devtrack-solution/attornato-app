@@ -143,7 +143,7 @@ export class AppMenuComponent implements OnInit {
                             {
                                 label: 'Perfil',
                                 icon: 'pi pi-id-card',
-                                routerLink: ['/admin/settings/roles']
+                                routerLink: ['/admin/settings/profile']
                             },
                             {
                                 label: 'Tipos de Contato',
@@ -156,6 +156,23 @@ export class AppMenuComponent implements OnInit {
                                 routerLink: ['/admin/settings/free-field2']
                             }
                         ]
+                    }
+                ]
+            },
+            { separator: true },
+            {
+                label: 'Configurações',
+                icon: 'pi pi-cog',
+                items: [
+                    {
+                        label: 'Perfil',
+                        icon: 'pi pi-lock',
+                        routerLink: ['/admin/settings/roles']
+                    },
+                    {
+                        label: 'Permissões',
+                        icon: 'pi pi-shield',
+                        routerLink: ['/admin/settings/permissions']
                     }
                 ]
             }

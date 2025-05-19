@@ -8,7 +8,6 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ObjectActionService } from '../../object-action/service/object-action.service';
 import { PhaseService } from '../service/phase.service';
 
 @Component({

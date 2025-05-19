@@ -15,7 +15,7 @@ const routes: Routes = [
     loadChildren: () => import('./local-procedure/local-procedure.module').then((module) => module.LocalProcedureModule),
   },
   {
-    path: 'roles', data: { breadcrumb: 'Perfil' },
+    path: 'profile', data: { breadcrumb: 'Perfil' },
     loadChildren: () => import('./roles/roles.module').then((module) => module.RolesModule),
   },
   {
@@ -73,6 +73,14 @@ const routes: Routes = [
   {
     path: 'locator', data: { breadcrumb: 'Localizador' },
     loadChildren: () => import('./locator/locator.module').then((module) => module.LocatorModule),
+  },
+  {
+    path: 'roles', data: { breadcrumb: 'Perfil' },
+    loadChildren: () => import('./role/role.module').then((module) => module.RoleModule),
+  },
+  {
+    path: 'permissions', data: { breadcrumb: 'Permissões' },
+    loadChildren: () => import('./permissions/permission.module').then((module) => module.PermissionModule),
   }
 ];
 
