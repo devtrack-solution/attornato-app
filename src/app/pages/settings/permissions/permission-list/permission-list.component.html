@@ -5,10 +5,10 @@
     <br />
     <div style="width: 100%;" class="d-flex justify-content-end">
       <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round"
-        routerLink="/admin/settings/roles/new" title="Nova Origem"><i class="pi pi-plus"></i></button>
+        routerLink="/admin/settings/permissions/new" title="Nova Origem"><i class="pi pi-plus"></i></button>
     </div>
     <br />
-    <p-table #dt [value]="permissionsList?.data" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines"
+    <p-table #dt [value]="permissionsList" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines"
       [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados" responsiveLayout="scroll"
       [rowHover]="true" [showCurrentPageReport]="true">
@@ -23,11 +23,8 @@
         <tr [ngClass]="rowClass(permission)" [ngStyle]="rowStyle(permission)">
           <td>{{ permission?.name }}</td>
           <td>{{ permission?.description }}</td>
-          <td class="text-center" style="width: 200px;">
+          <td class="text-center" style="width: 100px;">
             <div class="action-buttons">
-              <button pButton class="p-button p-button-help m-1" (click)="editar(permission)" title="Editar">
-                <i class="pi pi-pencil"></i>
-              </button>
               <button pButton iconPos="right" class="p-button p-button-danger m-1" (click)="deletePermission(permission)"
                 title="Excluir">
                 <i class="pi pi-trash"></i>

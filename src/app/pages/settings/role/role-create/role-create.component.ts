@@ -20,6 +20,7 @@ export class RoleCreateComponent implements OnInit {
   sourcePermission: any[] = []
   targetPermissions: any[] = []
   permission: any[] = [];
+  permissionList: any[] = [];
 
   model = {
     permissions: null
@@ -37,16 +38,16 @@ export class RoleCreateComponent implements OnInit {
 
   async ngOnInit() {
     await this.loadPermissions();
-    this.sourcePermission = this.permission;
+    this.sourcePermission = this.permissionList;
     this.targetPermissions = [];
     this.fields = [
       {
-        fieldGroupClassName: 'row',
+        fieldGroupClassName: 'p-grid p-fluid',
         fieldGroup: [
           {
             key: 'name',
             type: 'input',
-            className: 'col-12 col-md-6',
+            className: 'p-col-12 p-md-4',
             props: {
               label: 'Nome',
               placeholder: 'Informe o nome',
@@ -59,7 +60,7 @@ export class RoleCreateComponent implements OnInit {
           {
             key: 'description',
             type: 'input',
-            className: 'col-12 col-md-6',
+            className: 'p-col-12 p-md-4',
             props: {
               label: 'Descrição',
               placeholder: 'Informe a descrição',
@@ -70,10 +71,23 @@ export class RoleCreateComponent implements OnInit {
             }
           },
           {
+            key: 'level',
+            type: 'input',
+            className: 'p-col-12 p-md-4',
+            props: {
+              label: 'Level',
+              placeholder: 'Informe o level',
+              required: true,
+              attributes: {
+                autocomplete: 'off'
+              }
+            }
+          },
+          {
             fieldGroupClassName: 'row',
             fieldGroup: [
               {
-                className: 'col-12',
+                className: 'p-col-12',
                 type: 'pickList',
                 key: 'permissions',
                 props: {
@@ -117,6 +131,7 @@ export class RoleCreateComponent implements OnInit {
   }
 
   removeColumnsTargetPermission(permission: any) {
+    this.permission = []
     if (permission.length > 0) {
       for (let index = 0; index < permission.length; index++) {
         this.permission.push(
@@ -142,6 +157,6 @@ export class RoleCreateComponent implements OnInit {
           })
         );
     
-        this.permission = result.permissionList?.data;
+        this.permissionList = result.permissionList;
   }
 }

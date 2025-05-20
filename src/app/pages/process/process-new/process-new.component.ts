@@ -36,9 +36,10 @@ import { CustomerService } from '../../customer/service/customer.service';
 })
 export class ProcessNewComponent implements OnInit {
 
-  form = new FormGroup({});
+  formAdm = new FormGroup({});
+  formJudicial = new FormGroup({});
   options: FormlyFormOptions = {};
-  model: any = {};
+  modelAdm: any = {};
   fieldsAdministrativo: FormlyFieldConfig[] | any;
   fieldsJuridico: FormlyFieldConfig[] | any;
   fieldsCustomer: FormlyFieldConfig[] | any;
@@ -81,6 +82,7 @@ export class ProcessNewComponent implements OnInit {
   freeField1List: any[] = []
   freeField2List: any[] = []
   clientList: any[] = []
+  modelJudicial: any = {}
 
   constructor(private messageService: MessageService) {
 
@@ -95,7 +97,7 @@ export class ProcessNewComponent implements OnInit {
   }
 
   populatePprocessoJuridico() {
-
+    this.modelJudicial.favorite = false;
     this.fieldsJuridico = [{
       type: 'stepper',
       fieldGroup: [
@@ -171,6 +173,53 @@ export class ProcessNewComponent implements OnInit {
               }
             },
             {
+              key: 'cnjNumber',
+              type: 'input',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'N° Processo (CNJ)',
+                placeholder: 'Informe o número do processo (antigo)',
+                required: true,
+              }
+            },
+            {
+              key: 'folder',
+              type: 'input',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Pasta',
+                placeholder: 'Informe a pasta',
+                required: true,
+              }
+            },
+            {
+              key: 'label',
+              type: 'input',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Etiqueta',
+                placeholder: 'Informe a etiqueta',
+                required: true,
+              }
+            },
+            {
+              key: 'phaseId',
+              type: 'select',
+              className: 'p-col-12 p-md-3',
+              props: {
+                label: 'Fase',
+                placeholder: 'Escolha a fase',
+                required: true,
+                attributes: {
+                  autocomplete: 'off'
+                },
+                options: this.phaseList,
+                labelProp: 'name',
+                valueProp: 'id'
+              }
+            },
+            
+            {
               key: 'localProcedureNumber',
               type: 'select',
               className: 'p-col-12 p-md-2',
@@ -232,42 +281,6 @@ export class ProcessNewComponent implements OnInit {
                 options: this.estados,
                 labelProp: 'label',
                 valueProp: 'value'
-              }
-            },
-            {
-              key: 'folder',
-              type: 'input',
-              className: 'p-col-12 p-md-4',
-              props: {
-                label: 'Pasta',
-                placeholder: 'Informe a pasta',
-                required: true,
-              }
-            },
-            {
-              key: 'label',
-              type: 'input',
-              className: 'p-col-12 p-md-4',
-              props: {
-                label: 'Etiqueta',
-                placeholder: 'Informe a etiqueta',
-                required: true,
-              }
-            },
-            {
-              key: 'phaseId',
-              type: 'select',
-              className: 'p-col-12 p-md-4',
-              props: {
-                label: 'Fase',
-                placeholder: 'Escolha a fase',
-                required: true,
-                attributes: {
-                  autocomplete: 'off'
-                },
-                options: this.phaseList,
-                labelProp: 'name',
-                valueProp: 'id'
               }
             },
             {
@@ -626,7 +639,7 @@ export class ProcessNewComponent implements OnInit {
                 label: 'Observações',
                 placeholder: 'informa uma breve descrição',
                 rows: 5,
-                required: false,
+                required: true,
               },
             }
           ]
@@ -637,6 +650,7 @@ export class ProcessNewComponent implements OnInit {
   }
 
   populateProcessoAdministrativo() {
+    this.modelAdm.favorite = false
     this.fieldsAdministrativo = [{
       type: 'stepper',
       fieldGroup: [
@@ -702,16 +716,6 @@ export class ProcessNewComponent implements OnInit {
               }
             },
             {
-              key: 'cnjNumber',
-              type: 'input',
-              className: 'p-col-12 p-md-3',
-              props: {
-                label: 'N° Processo (CNJ)',
-                placeholder: 'Informe o número do processo (antigo)',
-                required: true,
-              }
-            },
-            {
               key: 'processNumber',
               type: 'input',
               className: 'p-col-12 p-md-3',
@@ -724,7 +728,7 @@ export class ProcessNewComponent implements OnInit {
             {
               key: 'folder',
               type: 'input',
-              className: 'p-col-12 p-md-3',
+              className: 'p-col-12 p-md-4',
               props: {
                 label: 'Pasta',
                 placeholder: 'Informe a pasta',
@@ -734,7 +738,7 @@ export class ProcessNewComponent implements OnInit {
             {
               key: 'label',
               type: 'input',
-              className: 'p-col-12 p-md-3',
+              className: 'p-col-12 p-md-4',
               props: {
                 label: 'Etiqueta',
                 placeholder: 'Informe a etiqueta',
@@ -744,7 +748,7 @@ export class ProcessNewComponent implements OnInit {
             {
               key: 'phaseId',
               type: 'select',
-              className: 'p-col-12 p-md-3',
+              className: 'p-col-12 p-md-4',
               props: {
                 label: 'Fase',
                 placeholder: 'Escolha a fase',
@@ -1280,19 +1284,19 @@ export class ProcessNewComponent implements OnInit {
           }
           const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
           console.log('identifier', responseIndenty)
-          this.model.processId = "JUD" + responseIndenty.value
-          this.processService.saveProcess(this.model, 'judicials')
+          this.modelJudicial.processId = "JUD" + responseIndenty.value
+          this.processService.saveProcess(this.modelJudicial, 'judicials')
         } else {
           const requestIndentify = {
             clientCategory: 'ADM'
           }
           const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
-          this.model.processId = "ADM" + responseIndenty.value
-          this.processService.saveProcess(this.model, 'administrative')
+          this.modelAdm.processId = "ADM" + responseIndenty.value
+          this.processService.saveProcess(this.modelAdm, 'administrative')
         }
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
       setTimeout(() => {
-        //     this.router.navigate(['/admin/process']);
+        this.router.navigate(['/admin/process']);
       }, 1000);
     } catch (error) {
       console.log('Erro ao salvar grupo de cliente', error);

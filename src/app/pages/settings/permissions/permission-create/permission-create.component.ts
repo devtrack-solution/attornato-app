@@ -29,13 +29,13 @@ export class PermissionCreateComponent {
 
     this.fields = [
       {
-        fieldGroupClassName: 'row',
+        fieldGroupClassName: 'p-grid p-fluid',
         fieldGroup: [
           //nome
           {
             key: 'name',
             type: 'input',
-            className: 'col-12 col-md-6',
+            className: 'p-col-12 p-md-4',
             props: {
               label: 'Nome',
               placeholder: 'Informe o nome',
@@ -48,7 +48,20 @@ export class PermissionCreateComponent {
           {
             key: 'description',
             type: 'input',
-            className: 'col-12 col-md-6',
+            className: 'p-col-12 p-md-4',
+            props: {
+              label: 'Descrição',
+              placeholder: 'Informe a descrição',
+              required: true,
+              attributes: {
+                autocomplete: 'off'
+              }
+            }
+          },
+          {
+            key: 'resource',
+            type: 'input',
+            className: 'p-col-12 p-md-4',
             props: {
               label: 'Descrição',
               placeholder: 'Informe a descrição',

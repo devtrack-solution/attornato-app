@@ -29,11 +29,13 @@ import { InputCurrencyTypeComponent } from './components/types/input-currency.ty
 import { InputNumberModule } from 'primeng/inputnumber';
 import { CustomObjectSelectComponent } from './components/types/object-select.type';
 import { DropdownModule } from 'primeng/dropdown';
+import { PickListTypeComponent } from './components/pick-list-type/pick-list-type.component';
+import { PickListModule } from 'primeng/picklist';
 
 
 
 @NgModule({
-  declarations: [FormlyPrimeInputComponent, FormlyFieldStepper, RepeatTypeComponent, DateMaskTypeComponent, FormStepperComponent, InputCurrencyTypeComponent, CustomObjectSelectComponent],
+  declarations: [FormlyPrimeInputComponent, FormlyFieldStepper, RepeatTypeComponent, DateMaskTypeComponent, FormStepperComponent, InputCurrencyTypeComponent, CustomObjectSelectComponent, PickListTypeComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -58,6 +60,7 @@ import { DropdownModule } from 'primeng/dropdown';
     FormlyPrimeNGModule,
     InputNumberModule,
     DropdownModule,
+    PickListModule,
     InputTextModule, // Importa o módulo do PrimeNG para inputs
     FormlyModule.forRoot({
       types: [
@@ -79,6 +82,7 @@ import { DropdownModule } from 'primeng/dropdown';
         { name: 'repeat', component: RepeatTypeComponent },
         { name: 'dateMask', component: DateMaskTypeComponent },
         { name: 'currency', component: InputCurrencyTypeComponent },
+        { name: 'pickList', component: PickListTypeComponent },
         {
           name: 'custom-object-select',
           component: CustomObjectSelectComponent,

@@ -42,6 +42,7 @@ export class OnboardingComponent implements OnInit{
     const token = localStorage.getItem(AUTH_TOKEN) ?? '';
     const responseDecode = await this.authToken.decodeToken<any>(token)
     this.rolesList = responseDecode.profile.roles
+    this.listTotal = this.rolesList
     this.viewCompany = true
   }
 
@@ -63,9 +64,9 @@ export class OnboardingComponent implements OnInit{
     }
   }
 
-  filterCompanies() {
+  filterRoles(nome: any) {
     this.rolesList = [];
-    if (this.filterName !== undefined && this.filterName != null && this.filterName != '') {
+    if (nome !== undefined && nome != null && nome != '') {
       for (const model of this.listTotal) {
         let resultName = false;
         let name: string = model.name;
@@ -73,7 +74,7 @@ export class OnboardingComponent implements OnInit{
           name = '';
         }
         const nameLowerCase = name.toLowerCase();
-        resultName = nameLowerCase.includes(this.filterName.toLowerCase());
+        resultName = nameLowerCase.includes(nome.toLowerCase());
         if (resultName) {
           this.rolesList.push(model);
         }

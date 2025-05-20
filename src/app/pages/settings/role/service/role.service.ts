@@ -33,7 +33,7 @@ export class RoleService {
 
         const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
 
-        return this.httpClient.get(this.apiUrl, { headers, params });
+        return this.httpClient.get(this.apiUrl + '/to/selects', { headers, params });
     }
 
 

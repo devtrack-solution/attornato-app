@@ -1,0 +1,24 @@
+<div>
+  <label class="label">{{ props.label }}</label>
+  <div class="mt-4">
+    <p-pickList
+      [source]="props.source"
+      [target]="props.target"
+      sourceHeader="Disponíveis"
+      targetHeader="Selecionados"
+      [responsive]="true"
+      filterBy="description"
+      [dragdrop]="true"
+      sourceFilterPlaceholder="Pesquisar"
+      targetFilterPlaceholder="Pesquisar"
+      [sourceStyle]="{ height: '300px' }"
+      [targetStyle]="{ height: '300px' }"
+    >
+      <ng-template let-permission pTemplate="item">
+        <div class="ui-helper-clearfix">
+          <div>{{ permission.description }}</div>
+        </div>
+      </ng-template>
+    </p-pickList>
+  </div>
+</div>

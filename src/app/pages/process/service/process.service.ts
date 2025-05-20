@@ -37,29 +37,37 @@ export class ProcessService {
   }
 
   async saveIdentifyCustomer(body: any, type: any): Promise<any> {
-    const idempotencyKey = uuidv4();
+    try {
+      const idempotencyKey = uuidv4();
 
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers }));
-    console.log('resultado', response)
-    return response
+      const headers: HttpHeaders = new HttpHeaders({
+        Authorization: `Bearer ${this.getAuthToken()}`,
+        'x-idempotency-key': idempotencyKey,
+        'Content-Type': 'application/json'
+      });
+      const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers }));
+      console.log('resultado', response)
+      return response
+    } catch (error) {
+      throw error
+    }
   }
 
 
   async saveProcess(body: any, type: string): Promise<void> {
-    const idempotencyKey = uuidv4();
+    try {
+      const idempotencyKey = uuidv4();
 
-    const headers: HttpHeaders = new HttpHeaders({
-      'Authorization': `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
-    console.log('resultado', response);
+      const headers: HttpHeaders = new HttpHeaders({
+        'Authorization': `Bearer ${this.getAuthToken()}`,
+        'x-idempotency-key': idempotencyKey,
+        'Content-Type': 'application/json'
+      });
+      const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
+      console.log('resultado', response);
+    } catch (error) {
+      throw error
+    }
   }
 
   async ediProcess(id: any, body: any): Promise<void> {

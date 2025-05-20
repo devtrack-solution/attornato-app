@@ -21,9 +21,18 @@
           label="Processo Judicial" class="ml-4"></p-radioButton>
           <br />
       </div>
-      <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
-        <formly-form [form]="form" [fields]="tipoPessoa === 'administrativo' ? fieldsAdministrativo : fieldsJuridico"
-          [model]="model" autocomplete="off" class="p-col-12"></formly-form>
+      <form [formGroup]="formAdm" (ngSubmit)="onSubmit(modelAdm)" autocomplete="off" *ngIf="tipoPessoa === 'administrativo'">
+        <formly-form [form]="formAdm" [fields]="fieldsAdministrativo"
+          [model]="modelAdm" autocomplete="off" class="p-col-12"></formly-form>
+        
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
+          {{ message }}
+        </div>
+      </form>
+
+      <form [formGroup]="formJudicial" (ngSubmit)="onSubmit(modelJudicial)" autocomplete="off" *ngIf="tipoPessoa === 'judicial'">
+        <formly-form [form]="formJudicial" [fields]="fieldsJuridico"
+          [model]="modelJudicial" autocomplete="off" class="p-col-12"></formly-form>
         
         <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
           {{ message }}

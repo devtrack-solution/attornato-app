@@ -8,16 +8,16 @@
   <div style="text-align: center; margin-top: 2rem;">
     <img src="assets/layout/images/logo2.png" style="width: 200px;" />
   </div>
-  <br />
   <!-- Título -->
   <div style="text-align: center; margin-top: 2rem;">
     <h4>ESCOLHA UM PERFIL PARA ACESSAR</h4>
   </div>
+  <br />
 
   <!-- Filtro -->
   <div style="display: flex; justify-content: flex-end; margin: 1rem 0;">
-    <input pInputText type="search" class="form-control" placeholder="Filtrar por Nome do perfil" style="width: 300px;"
-      (input)="filterCompanies()" />
+    <input pInputText type="search" class="p-inputtext" placeholder="Filtrar por Nome do perfil" style="width: 300px;"
+      (input)="filterRoles(nome.value)" #nome />
   </div>
 
   <!-- Loading -->
@@ -26,7 +26,7 @@
   </div>
 
   <!-- Cards de Empresa -->
-  <div class="p-grid p-justify-center">
+  <div class="p-grid justify-content-center">
     @for (role of this.rolesList; track role; let i = $index) {
     <div class="p-col-12 p-md-3 p-lg-4">
       <div class="card text-center shadow-2" style="padding: 1.5rem;">
@@ -39,6 +39,7 @@
     </div>
     }
   </div>
+
 
 </div>
 
