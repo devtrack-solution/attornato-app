@@ -6,6 +6,7 @@ import { MessageService } from 'primeng/api';
 import { RolesService } from '../../roles/service/roles.service';
 import { PermissionService } from '../../permissions/service/permission.service';
 import { firstValueFrom, forkJoin } from 'rxjs';
+import { RoleService } from '../service/role.service';
 
 @Component({
   selector: 'app-role-update',
@@ -27,32 +28,24 @@ export class RoleUpdateComponent implements OnInit {
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private messageService: MessageService,
-    private roleService: RolesService,
+    private roleService: RoleService,
     private permissionService: PermissionService
   ) { }
 
   async ngOnInit() {
-    this.route.queryParams.subscribe(async (params: any) => {
-      try {
-        if (params?.roleId !== undefined && params?.roleId !== null) {
-          //   const result = await this.request.API().get(`roles/` + params?.roleId);
-          //   this.model = result.data;
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    });
+    this.model = this.roleService.getRole();
+    this.roleService.clearRole();
     await this.loadPermissions()
     this.sourcePermission = this.filterPermission(this.permission, this.model?.permissions);
     this.targetPermissions = this.model?.permissions;
     this.fields = [
       {
-        fieldGroupClassName: 'row',
+        fieldGroupClassName: 'p-grid p-fluid',
         fieldGroup: [
           {
             key: 'name',
             type: 'input',
-            className: 'col-12 col-md-6',
+            className: 'p-col-12 p-md-4',
             props: {
               label: 'Nome',
               placeholder: 'Informe o nome',
@@ -65,7 +58,7 @@ export class RoleUpdateComponent implements OnInit {
           {
             key: 'description',
             type: 'input',
-            className: 'col-12 col-md-6',
+            className: 'p-col-12 p-md-4',
             props: {
               label: 'Descrição',
               placeholder: 'Informe a descrição',
@@ -76,23 +69,36 @@ export class RoleUpdateComponent implements OnInit {
             }
           },
           {
+            key: 'level',
+            type: 'input',
+            className: 'p-col-12 p-md-4',
+            props: {
+              label: 'Level',
+              placeholder: 'Informe o level',
+              required: true,
+              attributes: {
+                autocomplete: 'off'
+              }
+            }
+          },
+          {
             fieldGroupClassName: 'row',
             fieldGroup: [
               {
-                className: 'col-12',
+                className: 'p-col-12',
                 type: 'pickList',
                 key: 'permissions',
                 props: {
                   label: 'Permissões',
                   source: this.sourcePermission,
-                  target: this.targetPermissions
-                }
-              }
+                  target: this.targetPermissions,
+                },
+              },
             ]
-          }
+          },
         ]
       }
-    ];
+    ]
   }
 
   async onSubmit(model: any): Promise<void> {
@@ -106,14 +112,15 @@ export class RoleUpdateComponent implements OnInit {
         const response = {
           name: model.name,
           description: model.description,
+          level: model.level,
           permissionIds: model.permissions
         }
-        // await this.request.API().put('/roles/' + model.id, response);
+        await this.roleService.ediRole(this.model.id, response)
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Perfil atualizado com sucesso!' });
 
         setTimeout(async () => {
           await this.router.navigateByUrl('/admin/settings/roles')
-        }, 2000);
+        }, 1000);
       } else {
         this.form.setErrors(null);
         this.messageService.add({ severity: 'error', summary: 'Falha!', detail: 'É necessário selecionar uma permissão!' });
@@ -157,6 +164,6 @@ export class RoleUpdateComponent implements OnInit {
       })
     );
 
-    this.permission = result.permissionList?.data;
+    this.permission = result.permissionList;
   }
 }

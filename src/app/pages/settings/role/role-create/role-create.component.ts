@@ -3,9 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { MessageService } from 'primeng/api';
-import { RolesService } from '../../roles/service/roles.service';
 import { PermissionService } from '../../permissions/service/permission.service';
 import { firstValueFrom, forkJoin } from 'rxjs';
+import { RoleService } from '../service/role.service';
 
 @Component({
   selector: 'app-role-create',
@@ -30,8 +30,8 @@ export class RoleCreateComponent implements OnInit {
   constructor(
     private readonly router: Router,
     private messageService: MessageService,
-    private roleService : RolesService,
-    private permissionService: PermissionService
+    private permissionService: PermissionService,
+    private roleService : RoleService
   ) {
 
   }
@@ -112,7 +112,8 @@ export class RoleCreateComponent implements OnInit {
         const response = {
           name : model.name,
           description: model.description,
-          permissionIds: model.permissions
+          level: model.level,
+          permissions: model.permissions
         }
         await this.roleService.saveRole(response)
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Perfil criado com sucesso!' });
@@ -138,7 +139,8 @@ export class RoleCreateComponent implements OnInit {
           {
             'id': permission[index].id,
             'name': permission[index].name,
-            'description': permission[index].description
+            'description': permission[index].description,
+            'resource': permission[index].resource
           },
         )
       }

@@ -1,28 +1,31 @@
-<div class="row">
-  <div class="col-sm-12">
-    <div class="card table-card">
-      <div class="card-header">
-        <div class="d-flex align-items-center justify-content-between">
-          <h5>Atualizar Perfil</h5>
-          <a class="btn btn-primary" [routerLink]="'/admin/settings/role'"> <i class="ti ti-arrow-back"></i>Voltar </a>
+<div class="p-grid">
+  <div class="p-col-12">
+    <div class="card-header">
+      <div class="d-flex justify-content-end">
+        <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round" (click)="cancelation()"
+          title="Voltar">
+          <i class="pi pi-chevron-left"></i>
+          Voltar
+        </button>
+      </div>
+    </div>
+    <br />
+    <h4>Atualizar Perfil</h4>
+    <br/>
+    <div class="card-body row btn-page">
+      <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
+        <formly-form [form]="form" [fields]="fields" [options]="options" [model]="model"
+          autocomplete="off"></formly-form>
+        <div class="d-flex flex-wrap text-danger gap-2 align-items-center justify-content-center mb-3">
+          {{ message }}
         </div>
-      </div>
-      <div class="card-body row btn-page">
-        <form [formGroup]="form" (ngSubmit)="onSubmit(model)" autocomplete="off">
-          <formly-form [form]="form" [fields]="fields" [options]="options" [model]="model" autocomplete="off"></formly-form>
-          <div class="d-flex flex-wrap text-danger gap-2 align-items-center justify-content-center mb-3">
-            {{ message }}
-          </div>
-          <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center">
-            <button type="submit" class="btn btn-success d-inline-flex" [disabled]="!form.valid"
-              ><i class="ti ti-circle-check me-1"></i>Salvar
-            </button>
-            <button type="button" (click)="cancelation()" class="btn btn-danger d-inline-flex"
-              ><i class="ti btn-outline-danger me-1 m-1"></i>Cancelar
-            </button>
-          </div>
-        </form>
-      </div>
+        <div class="flex flex-wrap justify-content-center align-items-center gap-2 w-full">
+          <button type="submit" pButton icon="pi pi-check" [disabled]="!form.valid" label="Salvar"
+            class="p-button p-button-success"></button>
+          <button pButton icon="pi pi-times" (click)="this.cancelation()" label="Cancelar" style="margin-left:1%;"
+            class="p-button p-button-danger"></button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
