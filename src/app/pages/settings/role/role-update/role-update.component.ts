@@ -35,6 +35,7 @@ export class RoleUpdateComponent implements OnInit {
   async ngOnInit() {
     this.model = this.roleService.getRole();
     this.roleService.clearRole();
+    console.log('retorno', this.model)
     await this.loadPermissions()
     this.sourcePermission = this.filterPermission(this.permission, this.model?.permissions);
     this.targetPermissions = this.model?.permissions;

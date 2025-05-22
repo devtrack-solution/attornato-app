@@ -12,7 +12,7 @@ export class RoleShowComponent {
 
   closeResult = '';
   content: any = {};
-  listPermission: any = {};
+  listPermission: any[] = [];
   isOpened = false;
   display: boolean = false
 
@@ -25,16 +25,11 @@ export class RoleShowComponent {
     private roleService: RoleService
   ) { }
 
-  async openLg(data: string): Promise<void> {
-    this.content = this.roleService.getRole();
-    this.roleService.clearRole(); 
-    this.listPermission = this.content.permissions
-    this.display = true;
-    if (!this.isOpened) {
-      this.open(this.modalContent);
-      this.isOpened = true;
-    } else {
-      this.isOpened = false
+  async openLg(data: any): Promise<void> {
+    if(data != null){
+      this.content = data
+      this.listPermission = this.content.permissions
+      this.display = true;
     }
   }
   open(content: any) {
@@ -52,6 +47,7 @@ export class RoleShowComponent {
   }
 
   openMyModal(event: any) {
+    console.log('passei')
     this.content = event
     this.display = true
   }

@@ -7,6 +7,7 @@ import { RoleListComponent } from './role-list/role-list.component';
 import { RoleShowComponent } from './role-show/role-show.component';
 import { RoleUpdateComponent } from './role-update/role-update.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DialogModule } from 'primeng/dialog';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
   imports: [
     CommonModule,
     RoleRoutingModule,
-    SharedModule
+    SharedModule,
+    DialogModule
   ]
 })
 export class RoleModule { }

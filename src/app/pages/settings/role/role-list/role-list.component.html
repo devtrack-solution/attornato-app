@@ -8,7 +8,7 @@
         routerLink="/admin/settings/roles/new" title="Nova Origem"><i class="pi pi-plus"></i></button>
     </div>
     <br />
-    <p-table #dt [value]="rolesList" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines"
+    <p-table #dt [value]="rolesList?.data" [tableStyle]="{ 'min-width': '50rem' }" styleClass="p-datatable-gridlines"
       [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"
       currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} resultados" responsiveLayout="scroll"
       [rowHover]="true" [showCurrentPageReport]="true">
@@ -48,4 +48,4 @@
   </div>
 </div>
 
-<app-role-show #showCreate></app-role-show>
+<app-role-show #showView></app-role-show>

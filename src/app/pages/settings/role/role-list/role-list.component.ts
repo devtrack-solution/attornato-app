@@ -13,7 +13,7 @@ export class RoleListComponent implements OnInit {
   display: boolean = false
   rolesList: any
   @ViewChild('showUpdate') showUpdate: any;
-  @ViewChild('showCreate', { static: false }) showCreate: any;
+  @ViewChild('showView', { static: false }) showView: any;
   private router = inject(Router);
   typeFilter: any = 'customers';
   tipoPessoa: 'fisica' | 'juridica' = 'fisica';
@@ -86,9 +86,11 @@ export class RoleListComponent implements OnInit {
   }
 
   async visualizar(role: any) {
-    this.roleService.setRole(role)
-    this.router.navigate(['/admin/settings/roles/show']);
+    await this.showView.openLg(role);
   }
+
+
+  
 
 
 }
