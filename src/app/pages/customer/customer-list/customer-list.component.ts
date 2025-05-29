@@ -115,7 +115,7 @@ export class CustomerListComponent implements OnInit {
   }
 
   async editar(customer: any, type: string) {
-      this.customerService.setCustomer(customer, type)
-      this.router.navigate(['/admin/customer/edit']);
+    this.customerService.setCustomer(customer, type)
+    this.router.navigate(['/admin/customer/edit']);
   }
 }

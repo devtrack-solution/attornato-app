@@ -5,7 +5,6 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
-import { CustomerService } from 'src/app/shared/service/customer.service';
 import { SweetAlertService, AlertIcon } from 'src/app/shared/service/sweet-alert.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import Swal from 'sweetalert2';
@@ -23,26 +22,24 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 export class ProcessListComponent implements OnInit {
 
   display: boolean = false
-  processList: any
+  processAdministrativoList: any
+  processJudicialList: any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
   private router = inject(Router);
   typeFilter: any = 'numeracao';
+  tipoPessoa: 'judicial' | 'administrativo' = 'administrativo';
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private processService: ProcessService) { }
 
   ngOnInit() {
-     this.processService.getProcesss(100, 0, true).subscribe((processList: any) => {
-      this.processList = processList;
-      });
- //   this.processList = [{
-    //  "nProcesso": "0000701-86.2020.5.08.0106",
-  //    "customerName": "Cliente Da Silva",
-   //   "adverso": "Exemplo Adverso",
-   //   "folder": "0000701-86.2020.5.08.0106",
-  //  }];
-    console.log('json', this.processList)
+    this.processService.getProcesss(100, 0, true, 'administrative').subscribe((processAdministrativoList: any) => {
+      this.processAdministrativoList = processAdministrativoList;
+    });
+    this.processService.getProcesss(100, 0, true, 'judicials').subscribe((processJudicialList: any) => {
+      this.processJudicialList = processJudicialList;
+    });
   }
 
   ngAfterViewInit() {
@@ -115,7 +112,8 @@ export class ProcessListComponent implements OnInit {
     });
   }
 
-  async editar() {
+  async editar(process: any, type: any) {
+    this.processService.setProcess(process, type)
     this.router.navigate(['/admin/process/edit']);
   }
 }

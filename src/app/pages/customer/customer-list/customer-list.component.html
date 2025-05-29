@@ -29,9 +29,6 @@
                 label="Pessoa Jurídica" class="ml-4"></p-radioButton>
         </div>
         <br />
-        <div>
-
-        </div>
         <div *ngIf="tipoPessoa === 'fisica'">
             <p-table #dt [value]="customersIndividualList?.data" [tableStyle]="{ 'min-width': '50rem' }"
                 styleClass="p-datatable-gridlines" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 20, 50]"

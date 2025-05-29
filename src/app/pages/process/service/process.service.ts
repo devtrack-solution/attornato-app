@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { environment } from 'src/environments/environment';
 import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
@@ -22,7 +22,7 @@ export class ProcessService {
    * @param isActive
    * @returns Observable com a resposta da API
    */
-  getProcesss(limit: number, offset: number, isActive: boolean = true): Observable<any> {
+  getProcesss(limit: number, offset: number, isActive: boolean = true, type: any): Observable<any> {
     const idempotencyKey = uuidv4();
 
     const headers: HttpHeaders = new HttpHeaders({
@@ -33,7 +33,7 @@ export class ProcessService {
 
     const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
 
-    return this.httpClient.get(this.apiUrl, { headers, params });
+    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers, params });
   }
 
   async saveIdentifyCustomer(body: any, type: any): Promise<any> {
@@ -95,5 +95,26 @@ export class ProcessService {
 
   private getAuthToken(): any {
     return localStorage.getItem(AUTH_TOKEN_ONBOARDING);
+  }
+
+
+  setProcess(process: any, type: any) {
+    sessionStorage.setItem('currentProcess', process);
+    sessionStorage.setItem('currentTypePeople', type);
+  }
+
+  getProcess() {
+    const data = sessionStorage.getItem('currentProcess');
+    return data ? JSON.parse(data) : null; // Retorna a máquina ou null se não houver
+  }
+
+  getTypeProcess(): string {
+    const data = sessionStorage.getItem('currentTypeProcess');
+    return data ? data : 'administrative';
+  }
+
+  clearProcess() {
+    sessionStorage.removeItem('currentProcess');
+    sessionStorage.removeItem('currentTypeProcess');
   }
 }

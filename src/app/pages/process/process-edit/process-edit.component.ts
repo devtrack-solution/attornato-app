@@ -30,14 +30,10 @@ export class ProcessEditComponent implements OnInit {
 
   message: string = '';
 
-  ngOnInit(): void {
-    this.model = {
-      "processType": "administrativo",
-      "nProcesso": "0000701-86.2020.5.08.0106",
-      "customerName": "Cliente Da Silva",
-      "adverso": "Exemplo Adverso",
-      "folder": "0000701-86.2020.5.08.0106",
-    }
+  async ngOnInit(): Promise<void> {
+    this.model = this.processService.getProcess();
+    this.tipoProcesso = this.processService.getTypeProcess()
+    this.processService.clearProcess();
     if (this.model.processType === 'judicial') {
       this.tipoProcesso = 'Judicial'
       this.populateProcessoJudicial();
