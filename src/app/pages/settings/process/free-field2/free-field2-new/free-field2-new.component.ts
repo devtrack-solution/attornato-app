@@ -1,9 +1,8 @@
 import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyFormOptions, FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { MessageService } from 'primeng/api';
-import { CustomersGroupService } from '../../customers-group/service/customers-group.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
@@ -12,7 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FreeField2Service } from '../service/free-field2.service';
 
 @Component({
-  selector: 'app-free-field2-edit',
+  selector: 'app-free-field2-new',
   standalone: true,
   imports: [
     CommonModule,
@@ -24,12 +23,12 @@ import { FreeField2Service } from '../service/free-field2.service';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './free-field2-edit.component.html',
-  styleUrl: './free-field2-edit.component.scss'
+  templateUrl: './free-field2-new.component.html',
+  styleUrl: './free-field2-new.component.scss'
 })
-export class FreeField2EditComponent implements OnInit {
+export class FreeField2NewComponent implements OnInit {
 
-  form: FormGroup;
+  form = new FormGroup({})
   options: FormlyFormOptions = {}
   model: any = {}
   fields: FormlyFieldConfig[] | any
@@ -49,14 +48,8 @@ export class FreeField2EditComponent implements OnInit {
 
   constructor(
     protected modalService: NgbModal,
-    private messageService: MessageService,
-    private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
-      name: [''] // Inicialmente vazio
-    });
-  }
-
+    private messageService: MessageService
+  ) { }
   async ngOnInit() {
     this.fields = [
       {
@@ -82,9 +75,7 @@ export class FreeField2EditComponent implements OnInit {
 
   }
 
-  async openLg(customersGroup: any): Promise<void> {
-    this.model = customersGroup
-    this.form.patchValue({ name: customersGroup.name }); // Preenche o formulário com os dados do processo
+  async openLg(): Promise<void> {
     this.display = true
   }
 
@@ -141,8 +132,8 @@ export class FreeField2EditComponent implements OnInit {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.freeField2Service.ediFreeField2(this.model.id, { name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Campo Livre 2 atualizado com sucesso!' });
+      await this.freeField2Service.saveFreeField2({ name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Campo Livre 2 scadastrado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();

@@ -128,6 +128,21 @@ export class AppMenuComponent implements OnInit {
                                 label: 'Assunto',
                                 icon: 'pi pi-comments',
                                 routerLink: ['/admin/settings/subjects']
+                            },
+                            {
+                                label: 'Campo Livre 1',
+                                icon: 'pi pi-comments',
+                                routerLink: ['/admin/settings/process/free-field1']
+                            },
+                            {
+                                label: 'Campo Livre 2',
+                                icon: 'pi pi-comments',
+                                routerLink: ['/admin/settings/process/free-field2']
+                            },
+                            {
+                                label: 'Campo Livre 6',
+                                icon: 'pi pi-comments',
+                                routerLink: ['/admin/settings/process/free-field6']
                             }
                         ]
                     },

@@ -1,18 +1,18 @@
-import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormsModule } from '@angular/forms';
-import { NgbModal, ModalDismissReasons, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormlyFormOptions, FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
-import { MessageService } from 'primeng/api';
-import { CustomersGroupService } from '../../customers-group/service/customers-group.service';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { CommonModule } from '@angular/common';
-import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { FreeField2Service } from '../service/free-field2.service';
+import { CommonModule } from "@angular/common";
+import { Component, OnInit, ViewChild, TemplateRef, inject } from "@angular/core";
+import { FormsModule, FormGroup, FormBuilder } from "@angular/forms";
+import { ModalDismissReasons, NgbModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { FormlyBootstrapModule } from "@ngx-formly/bootstrap";
+import { FormlyModule, FormlyFormOptions, FormlyFieldConfig } from "@ngx-formly/core";
+import { MessageService } from "primeng/api";
+import { ButtonModule } from "primeng/button";
+import { DialogModule } from "primeng/dialog";
+import { SharedModule } from "src/app/shared/shared.module";
+import { FreeField6Service } from "../service/free-field6.service";
+
 
 @Component({
-  selector: 'app-free-field2-edit',
+  selector: 'app-free-field6-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -24,10 +24,10 @@ import { FreeField2Service } from '../service/free-field2.service';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './free-field2-edit.component.html',
-  styleUrl: './free-field2-edit.component.scss'
+  templateUrl: './free-field6-edit.component.html',
+  styleUrl: './free-field6-edit.component.scss'
 })
-export class FreeField2EditComponent implements OnInit {
+export class FreeField6EditComponent implements OnInit {
 
   form: FormGroup;
   options: FormlyFormOptions = {}
@@ -45,7 +45,7 @@ export class FreeField2EditComponent implements OnInit {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  freeField2Service = inject(FreeField2Service)
+  freeField6Service = inject(FreeField6Service)
 
   constructor(
     protected modalService: NgbModal,
@@ -141,15 +141,15 @@ export class FreeField2EditComponent implements OnInit {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.freeField2Service.ediFreeField2(this.model.id, { name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Campo Livre 2 atualizado com sucesso!' });
+      await this.freeField6Service.ediFreeField6(this.model.id, { name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Campo Livre 6 atualizado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();
       }, 1000);
     } catch (error) {
-      console.log('Erro ao salvar Campo Livre 2', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um Campo Livre 2!' });
+      console.log('Erro ao salvar Campo Livre 6', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um Campo Livre 6!' });
     }
   }
 

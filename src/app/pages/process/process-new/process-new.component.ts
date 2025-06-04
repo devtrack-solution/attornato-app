@@ -9,7 +9,6 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ProcessService } from '../service/process.service';
 import { firstValueFrom, forkJoin } from 'rxjs';
-import { FreeField2Service } from '../../settings/free-field2/service/free-field2.service';
 import { ProcessGroupService } from '../../settings/process-group/service/process-group.serivce';
 import { ObjectActionService } from '../../settings/object-action/service/object-action.service';
 import { PracticeAreaService } from '../../settings/practice-area/service/practice-area.service';
@@ -25,6 +24,9 @@ import { OriginService } from '../../settings/origin/service/origin.service';
 import { SubjectService } from '../../settings/subjects/service/subjects.service';
 import { LocatorService } from '../../settings/locator/service/locator.service';
 import { CustomerService } from '../../customer/service/customer.service';
+import { FreeField2Service } from '../../settings/process/free-field2/service/free-field2.service';
+import { FreeField1Service } from '../../settings/process/free-field1/service/free-field1.service';
+import { FreeField6Service } from '../../settings/process/free-field6/service/free-field6.service';
 
 @Component({
   selector: 'app-process-new',
@@ -47,6 +49,8 @@ export class ProcessNewComponent implements OnInit {
   @ViewChild('showConfirm') showConfirm: any;
   processService = inject(ProcessService)
   freeField2Service = inject(FreeField2Service)
+  freeField1Service = inject(FreeField1Service)
+  freeField6Service = inject(FreeField6Service)
   groupProcessService = inject(ProcessGroupService)
   actionObjectService = inject(ObjectActionService)
   practiceAreaService = inject(PracticeAreaService)
@@ -1236,9 +1240,9 @@ export class ProcessNewComponent implements OnInit {
       forkJoin({
         actionObjectList: this.actionObjectService.getObjectActions(100, 0, true),
         groupProcessList: this.groupProcessService.getProcessGroups(100, 0, true),
-        freeField1List: this.freeField2Service.getProcessFreeField1s(100, 0, true),
-        freeField2List: this.freeField2Service.getProcessFreeField2s(100, 0, true),
-        freeField6List: this.freeField2Service.getProcessFreeField6s(100, 0, true),
+        freeField1List: this.freeField1Service.getFreeField1s(100, 0, true),
+        freeField2List: this.freeField2Service.getFreeField2s(100, 0, true),
+        freeField6List: this.freeField6Service.getFreeField6s(100, 0, true),
         practiceAreaList: this.practiceAreaService.getPracticeAreas(100, 0, true),
         localProcedureNameList: this.localProcedureNameService.getLocalProcedures(100, 0, true),
         proceduralStatusList: this.proceduralStatusService.getProceduralStatuss(100, 0, true),

@@ -39,7 +39,7 @@ const routes: Routes = [
     loadChildren: () => import('./details/details.module').then((module) => module.DetailsModule),
   },
   {
-    path: 'free-field2', data: { breadcrumb: 'Campo Livre 2' },
+    path: 'free-field2', data: { breadcrumb: 'Cliente / Campo Livre 2' },
     loadChildren: () => import('./free-field2/free-field2.module').then((module) => module.FreeField2Module),
   },
   {
@@ -81,6 +81,10 @@ const routes: Routes = [
   {
     path: 'permissions', data: { breadcrumb: 'Permissões' },
     loadChildren: () => import('./permissions/permission.module').then((module) => module.PermissionModule),
+  },
+  {
+    path: 'process', data: { breadcrumb: 'Processo' },
+    loadChildren: () => import('./process/process.module').then((module) => module.ProcessSettingsModule),
   }
 ];
 

@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, FormsModule } from '@angular/forms';
 import { NgbModal, ModalDismissReasons, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyFormOptions, FormlyFieldConfig, FormlyModule } from '@ngx-formly/core';
 import { MessageService } from 'primeng/api';
-import { CustomersGroupService } from '../../customers-group/service/customers-group.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
