@@ -115,7 +115,7 @@ export class ProcessNewComponent implements OnInit {
               className: 'p-col-12 p-md-12',
               props: {
                 label: 'Processo Favorito',
-                required: true,
+                required: false,
               }
             },
             {
@@ -157,7 +157,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Área de Atuação',
                 placeholder: 'Escolha a área',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -183,7 +183,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'N° Processo (CNJ)',
                 placeholder: 'Informe o número do processo (antigo)',
-                required: true,
+                required: false,
               }
             },
             {
@@ -203,7 +203,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Etiqueta',
                 placeholder: 'Informe a etiqueta',
-                required: true,
+                required: false,
               }
             },
             {
@@ -213,7 +213,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Fase',
                 placeholder: 'Escolha a fase',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -230,7 +230,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Local de Trâmite',
                 placeholder: 'Escolha a numeração',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -246,7 +246,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Local de Trâmite',
                 placeholder: 'Escolha o local',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -262,7 +262,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Comarca',
                 placeholder: 'Escolha a comarca',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -278,7 +278,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Comarca UF',
                 placeholder: 'Escolha a comarca',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -294,7 +294,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Status Processual',
                 placeholder: 'Escolha o status',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -310,7 +310,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Objeto de Ação',
                 placeholder: 'Escolha o Objeto de Ação',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -326,7 +326,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Localizador',
                 placeholder: 'Escolha o Localizador',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -342,7 +342,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Assunto',
                 placeholder: 'Escolha o Assunto',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -358,7 +358,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Responsável',
                 placeholder: 'Escolha o Responsável',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -381,7 +381,7 @@ export class ProcessNewComponent implements OnInit {
               templateOptions: {
                 label: 'Detalhes',
                 placeholder: 'Escolha um detalhe',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -397,7 +397,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Parceiro',
                 placeholder: 'Escolha um parceiro',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -413,7 +413,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Prognóstico',
                 placeholder: 'Escolha um Prognóstico',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -429,7 +429,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Origem',
                 placeholder: 'Escolha uma origem',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -445,7 +445,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 1',
                 placeholder: 'Escolha uma opção',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -461,7 +461,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 2',
                 placeholder: 'Escolha uma opção',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -477,7 +477,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 3',
                 placeholder: 'Informe uma descrição',
-                required: true,
+                required: false,
               }
             },
             {
@@ -487,7 +487,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 4',
                 placeholder: 'Informe uma descrição',
-                required: true,
+                required: false,
               }
             },
             {
@@ -497,7 +497,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 5',
                 placeholder: 'Informe uma descrição',
-                required: true,
+                required: false,
               }
             },
             {
@@ -507,7 +507,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 6',
                 placeholder: 'Escolha uma opção',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -531,7 +531,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Contratação',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -542,7 +542,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Trânsito Julgado',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -553,7 +553,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Encerramento',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -564,7 +564,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Sentença',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -575,7 +575,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Distribuição',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -586,7 +586,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Execução',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -596,7 +596,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Valor da Causa',
                 placeholder: 'Informe o valor',
-                required: true,
+                required: false,
               }
             },
             {
@@ -606,7 +606,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Outro Valor',
                 placeholder: 'Informe o valor',
-                required: true,
+                required: false,
               }
             },
             {
@@ -616,7 +616,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Contingência',
                 placeholder: 'Informe o valor',
-                required: true,
+                required: false,
               }
             }
           ]
@@ -632,7 +632,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Pedido',
                 placeholder: 'Descreva um pedido',
-                required: true,
+                required: false,
               }
             },
             {
@@ -643,7 +643,7 @@ export class ProcessNewComponent implements OnInit {
                 label: 'Observações',
                 placeholder: 'informa uma breve descrição',
                 rows: 5,
-                required: true,
+                required: false,
               },
             }
           ]
@@ -668,7 +668,7 @@ export class ProcessNewComponent implements OnInit {
               className: 'p-col-12 p-md-12',
               props: {
                 label: 'Processo Favorito',
-                required: true,
+                required: false,
               }
             },
             {
@@ -710,7 +710,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Área de Atuação',
                 placeholder: 'Escolha a área',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -746,7 +746,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Etiqueta',
                 placeholder: 'Informe a etiqueta',
-                required: true,
+                required: false,
               }
             },
             {
@@ -756,7 +756,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Fase',
                 placeholder: 'Escolha a fase',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -772,7 +772,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Local de Trâmite',
                 placeholder: 'Escolha a numeração',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -788,7 +788,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Local de Trâmite',
                 placeholder: 'Escolha o local',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -804,7 +804,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Comarca',
                 placeholder: 'Escolha a comarca',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -820,7 +820,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Comarca UF',
                 placeholder: 'Escolha a comarca',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -836,7 +836,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Status Processual',
                 placeholder: 'Escolha o status',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -852,7 +852,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Objeto de Ação',
                 placeholder: 'Escolha o Objeto de Ação',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -868,7 +868,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Localizador',
                 placeholder: 'Escolha o Localizador',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -884,7 +884,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Assunto',
                 placeholder: 'Escolha o Assunto',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -900,7 +900,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Responsável',
                 placeholder: 'Escolha o Responsável',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -923,7 +923,7 @@ export class ProcessNewComponent implements OnInit {
               templateOptions: {
                 label: 'Detalhes',
                 placeholder: 'Escolha um detalhe',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -939,7 +939,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Parceiro',
                 placeholder: 'Escolha um parceiro',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -955,7 +955,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Prognóstico',
                 placeholder: 'Escolha um Prognóstico',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -971,7 +971,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Origem',
                 placeholder: 'Escolha uma origem',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -987,7 +987,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 1',
                 placeholder: 'Escolha uma opção',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -1003,7 +1003,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 2',
                 placeholder: 'Escolha uma opção',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -1019,7 +1019,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 3',
                 placeholder: 'Informe uma descrição',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1029,7 +1029,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 4',
                 placeholder: 'Informe uma descrição',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1039,7 +1039,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 5',
                 placeholder: 'Informe uma descrição',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1049,7 +1049,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Campo Livre 6',
                 placeholder: 'Escolha uma opção',
-                required: true,
+                required: false,
                 attributes: {
                   autocomplete: 'off'
                 },
@@ -1073,7 +1073,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Contratação',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1084,7 +1084,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Trânsito Julgado',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1095,7 +1095,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Encerramento',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1106,7 +1106,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Sentença',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1117,7 +1117,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Distribuição',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1128,7 +1128,7 @@ export class ProcessNewComponent implements OnInit {
                 type: 'date',
                 label: 'Execução',
                 placeholder: 'Informe a data',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1138,7 +1138,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Valor da Causa',
                 placeholder: 'Informe o valor',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1148,7 +1148,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Outro Valor',
                 placeholder: 'Informe o valor',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1158,7 +1158,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Contingência',
                 placeholder: 'Informe o valor',
-                required: true,
+                required: false,
               }
             }
           ]
@@ -1174,7 +1174,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'Pedido',
                 placeholder: 'Descreva um pedido',
-                required: true,
+                required: false,
               }
             },
             {
@@ -1194,7 +1194,7 @@ export class ProcessNewComponent implements OnInit {
               className: 'p-col-12 p-md-3',
               props: {
                 label: 'Segredo Justiça ?',
-                required: true,
+                required: false,
                 options: [
                   { label: 'Sim', value: 'sim' },
                   { label: 'Não', value: 'nao' },
@@ -1207,7 +1207,7 @@ export class ProcessNewComponent implements OnInit {
               className: 'p-col-12 p-md-3',
               props: {
                 label: 'Capturar Andamentos ?',
-                required: true,
+                required: false,
                 options: [
                   { label: 'Sim', value: 'sim' },
                   { label: 'Não', value: 'nao' },
