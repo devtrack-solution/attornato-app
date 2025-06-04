@@ -31,11 +31,23 @@ import { CustomObjectSelectComponent } from './components/types/object-select.ty
 import { DropdownModule } from 'primeng/dropdown';
 import { PickListTypeComponent } from './components/pick-list-type/pick-list-type.component';
 import { PickListModule } from 'primeng/picklist';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { MultSelectType } from './components/types/mult-select.type';
 
 
 
 @NgModule({
-  declarations: [FormlyPrimeInputComponent, FormlyFieldStepper, RepeatTypeComponent, DateMaskTypeComponent, FormStepperComponent, InputCurrencyTypeComponent, CustomObjectSelectComponent, PickListTypeComponent],
+  declarations: [
+    FormlyPrimeInputComponent, 
+    FormlyFieldStepper, 
+    RepeatTypeComponent, 
+    DateMaskTypeComponent, 
+    FormStepperComponent, 
+    InputCurrencyTypeComponent, 
+    CustomObjectSelectComponent, 
+    PickListTypeComponent,
+    MultSelectType
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -61,6 +73,7 @@ import { PickListModule } from 'primeng/picklist';
     InputNumberModule,
     DropdownModule,
     PickListModule,
+    MultiSelectModule,
     InputTextModule, // Importa o módulo do PrimeNG para inputs
     FormlyModule.forRoot({
       types: [
@@ -87,6 +100,7 @@ import { PickListModule } from 'primeng/picklist';
           name: 'custom-object-select',
           component: CustomObjectSelectComponent,
         },
+        { name: 'mult-select', component: MultSelectType },
       ]
     }),
   ],
@@ -109,7 +123,9 @@ import { PickListModule } from 'primeng/picklist';
     FormStepperComponent,
     ButtonModule,
     ToastModule,
-    FormsModule
+    FormsModule,
+    MultiSelectModule,
+    MultSelectType
   ],
   providers: [MessageService]
 })

@@ -22,6 +22,7 @@ const routes: Routes = [
             { path: 'settings', data: { breadcrumb: 'Cadastros' }, loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingModule) },
             { path: 'customer', data: { breadcrumb: 'Clientes' }, loadChildren: () => import('./pages/customer/customer.module').then(m => m.CustomerModule) },
             { path: 'process', data: { breadcrumb: 'Processos' }, loadChildren: () => import('./pages/process/process.module').then(m => m.ProcessModule) },
+            { path: 'accounts', data: { breadcrumb: 'Contas' }, loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule) },
         ]
     },
     { path: 'onboarding', loadChildren: () => import('./pages/onboarding/onboarding.module').then(m => m.OnboardingModule) },

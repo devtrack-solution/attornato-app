@@ -56,6 +56,11 @@ export class AppMenuComponent implements OnInit {
                 icon: 'pi pi-plus',
                 items: [
                     {
+                        label: 'Usuário',
+                        icon: 'pi pi-user',
+                        routerLink: ['/admin/accounts']
+                    },
+                    {
                         label: 'Processos',
                         icon: 'pi pi-folder', // ícone principal de processos
                         items: [
