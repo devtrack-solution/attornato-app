@@ -1,19 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
+import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { firstValueFrom, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
+import { BasicService } from 'src/app/core/services/basic-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerService {
-  private httpClient = inject(HttpClient);
+export class CustomerService extends BasicService {
   private apiUrl = `${environment.apiUrl}clients`;
   private apiUrlPadrao = `${environment.apiUrl}`;
 
-  constructor(private readonly http: HttpClient) { }
+  constructor() {
+    super();
+  }
 
   /**
    * Exemplo de método que faz uma requisição GET com um cabeçalho x-idempotency-key único
@@ -23,91 +23,50 @@ export class CustomerService {
    * @returns Observable com a resposta da API
    */
   getCustomers(limit: number, offset: number, isActive: boolean = true, type: any): Observable<any> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-
     const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
 
-    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers, params });
+    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers: this.headers, params });
   }
 
 
   async saveCustomer(body: any, type: string): Promise<void> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers: this.headers }));
     console.log('resultado', response);
   }
 
 
   async saveIdentifyCustomer(body: any, type: any): Promise<any> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers: this.headers }));
     console.log('resultado', response)
     return response
   }
 
   async ediCustomer(id: any, body: any, type: string): Promise<void> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-        const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, { headers: this.headers }));
     console.log('resultado', response);
   }
 
   async deleteCustomer(id: any, type: string): Promise<void> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${type}/${id}`, { headers }));
+    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${type}/${id}`, { headers: this.headers }));
   }
 
-  private getAuthToken(): string {
-    return localStorage.getItem(AUTH_TOKEN_ONBOARDING) || 'authkey';
+  setCustomer(customer: any, type: string) {
+    sessionStorage.setItem('currenCustomer', JSON.stringify(customer));
+    sessionStorage.setItem('currentTypePeople', type);
   }
 
+  getCustomer() {
+    const data = sessionStorage.getItem('currenCustomer');
+    return data ? JSON.parse(data) : null; // Retorna a máquina ou null se não houver
+  }
 
-    setCustomer(customer: any, type: string) {
-        sessionStorage.setItem('currenCustomer', JSON.stringify(customer));
-        sessionStorage.setItem('currentTypePeople', type);
-    }
+  getTypePeople(): string {
+    const data = sessionStorage.getItem('currentTypePeople');
+    return data ? data : 'fisica';
+  }
 
-    getCustomer() {
-        const data = sessionStorage.getItem('currenCustomer');
-        return data ? JSON.parse(data) : null; // Retorna a máquina ou null se não houver
-    }
-
-    getTypePeople(): string {
-        const data = sessionStorage.getItem('currentTypePeople');
-        return data ? data : 'fisica';
-    }
-
-    clearCustomer() {
-        sessionStorage.removeItem('currenCustomer');
-        sessionStorage.removeItem('currentTypePeople');
-    }
+  clearCustomer() {
+    sessionStorage.removeItem('currenCustomer');
+    sessionStorage.removeItem('currentTypePeople');
+  }
 }

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { HttpStatusCode } from '@angular/common/http';
-import { AUTH_USER_DATA, AUTH_TOKEN, LOGIN_SERVICE, AUTH_COMPANY, LOGIN_PAGE_ROUTE, ONBOARDING_ROUTE, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
-import API from 'src/app/shared/service/client-api.service';
+import { AUTH_TOKEN, LOGIN_PAGE_ROUTE, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
 import { AuthService } from './auth.service';
 
 export interface Account {

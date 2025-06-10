@@ -4,16 +4,18 @@ import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { v4 as uuidv4 } from 'uuid';
 import { environment } from 'src/environments/environment';
 import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
+import { BasicService } from 'src/app/core/services/basic-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LocatorService {
-  private httpClient = inject(HttpClient);
+export class LocatorService extends BasicService {
   private apiUrl = `${environment.apiUrl}process/locators`;
    
 
-  constructor(private readonly http: HttpClient) { }
+  constructor() {
+    super();
+   }
 
   /**
    * Exemplo de método que faz uma requisição GET com um cabeçalho x-idempotency-key único
