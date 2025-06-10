@@ -1,13 +1,11 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { AuthenticationService } from "./authentication.service";
 import { v4 as uuidv4 } from 'uuid';
 import { AUTH_TOKEN_ONBOARDING } from "src/app/app.constant";
 
 
 export abstract class BasicService {
     protected headers: HttpHeaders;
-    protected authenticationService: AuthenticationService = inject(AuthenticationService);
     protected httpClient: HttpClient = inject(HttpClient);
 
     protected constructor() {
