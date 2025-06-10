@@ -1,19 +1,19 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
+import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { firstValueFrom, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
+import { BasicService } from 'src/app/core/services/basic-service.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OriginService {
-  private httpClient = inject(HttpClient);
+export class OriginService extends BasicService {
   private apiUrl = `${environment.apiUrl}process/origins`;
    
 
-  constructor(private readonly http: HttpClient) { }
+  constructor() {
+    super();
+   }
 
   /**
    * Exemplo de método que faz uma requisição GET com um cabeçalho x-idempotency-key único
@@ -23,56 +23,23 @@ export class OriginService {
    * @returns Observable com a resposta da API
    */
   getOrigins(limit: number, offset: number, isActive: boolean = true): Observable<any> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-
     const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
 
-    return this.httpClient.get(this.apiUrl, { headers, params });
+    return this.httpClient.get(this.apiUrl, { headers : this.headers, params });
   }
 
 
   async saveOrigin(body: any): Promise<void> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers : this.headers }));
     console.log('resultado', response);
   }
 
   async ediOrigin(id: any, body: any): Promise<void> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${id}`, body, { headers }));
+    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${id}`, body, { headers : this.headers }));
     console.log('resultado', response);
   }
 
   async deleteOrigin(id: any): Promise<void> {
-    const idempotencyKey = uuidv4();
-
-    const headers: HttpHeaders = new HttpHeaders({
-      Authorization: `Bearer ${this.getAuthToken()}`,
-      'x-idempotency-key': idempotencyKey,
-      'Content-Type': 'application/json'
-    });
-    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${id}`, { headers }));
-  }
-
-  private getAuthToken(): string {
-    return localStorage.getItem(AUTH_TOKEN_ONBOARDING) || 'authkey';
+    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${id}`, { headers : this.headers }));
   }
 }
