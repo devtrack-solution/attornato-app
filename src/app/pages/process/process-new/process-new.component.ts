@@ -183,7 +183,7 @@ export class ProcessNewComponent implements OnInit {
               props: {
                 label: 'N° Processo (CNJ)',
                 placeholder: 'Informe o número do processo (antigo)',
-                required: false,
+                required: true,
               }
             },
             {
@@ -1279,7 +1279,7 @@ export class ProcessNewComponent implements OnInit {
     this.responsibleList = result.responsibleList?.data;
   }
 
-  async onSubmit(model: any) {
+  async onSubmit(model: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
       if (this.tipoPessoa == 'judicial') {
@@ -1289,26 +1289,26 @@ export class ProcessNewComponent implements OnInit {
           const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
           console.log('identifier', responseIndenty)
           this.modelJudicial.processId = "JUD" + responseIndenty.value
-          this.processService.saveProcess(this.modelJudicial, 'judicials')
+          await this.processService.saveProcess(this.modelJudicial, 'judicials')
         } else {
           const requestIndentify = {
             clientCategory: 'ADM'
           }
           const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
           this.modelAdm.processId = "ADM" + responseIndenty.value
-          this.processService.saveProcess(this.modelAdm, 'administrative')
+          await this.processService.saveProcess(this.modelAdm, 'administrative')
         }
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Processo cadastrado com sucesso!' });
       setTimeout(() => {
         this.router.navigate(['/admin/process']);
       }, 1000);
     } catch (error) {
-      console.log('Erro ao salvar grupo de cliente', error);
-      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um grupo de cliente!' });
+      console.log('Erro ao salvar Processo', error);
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Erro ao salvar um Processo!' });
     }
   }
 
-  async voltar() {
-    this.router.navigate(['/admin/process']);
+  async voltar(): Promise<void> {
+    await this.router.navigate(['/admin/process']);
   }
 }

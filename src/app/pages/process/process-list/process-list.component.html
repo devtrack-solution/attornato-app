@@ -45,8 +45,8 @@
                 </ng-template>
                 <ng-template #body let-process pTemplate="body">
                     <tr [ngClass]="rowClass(process)" [ngStyle]="rowStyle(process)">
-                        <td>{{ process?.nProcesso }}</td>
-                        <td>{{ process?.customerName }}</td>
+                        <td>{{ process?.processNumber }}</td>
+                        <td>{{ process?.client?.name }}</td>
                         <td>{{ process?.folder }}</td>
                         <td>{{ process?.adverso }}</td>
                         <td class="text-center" style="width: 200px;">
@@ -86,8 +86,8 @@
                 </ng-template>
                 <ng-template #body let-process pTemplate="body">
                     <tr [ngClass]="rowClass(process)" [ngStyle]="rowStyle(process)">
-                        <td>{{ process?.nProcesso }}</td>
-                        <td>{{ process?.customerName }}</td>
+                        <td>{{ process?.processNumber }}</td>
+                        <td>{{ process?.client?.name }}</td>
                         <td>{{ process?.folder }}</td>
                         <td>{{ process?.adverso }}</td>
                         <td class="text-center" style="width: 200px;">

@@ -48,8 +48,8 @@ export class ProcessService extends BasicService {
     }
   }
 
-  async ediProcess(id: any, body: any): Promise<void> {
-    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${id}`, body, { headers: this.headers }));
+  async ediProcess(id: any, body: any, type: any): Promise<void> {
+    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, { headers: this.headers }));
     console.log('resultado', response);
   }
 
@@ -58,7 +58,7 @@ export class ProcessService extends BasicService {
   }
 
   setProcess(process: any, type: any) {
-    sessionStorage.setItem('currentProcess', process);
+    sessionStorage.setItem('currentProcess', JSON.stringify(process));
     sessionStorage.setItem('currentTypePeople', type);
   }
 

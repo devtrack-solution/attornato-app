@@ -1,18 +1,18 @@
-import {CommonModule} from '@angular/common';
-import {Component, inject, OnInit, ViewChild} from '@angular/core';
-import {FormsModule, FormGroup} from '@angular/forms';
-import {Router} from '@angular/router';
-import {FormlyModule, FormlyFormOptions, FormlyFieldConfig} from '@ngx-formly/core';
-import {ButtonModule} from 'primeng/button';
-import {RadioButtonModule} from 'primeng/radiobutton';
-import {SharedModule} from 'src/app/shared/shared.module';
-import {CustomerService} from '../service/customer.service';
-import {firstValueFrom, forkJoin} from "rxjs";
-import {CustomersGroupService} from "../../settings/customers-group/service/customers-group.service";
-import {RolesService} from "../../settings/roles/service/roles.service";
-import {ContactTypeService} from "../../settings/contact-types/service/contact-types.service";
-import {FreeField2Service} from "../../settings/free-field2/service/free-field2.service";
-import {MessageService} from "primeng/api";
+import { CommonModule } from '@angular/common';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { FormsModule, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormlyModule, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { ButtonModule } from 'primeng/button';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CustomerService } from '../service/customer.service';
+import { firstValueFrom, forkJoin } from "rxjs";
+import { CustomersGroupService } from "../../settings/customers-group/service/customers-group.service";
+import { RolesService } from "../../settings/roles/service/roles.service";
+import { ContactTypeService } from "../../settings/contact-types/service/contact-types.service";
+import { FreeField2Service } from "../../settings/free-field2/service/free-field2.service";
+import { MessageService } from "primeng/api";
 
 @Component({
     selector: 'app-customer-edit',
@@ -24,9 +24,11 @@ import {MessageService} from "primeng/api";
 })
 export class CustomerEditComponent implements OnInit {
 
-    form = new FormGroup({});
+    formFisica = new FormGroup({});
+    formJuridico = new FormGroup({});
     options: FormlyFormOptions = {};
-    model: any = {};
+    modelFisica: any = {};
+    modelJuridica: any = {};
     fieldsFisica: FormlyFieldConfig[] | any;
     fieldsJuridica: FormlyFieldConfig[] | any;
     private router = inject(Router);
@@ -41,6 +43,7 @@ export class CustomerEditComponent implements OnInit {
     profileList: any = []
     customersGroupList: any = []
     freeFieldList: any = []
+    tipoCliente : any
 
     message: string = '';
 
@@ -49,12 +52,17 @@ export class CustomerEditComponent implements OnInit {
 
     async ngOnInit(): Promise<void> {
         await this.loadLists();
-        this.model = this.customerService.getCustomer();
         this.tipoPessoa = this.customerService.getTypePeople();
+        if (this.tipoPessoa == 'fisica') {
+            this.tipoCliente = 'Física'
+            this.modelFisica = this.customerService.getCustomer();
+            this.populatePessoaFisica();
+        } else {
+            this.tipoCliente = 'Jurídica'
+            this.modelJuridica = this.customerService.getCustomer();
+            this.populatePessoaJuridica();
+        }
         this.customerService.clearCustomer();
-        console.log('model', this.model)
-        this.populatePessoaFisica();
-        this.populatePessoaJuridica();
     }
 
     populatePessoaJuridica() {
@@ -74,7 +82,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Grupo de Cliente',
                                     placeholder: 'Escolha o grupo',
-                                    required: false,
+                                    required: true,
                                     options: this.customersGroupList,
                                     labelProp: 'name'
                                 }
@@ -199,7 +207,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Bairro',
                                     placeholder: 'Informe o bairro',
-                                    required: false
+                                    required: true
                                 }
                             },
                             {
@@ -209,7 +217,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Cidade',
                                     placeholder: 'Informe a cidade',
-                                    required: false
+                                    required: true
                                 }
                             },
                             {
@@ -228,8 +236,8 @@ export class CustomerEditComponent implements OnInit {
                                 type: 'repeat',
                                 className: 'p-col-12 p-md-12',
                                 props: {
-                                    label: 'Adicionar Contato',
-                                    required: false
+                                    label: 'Adicionar Contato *',
+                                    required: true
                                 },
                                 fieldArray: {
                                     fieldGroupClassName: 'p-grid',
@@ -256,7 +264,7 @@ export class CustomerEditComponent implements OnInit {
                                             props: {
                                                 label: 'Contato',
                                                 placeholder: 'Informe o contato',
-                                                required: false,
+                                                required: true,
                                                 attributes: {
                                                     autocomplete: 'off'
                                                 }
@@ -272,6 +280,46 @@ export class CustomerEditComponent implements OnInit {
                         key: 'person.contactPerson',
                         fieldGroupClassName: 'p-grid p-fluid',
                         fieldGroup: [
+                            {
+                                key: 'phoneNumber',
+                                type: 'input',
+                                className: 'p-col-12 p-md-2',
+                                props: {
+                                    label: 'Telefone',
+                                    placeholder: 'Informe o telefone',
+                                    required: false,
+                                }
+                            },
+                            {
+                                key: 'mobilePhone',
+                                type: 'input',
+                                className: 'p-col-12 p-md-2',
+                                props: {
+                                    label: 'Celular',
+                                    placeholder: 'Informe o telefone celular',
+                                    required: false,
+                                }
+                            },
+                            {
+                                key: 'fatherName',
+                                type: 'input',
+                                className: 'p-col-12 p-md-4',
+                                props: {
+                                    label: 'Nome do Pai',
+                                    placeholder: 'Informe o nome do pai',
+                                    required: false,
+                                }
+                            },
+                            {
+                                key: 'motherName',
+                                type: 'input',
+                                className: 'p-col-12 p-md-4',
+                                props: {
+                                    label: 'Nome da Mãe',
+                                    placeholder: 'Informe o nome da mãe',
+                                    required: false,
+                                }
+                            },
                             {
                                 key: 'freeFieldOne',
                                 type: 'input',
@@ -348,7 +396,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Nome',
                                     placeholder: 'Informe o nome',
-                                    required: false,
+                                    required: true,
                                 }
                             },
                             {
@@ -409,9 +457,9 @@ export class CustomerEditComponent implements OnInit {
                                         autocomplete: 'off'
                                     },
                                     options: [{ label: 'Solteiro(a)', value: 'Solteiro(a)' },
-                                        { label: 'Casado(a)', value: 'Casado(a)' },
-                                        { label: 'Divorciado(a)', value: 'Divorciado(a)' },
-                                        { label: 'Viúvo(a)', value: 'Viúvo(a)' }
+                                    { label: 'Casado(a)', value: 'Casado(a)' },
+                                    { label: 'Divorciado(a)', value: 'Divorciado(a)' },
+                                    { label: 'Viúvo(a)', value: 'Viúvo(a)' }
                                     ],
                                     labelProp: 'label',
                                     valueProp: 'value'
@@ -492,7 +540,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Bairro',
                                     placeholder: 'Informe o bairro',
-                                    required: false
+                                    required: true
                                 }
                             },
                             {
@@ -502,7 +550,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Cidade',
                                     placeholder: 'Informe a cidade',
-                                    required: false
+                                    required: true
                                 }
                             },
                             {
@@ -521,8 +569,8 @@ export class CustomerEditComponent implements OnInit {
                                 type: 'repeat',
                                 className: 'p-col-12 p-md-12',
                                 props: {
-                                    label: 'Adicionar Contato',
-                                    required: false
+                                    label: 'Adicionar Contato *',
+                                    required: true
                                 },
                                 fieldArray: {
                                     fieldGroupClassName: 'p-grid',
@@ -534,7 +582,7 @@ export class CustomerEditComponent implements OnInit {
                                             props: {
                                                 label: 'Tipo de Contato',
                                                 placeholder: 'Escolha o Tipo de contato',
-                                                required: false,
+                                                required: true,
                                                 attributes: {
                                                     autocomplete: 'off'
                                                 },
@@ -549,7 +597,7 @@ export class CustomerEditComponent implements OnInit {
                                             props: {
                                                 label: 'Contato',
                                                 placeholder: 'Informe o contato',
-                                                required: false,
+                                                required: true,
                                                 attributes: {
                                                     autocomplete: 'off'
                                                 }
@@ -572,7 +620,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Telefone',
                                     placeholder: 'Informe o telefone',
-                                    required: true,
+                                    required: false,
                                 }
                             },
                             {
@@ -582,7 +630,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Celular',
                                     placeholder: 'Informe o telefone celular',
-                                    required: true,
+                                    required: false,
                                 }
                             },
                             {
@@ -592,7 +640,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Nome do Pai',
                                     placeholder: 'Informe o nome do pai',
-                                    required: true,
+                                    required: false,
                                 }
                             },
                             {
@@ -602,7 +650,7 @@ export class CustomerEditComponent implements OnInit {
                                 props: {
                                     label: 'Nome da Mãe',
                                     placeholder: 'Informe o nome da mãe',
-                                    required: true,
+                                    required: false,
                                 }
                             },
                             {
@@ -629,6 +677,17 @@ export class CustomerEditComponent implements OnInit {
                                     },
                                     options: this.freeFieldList,
                                     labelProp: 'name'
+                                }
+                            },
+                            {
+                                key: 'note',
+                                type: 'input',
+                                className: 'p-col-12 p-md-12',
+                                props: {
+                                    label: 'Observação',
+                                    placeholder: 'Informe uma breve descrição',
+                                    required: true,
+                                    min: 0
                                 }
                             }
                         ]
@@ -660,14 +719,16 @@ export class CustomerEditComponent implements OnInit {
     }
 
     async onSubmit() {
-        if (this.form.valid) {
+        if (this.formFisica.valid || this.modelJuridica.valid) {
             this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
             try {
-                const typeEndPoint = this.tipoPessoa === 'juridica' ? 'legal' : 'individual';
-                console.log('json', JSON.stringify(this.model));
-                await this.customerService.ediCustomer(this.model.id, this.model, typeEndPoint)
+                if (this.tipoPessoa == 'juridica') {
+                    await this.customerService.ediCustomer(this.modelJuridica.id, this.modelJuridica, 'legal')
+                } else {
+                    await this.customerService.ediCustomer(this.modelFisica.id, this.modelFisica, 'individual')
+                }
                 setTimeout(async () => {
-                    await this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente cadastrado com sucesso!' });
+                    await this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cliente atualizado com sucesso!' });
                     await this.router.navigate(['/admin/customer']);
                 }, 1000);
             } catch (error) {

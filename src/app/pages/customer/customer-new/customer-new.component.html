@@ -1,8 +1,7 @@
 <div class="p-grid">
   <div class="p-col-12">
     <div class="d-flex justify-content-end">
-      <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round" (click)="voltar()"
-        title="Voltar">
+      <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round" (click)="voltar()" title="Voltar">
         <i class="pi pi-chevron-left"></i>
         Voltar
       </button>
@@ -20,8 +19,17 @@
           class="ml-4"></p-radioButton>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-        <formly-form [form]="form" [fields]="tipoPessoa === 'fisica' ? fieldsFisica : fieldsJuridica" [model]="model" autocomplete="off" class="p-col-12"></formly-form>
+      <form [formGroup]="formFisica" (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="tipoPessoa === 'fisica'">
+        <formly-form [form]="formFisica" [fields]="fieldsFisica" [model]="modelFisica"
+          autocomplete="off" class="p-col-12"></formly-form>
+        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
+          {{ message }}
+        </div>
+      </form>
+
+      <form [formGroup]="formJuridico" (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="tipoPessoa === 'juridica'">
+        <formly-form [form]="formJuridico" [fields]="fieldsJuridica" [model]="modelJuridico"
+          autocomplete="off" class="p-col-12"></formly-form>
         <div class="d-flex flex-wrap gap-2 align-items-center justify-content-center text-danger">
           {{ message }}
         </div>
