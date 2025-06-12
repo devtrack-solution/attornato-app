@@ -222,7 +222,7 @@ export class ProcessNewComponent implements OnInit {
                 valueProp: 'id'
               }
             },
-            
+
             {
               key: 'localProcedureNumber',
               type: 'select',
@@ -1236,68 +1236,68 @@ export class ProcessNewComponent implements OnInit {
   estados = this.siglasUF.map(uf => ({ label: uf, value: uf }));
 
   async loadLists(): Promise<void> {
-    const result = await firstValueFrom(
-      forkJoin({
-        actionObjectList: this.actionObjectService.getObjectActions(100, 0, true),
-        groupProcessList: this.groupProcessService.getProcessGroups(100, 0, true),
-        freeField1List: this.freeField1Service.getFreeField1s(100, 0, true),
-        freeField2List: this.freeField2Service.getFreeField2s(100, 0, true),
-        freeField6List: this.freeField6Service.getFreeField6s(100, 0, true),
-        practiceAreaList: this.practiceAreaService.getPracticeAreas(100, 0, true),
-        localProcedureNameList: this.localProcedureNameService.getLocalProcedures(100, 0, true),
-        proceduralStatusList: this.proceduralStatusService.getProceduralStatuss(100, 0, true),
-        prognosisList: this.prognosisService.getPrognosiss(100, 0, true),
-        countyList: this.countyService.getCountys(100, 0, true),
-        phaseList: this.phaseService.getPhases(100, 0, true),
-        locatorList: this.locatorService.getLocators(100, 0, true),
-        subjectList: this.subjectService.getSubjects(100, 0, true),
-        detailList: this.detailService.getDetails(100, 0, true),
-        partherList: this.partherService.getPartners(100, 0, true),
-        originList: this.originService.getOrigins(100, 0, true),
-        clientList: this.clientService.getCustomers(100, 0, true, 'individual'),
-        responsibleList: this.responsibleService.getResponsibles(100, 0, true),
-      })
-    );
+      const result = await firstValueFrom(
+        forkJoin({
+          actionObjectList: this.actionObjectService.getObjectActions(100, 0, true),
+          groupProcessList: this.groupProcessService.getProcessGroups(100, 0, true),
+          freeField1List: this.freeField1Service.getFreeField1s(100, 0, true),
+          freeField2List: this.freeField2Service.getFreeField2s(100, 0, true),
+          freeField6List: this.freeField6Service.getFreeField6s(100, 0, true),
+          practiceAreaList: this.practiceAreaService.getPracticeAreas(100, 0, true),
+          localProcedureNameList: this.localProcedureNameService.getLocalProcedures(100, 0, true),
+          proceduralStatusList: this.proceduralStatusService.getProceduralStatuss(100, 0, true),
+          prognosisList: this.prognosisService.getPrognosiss(100, 0, true),
+          countyList: this.countyService.getCountys(100, 0, true),
+          phaseList: this.phaseService.getPhases(100, 0, true),
+          locatorList: this.locatorService.getLocators(100, 0, true),
+          subjectList: this.subjectService.getSubjects(100, 0, true),
+          detailList: this.detailService.getDetails(100, 0, true),
+          partherList: this.partherService.getPartners(100, 0, true),
+          originList: this.originService.getOrigins(100, 0, true),
+          clientList: this.clientService.getCustomers(100, 0, true, 'individual'),
+          responsibleList: this.responsibleService.getResponsibles(100, 0, true),
+        })
+      );
 
-    this.actionObjectList = result.actionObjectList?.data;
-    this.groupProcessList = result.groupProcessList?.data;
-    this.freeField1List = result.freeField1List?.data;
-    this.freeField2List = result.freeField2List?.data;
-    this.freeField6List = result.freeField6List?.data;
-    this.practiceAreaList = result.practiceAreaList?.data;
-    this.localProcedureNameList = result.localProcedureNameList?.data;
-    this.proceduralStatusList = result.proceduralStatusList?.data;
-    this.prognosisList = result.prognosisList?.data;
-    this.countyList = result.countyList?.data;
-    this.phaseList = result.phaseList?.data;
-    this.locatorList = result.locatorList?.data;
-    this.subjectList = result.subjectList?.data;
-    this.detailList = result.detailList?.data;
-    this.partherList = result.partherList?.data;
-    this.originList = result.originList?.data;
-    this.clientList = result.clientList?.data;
-    this.responsibleList = result.responsibleList?.data;
+      this.actionObjectList = result.actionObjectList?.data;
+      this.groupProcessList = result.groupProcessList?.data;
+      this.freeField1List = result.freeField1List?.data;
+      this.freeField2List = result.freeField2List?.data;
+      this.freeField6List = result.freeField6List?.data;
+      this.practiceAreaList = result.practiceAreaList?.data;
+      this.localProcedureNameList = result.localProcedureNameList?.data;
+      this.proceduralStatusList = result.proceduralStatusList?.data;
+      this.prognosisList = result.prognosisList?.data;
+      this.countyList = result.countyList?.data;
+      this.phaseList = result.phaseList?.data;
+      this.locatorList = result.locatorList?.data;
+      this.subjectList = result.subjectList?.data;
+      this.detailList = result.detailList?.data;
+      this.partherList = result.partherList?.data;
+      this.originList = result.originList?.data;
+      this.clientList = result.clientList?.data;
+      this.responsibleList = result.responsibleList?.data;
   }
 
   async onSubmit(model: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
       if (this.tipoPessoa == 'judicial') {
-          const requestIndentify = {
-            clientCategory: 'JUD'
-          }
-          const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
-          console.log('identifier', responseIndenty)
-          this.modelJudicial.processId = "JUD" + responseIndenty.value
-          await this.processService.saveProcess(this.modelJudicial, 'judicials')
-        } else {
-          const requestIndentify = {
-            clientCategory: 'ADM'
-          }
-          const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
-          this.modelAdm.processId = "ADM" + responseIndenty.value
-          await this.processService.saveProcess(this.modelAdm, 'administrative')
+        const requestIndentify = {
+          clientCategory: 'JUD'
         }
+        const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
+        console.log('identifier', responseIndenty)
+        this.modelJudicial.processId = "JUD" + responseIndenty.value
+        await this.processService.saveProcess(this.modelJudicial, 'judicials')
+      } else {
+        const requestIndentify = {
+          clientCategory: 'ADM'
+        }
+        const responseIndenty: any = await this.processService.saveIdentifyCustomer(requestIndentify, 'identifier')
+        this.modelAdm.processId = "ADM" + responseIndenty.value
+        await this.processService.saveProcess(this.modelAdm, 'administrative')
+      }
       this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Processo cadastrado com sucesso!' });
       setTimeout(() => {
         this.router.navigate(['/admin/process']);

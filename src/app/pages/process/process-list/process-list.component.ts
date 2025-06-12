@@ -95,17 +95,17 @@ export class ProcessListComponent implements OnInit {
       text: 'Ao remover esse Processo, todo o acesso associado a ele serão removidos!',
       icon: AlertIcon.WARNING,
       confirmText: 'O Processo foi removido com sucesso!',
-      cancellText: 'Os dados da Processo não foram modificados!'
+      cancellText: 'Os dados da Processo não foram excluidos!'
     }).then(async (willDelete) => {
       if (willDelete.dismiss) {
-        Swal.fire('', 'Os dados do Processo não foram modificados!', 'error');
+        Swal.fire('', 'Os dados do Processo não foram excluidos!', 'error');
       } else {
         try {
           await this.processService.deleteProcess(id)
           await Swal.fire('', 'O Processo foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {
-          Swal.fire('', 'Os dados do Processo não foram modificados!', 'error');
+          Swal.fire('', 'Os dados do Processo não foram excluidos!', 'error');
           console.error(e);
         }
       }

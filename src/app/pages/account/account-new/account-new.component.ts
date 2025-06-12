@@ -90,7 +90,7 @@ export class AccountNewComponent implements OnInit {
               attributes: {
                 autocomplete: 'off'
               },
-              options: [{ name : 'Masculino'}, { name: 'Feminino'}],
+              options: [{ name: 'Masculino' }, { name: 'Feminino' }],
               labelProp: 'name',
               valueProp: 'name'
             }
@@ -158,12 +158,16 @@ export class AccountNewComponent implements OnInit {
   }
 
   async loadLists(): Promise<void> {
-    const result = await firstValueFrom(
-      forkJoin({
-        roles: this.rolesService.getRoles(100, 0, true),
-      })
-    );
+    try {
+      const result = await firstValueFrom(
+        forkJoin({
+          roles: this.rolesService.getRoles(100, 0, true),
+        })
+      );
 
-    this.rolesList = result?.roles?.data;
+      this.rolesList = result?.roles?.data;
+    } catch (error) {
+      console.log(error)
+    }
   }
 }

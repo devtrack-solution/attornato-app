@@ -43,7 +43,7 @@ export class CustomerEditComponent implements OnInit {
     profileList: any = []
     customersGroupList: any = []
     freeFieldList: any = []
-    tipoCliente : any
+    tipoCliente: any
 
     message: string = '';
 
@@ -698,20 +698,23 @@ export class CustomerEditComponent implements OnInit {
     }
 
     async loadLists(): Promise<void> {
-        const result = await firstValueFrom(
-            forkJoin({
-                contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
-                customersGroups: this.groupCustomerService.getCustomersGroups(100, 0, true),
-                roles: this.profileService.geRoles(100, 0, true),
-                freeFields: this.freeFieldService.getClientFreeField2s(100, 0, true),
-            })
-        );
+        try {
+            const result = await firstValueFrom(
+                forkJoin({
+                    contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
+                    customersGroups: this.groupCustomerService.getCustomersGroups(100, 0, true),
+                    roles: this.profileService.geRoles(100, 0, true),
+                    freeFields: this.freeFieldService.getClientFreeField2s(100, 0, true),
+                })
+            );
 
-        this.communationChannelList = result.contactTypes?.data;
-        this.customersGroupList = result.customersGroups?.data;
-        this.profileList = result.roles?.data;
-        this.freeFieldList = result.freeFields?.data;
-
+            this.communationChannelList = result.contactTypes?.data;
+            this.customersGroupList = result.customersGroups?.data;
+            this.profileList = result.roles?.data;
+            this.freeFieldList = result.freeFields?.data;
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async voltar() {

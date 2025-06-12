@@ -217,13 +217,18 @@ export class CustomerNewComponent implements OnInit {
               },
               {
                 key: 'state',
-                type: 'input',
+                type: 'select',
                 className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Estado',
-                  placeholder: 'Informe o estado',
-                  required: true,
-                  min: 0
+                  placeholder: 'Escolha o estado',
+                  required: false,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: this.estados,
+                  labelProp: 'label',
+                  valueProp: 'value'
                 }
               },
               {
@@ -554,13 +559,18 @@ export class CustomerNewComponent implements OnInit {
               },
               {
                 key: 'state',
-                type: 'input',
+                type: 'select',
                 className: 'p-col-12 p-md-3',
                 props: {
                   label: 'Estado',
-                  placeholder: 'Informe o estado',
-                  required: true,
-                  min: 0
+                  placeholder: 'Escolha o estado',
+                  required: false,
+                  attributes: {
+                    autocomplete: 'off'
+                  },
+                  options: this.estados,
+                  labelProp: 'label',
+                  valueProp: 'value'
                 }
               },
               {
@@ -732,25 +742,34 @@ export class CustomerNewComponent implements OnInit {
 
   }
 
+  siglasUF = [
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+    'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+    'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+  ];
+
+  estados = this.siglasUF.map(uf => ({ label: uf, value: uf }));
+
+
+
   async voltar(): Promise<void> {
     this.router.navigate(['/admin/customer']);
   }
 
   async loadLists(): Promise<void> {
-    const result = await firstValueFrom(
-      forkJoin({
-        contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
-        customersGroups: this.groupCustomerService.getCustomersGroups(100, 0, true),
-        roles: this.profileService.geRoles(100, 0, true),
-        freeFields: this.freeFieldService.getClientFreeField2s(100, 0, true),
-      })
-    );
+      const result = await firstValueFrom(
+        forkJoin({
+          contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
+          customersGroups: this.groupCustomerService.getCustomersGroups(100, 0, true),
+          roles: this.profileService.geRoles(100, 0, true),
+          freeFields: this.freeFieldService.getClientFreeField2s(100, 0, true),
+        })
+      );
 
-    this.communationChannelList = result.contactTypes?.data;
-    this.customersGroupList = result.customersGroups?.data;
-    console.log("customers group", this.customersGroupList)
-    this.profileList = result.roles?.data;
-    this.freeFieldList = result.freeFields?.data;
+      this.communationChannelList = result.contactTypes?.data;
+      this.customersGroupList = result.customersGroups?.data;
+      this.profileList = result.roles?.data;
+      this.freeFieldList = result.freeFields?.data;
 
   }
 }

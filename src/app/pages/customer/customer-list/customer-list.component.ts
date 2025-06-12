@@ -97,17 +97,17 @@ export class CustomerListComponent implements OnInit {
       text: 'Ao remover esse Cliente, todo o acesso associado a ele serão removidos!',
       icon: AlertIcon.WARNING,
       confirmText: 'O Cliente foi removido com sucesso!',
-      cancellText: 'Os dados da Cliente não foram modificados!'
+      cancellText: 'Os dados do cliente não foram excluídos.'
     }).then(async (willDelete) => {
       if (willDelete.dismiss) {
-        Swal.fire('', 'Os dados do Cliente não foram modificados!', 'error');
+        Swal.fire('', 'Os dados do cliente não foram excluídos.', 'error');
       } else {
         try {
           await this.customerService.deleteCustomer(id, type)
           await Swal.fire('', 'O Cliente foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {
-          Swal.fire('', 'Os dados do Cliente não foram modificados!', 'error');
+          Swal.fire('', 'Os dados do cliente não foram excluídos.', 'error');
           console.error(e);
         }
       }
