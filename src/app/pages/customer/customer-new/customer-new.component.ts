@@ -757,6 +757,7 @@ export class CustomerNewComponent implements OnInit {
   }
 
   async loadLists(): Promise<void> {
+    try {
       const result = await firstValueFrom(
         forkJoin({
           contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
@@ -766,10 +767,13 @@ export class CustomerNewComponent implements OnInit {
         })
       );
 
-      this.communationChannelList = result.contactTypes?.data;
-      this.customersGroupList = result.customersGroups?.data;
-      this.profileList = result.roles?.data;
-      this.freeFieldList = result.freeFields?.data;
+      this.communationChannelList = result.contactTypes?.data ?? [];
+      this.customersGroupList = result.customersGroups?.data ?? [];
+      this.profileList = result.roles?.data ?? [];
+      this.freeFieldList = result.freeFields?.data ?? [];
+    } catch (error) {
+      console.error('Erro ao carregar as listas selects', error);
+    }
 
   }
 }

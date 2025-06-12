@@ -1236,47 +1236,76 @@ export class ProcessNewComponent implements OnInit {
   estados = this.siglasUF.map(uf => ({ label: uf, value: uf }));
 
   async loadLists(): Promise<void> {
-      const result = await firstValueFrom(
+    try {
+      const resultLote1 = await firstValueFrom(
         forkJoin({
           actionObjectList: this.actionObjectService.getObjectActions(100, 0, true),
           groupProcessList: this.groupProcessService.getProcessGroups(100, 0, true),
           freeField1List: this.freeField1Service.getFreeField1s(100, 0, true),
           freeField2List: this.freeField2Service.getFreeField2s(100, 0, true),
+        })
+      );
+
+
+      const resultLote2 = await firstValueFrom(
+        forkJoin({
           freeField6List: this.freeField6Service.getFreeField6s(100, 0, true),
           practiceAreaList: this.practiceAreaService.getPracticeAreas(100, 0, true),
           localProcedureNameList: this.localProcedureNameService.getLocalProcedures(100, 0, true),
           proceduralStatusList: this.proceduralStatusService.getProceduralStatuss(100, 0, true),
+        })
+      );
+
+
+      const resultLote3 = await firstValueFrom(
+        forkJoin({
           prognosisList: this.prognosisService.getPrognosiss(100, 0, true),
           countyList: this.countyService.getCountys(100, 0, true),
           phaseList: this.phaseService.getPhases(100, 0, true),
           locatorList: this.locatorService.getLocators(100, 0, true),
+        })
+      ); 
+
+
+      const resultLote4 = await firstValueFrom(
+        forkJoin({
           subjectList: this.subjectService.getSubjects(100, 0, true),
           detailList: this.detailService.getDetails(100, 0, true),
           partherList: this.partherService.getPartners(100, 0, true),
           originList: this.originService.getOrigins(100, 0, true),
+        })
+      );
+
+
+      const resultLote5 = await firstValueFrom(
+        forkJoin({
           clientList: this.clientService.getCustomers(100, 0, true, 'individual'),
           responsibleList: this.responsibleService.getResponsibles(100, 0, true),
         })
       );
 
-      this.actionObjectList = result.actionObjectList?.data;
-      this.groupProcessList = result.groupProcessList?.data;
-      this.freeField1List = result.freeField1List?.data;
-      this.freeField2List = result.freeField2List?.data;
-      this.freeField6List = result.freeField6List?.data;
-      this.practiceAreaList = result.practiceAreaList?.data;
-      this.localProcedureNameList = result.localProcedureNameList?.data;
-      this.proceduralStatusList = result.proceduralStatusList?.data;
-      this.prognosisList = result.prognosisList?.data;
-      this.countyList = result.countyList?.data;
-      this.phaseList = result.phaseList?.data;
-      this.locatorList = result.locatorList?.data;
-      this.subjectList = result.subjectList?.data;
-      this.detailList = result.detailList?.data;
-      this.partherList = result.partherList?.data;
-      this.originList = result.originList?.data;
-      this.clientList = result.clientList?.data;
-      this.responsibleList = result.responsibleList?.data;
+      this.actionObjectList = resultLote1.actionObjectList?.data ?? [];
+      this.groupProcessList = resultLote1.groupProcessList?.data ?? [];
+      this.freeField1List = resultLote1.freeField1List?.data ?? [];
+      this.freeField2List = resultLote1.freeField2List?.data ?? [];
+      this.freeField6List = resultLote2.freeField6List?.data ?? [];
+      this.practiceAreaList = resultLote2.practiceAreaList?.data ?? [];
+      this.localProcedureNameList = resultLote2.localProcedureNameList?.data ?? [];
+      this.proceduralStatusList = resultLote2.proceduralStatusList?.data ?? [];
+      this.prognosisList = resultLote3.prognosisList?.data ?? [];
+      this.countyList = resultLote3.countyList?.data ?? [];
+      this.phaseList = resultLote3.phaseList?.data ?? [];
+      this.locatorList = resultLote3.locatorList?.data ?? [];
+      this.subjectList = resultLote4.subjectList?.data ?? [];
+      this.detailList = resultLote4.detailList?.data ?? [];
+      this.partherList = resultLote4.partherList?.data ?? [];
+      this.originList = resultLote4.originList?.data ?? [];
+      this.clientList = resultLote5.clientList?.data ?? [];
+      this.responsibleList = resultLote5.responsibleList?.data ?? [];
+    } catch (error) {
+      console.error('Erro ao carregar as listas selects', error);
+    }
+
   }
 
   async onSubmit(model: any): Promise<void> {
