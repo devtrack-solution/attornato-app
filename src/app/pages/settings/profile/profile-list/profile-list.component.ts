@@ -1,40 +1,39 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
-import { RolesService } from '../service/roles.service';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
 import { RolesNamespace } from 'src/app/shared/components/types/roles.type';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
 import { TableModule } from 'primeng/table';
 import Swal from 'sweetalert2';
-import { RolesEditComponent } from '../roles-edit/roles-edit.component';
-import { RolesNewComponent } from '../roles-new/roles-new.component';
+import { ProfileService } from '../service/profile.service';
+import { ProfileEditComponent } from '../profile-edit/profile-edit.component';
+import { ProfileNewComponent } from '../profile-new/profile-new.component';
 
 @Component({
-  selector: 'app-roles-list',
+  selector: 'app-profile-list',
   standalone: true,
-  imports: [CommonModule, SharedModule, TableModule, RolesEditComponent, RolesNewComponent,
-      PaginatorModule, ButtonModule, DialogModule],
-  templateUrl: './roles-list.component.html',
-  styleUrl: './roles-list.component.scss'
+  imports: [CommonModule, SharedModule, TableModule, ProfileEditComponent, ProfileNewComponent,
+    PaginatorModule, ButtonModule, DialogModule],
+  templateUrl: './profile-list.component.html',
+  styleUrl: './profile-list.component.scss'
 })
-export class RolesListComponent implements OnInit {
+export class ProfileListComponent implements OnInit {
 
   display: boolean = false
-  rolesList: RolesNamespace.RolesList | any
+  profileList: RolesNamespace.RolesList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
-  constructor(private readonly sweetAlertService: SweetAlertService, private rolesService: RolesService) { }
+  constructor(private readonly sweetAlertService: SweetAlertService, private profileService: ProfileService) { }
 
   ngOnInit() {
-    this.rolesService.geRoles(100, 0, true).subscribe((rolesList: RolesNamespace.RolesList) => {
-      this.rolesList = rolesList;
+    this.profileService.getProfiles(100, 0, true).subscribe((profileList: RolesNamespace.RolesList) => {
+      this.profileList = profileList;
     });
   }
 
@@ -93,7 +92,7 @@ export class RolesListComponent implements OnInit {
         Swal.fire('', 'Os dados do Perfil não foram modificados!', 'error');
       } else {
         try {
-          await this.rolesService.deleteRole(id)
+          await this.profileService.deleteProfile(id)
           await Swal.fire('', 'O Perfil foi removida com sucesso!', 'success');
           location.reload();
         } catch (e) {
@@ -102,5 +101,18 @@ export class RolesListComponent implements OnInit {
         }
       }
     });
+  }
+
+
+  async filter(name: any): Promise<void> {
+    this.profileService.getSearchProfiles(100, 0, true, name).subscribe((profileList: any) => {
+      this.profileList = profileList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

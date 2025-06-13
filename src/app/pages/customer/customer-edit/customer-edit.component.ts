@@ -9,10 +9,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomerService } from '../service/customer.service';
 import { firstValueFrom, forkJoin } from "rxjs";
 import { CustomersGroupService } from "../../settings/customers-group/service/customers-group.service";
-import { RolesService } from "../../settings/roles/service/roles.service";
 import { ContactTypeService } from "../../settings/contact-types/service/contact-types.service";
 import { FreeField2Service } from "../../settings/free-field2/service/free-field2.service";
 import { MessageService } from "primeng/api";
+import { ProfileService } from '../../settings/profile/service/profile.service';
 
 @Component({
     selector: 'app-customer-edit',
@@ -36,7 +36,7 @@ export class CustomerEditComponent implements OnInit {
     customerService = inject(CustomerService)
     tipoPessoa: string = 'juridica';
     groupCustomerService = inject(CustomersGroupService)
-    profileService = inject(RolesService)
+    profileService = inject(ProfileService)
     communicationChannelService = inject(ContactTypeService)
     freeFieldService = inject(FreeField2Service)
     communationChannelList: any = []
@@ -703,7 +703,7 @@ export class CustomerEditComponent implements OnInit {
                 forkJoin({
                     contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
                     customersGroups: this.groupCustomerService.getCustomersGroups(100, 0, true),
-                    roles: this.profileService.geRoles(100, 0, true),
+                    roles: this.profileService.getProfiles(100, 0, true),
                     freeFields: this.freeFieldService.getClientFreeField2s(100, 0, true),
                 })
             );

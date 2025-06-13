@@ -3,7 +3,6 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { MessageService } from 'primeng/api';
-import { RolesService } from '../../roles/service/roles.service';
 import { PermissionService } from '../../permissions/service/permission.service';
 import { firstValueFrom, forkJoin } from 'rxjs';
 import { RoleService } from '../service/role.service';

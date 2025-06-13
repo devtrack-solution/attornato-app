@@ -1,18 +1,17 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormsModule, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgbModule, NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
+import { ModalDismissReasons, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
-import { FormlyModule, FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig, FormlyFormOptions, FormlyModule } from '@ngx-formly/core';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { RolesService } from '../service/roles.service';
+import { ProfileService } from '../service/profile.service';
 
 @Component({
-  selector: 'app-roles-new',
+  selector: 'app-profile-edit',
   standalone: true,
   imports: [
     CommonModule,
@@ -24,12 +23,12 @@ import { RolesService } from '../service/roles.service';
     ButtonModule,
     FormlyModule
   ],
-  templateUrl: './roles-new.component.html',
-  styleUrl: './roles-new.component.scss'
+  templateUrl: './profile-edit.component.html',
+  styleUrl: './profile-edit.component.scss'
 })
-export class RolesNewComponent implements OnInit {
+export class ProfileEditComponent implements OnInit {
 
-  form = new FormGroup({})
+  form: FormGroup;
   options: FormlyFormOptions = {}
   model: any = {}
   fields: FormlyFieldConfig[] | any
@@ -45,13 +44,18 @@ export class RolesNewComponent implements OnInit {
   roles: any;
   display: boolean = false
   @ViewChild('modalContent', { static: false }) modalContent!: TemplateRef<any>;
-  rolesService = inject(RolesService)
+  profileService = inject(ProfileService)
 
   constructor(
     protected modalService: NgbModal,
-    private readonly router: Router,
-    private messageService: MessageService
-  ) { }
+    private messageService: MessageService,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      name: [''] // Inicialmente vazio
+    });
+  }
+
   async ngOnInit() {
     this.fields = [
       {
@@ -77,8 +81,9 @@ export class RolesNewComponent implements OnInit {
 
   }
 
-  async openLg(): Promise<void> {
-    //await this.openModalService()
+  async openLg(role: any): Promise<void> {
+    this.model = role
+    this.form.patchValue({ name: role.name }); // Preenche o formulário com os dados do processo
     this.display = true
   }
 
@@ -135,8 +140,8 @@ export class RolesNewComponent implements OnInit {
   async onSubmit(name: any): Promise<void> {
     this.messageService.add({ severity: 'info', summary: 'Informação', detail: 'Dados sendo processados!' });
     try {
-      await this.rolesService.saveRole({ name: name });
-      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Perfil cadastrado com sucesso!' });
+      await this.profileService.ediProfile(this.model.id, { name: name });
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Perfil atualizado com sucesso!' });
       setTimeout(() => {
         this.display = false
         location.reload();

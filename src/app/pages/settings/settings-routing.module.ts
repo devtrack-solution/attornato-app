@@ -16,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'profile', data: { breadcrumb: 'Perfil' },
-    loadChildren: () => import('./roles/roles.module').then((module) => module.RolesModule),
+    loadChildren: () => import('./profile/profile.module').then((module) => module.ProfileModule),
   },
   {
     path: 'contact-types', data: { breadcrumb: 'Tipos de Contato' },

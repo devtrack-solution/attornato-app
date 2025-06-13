@@ -8,11 +8,11 @@ import { ButtonModule } from 'primeng/button';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CustomersGroupService } from '../../settings/customers-group/service/customers-group.service';
-import { RolesService } from '../../settings/roles/service/roles.service';
 import { ContactTypeService } from '../../settings/contact-types/service/contact-types.service';
 import { FreeField2Service } from '../../settings/free-field2/service/free-field2.service';
 import { firstValueFrom, forkJoin } from 'rxjs';
 import { CustomerService } from '../service/customer.service';
+import { ProfileService } from '../../settings/profile/service/profile.service';
 
 @Component({
   selector: 'app-customer-new',
@@ -37,7 +37,7 @@ export class CustomerNewComponent implements OnInit {
   @ViewChild('showConfirm') showConfirm: any;
   customerService = inject(CustomerService)
   groupCustomerService = inject(CustomersGroupService)
-  profileService = inject(RolesService)
+  profileService = inject(ProfileService)
   communicationChannelService = inject(ContactTypeService)
   freeFieldService = inject(FreeField2Service)
   tipoPessoa: 'fisica' | 'juridica' = 'fisica';
@@ -762,7 +762,7 @@ export class CustomerNewComponent implements OnInit {
         forkJoin({
           contactTypes: this.communicationChannelService.getContactTypes(100, 0, true),
           customersGroups: this.groupCustomerService.getCustomersGroups(100, 0, true),
-          roles: this.profileService.geRoles(100, 0, true),
+          roles: this.profileService.getProfiles(100, 0, true),
           freeFields: this.freeFieldService.getClientFreeField2s(100, 0, true),
         })
       );
