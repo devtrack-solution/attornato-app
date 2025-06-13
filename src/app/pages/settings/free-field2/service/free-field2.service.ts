@@ -9,7 +9,6 @@ import { BasicService } from 'src/app/core/services/basic-service.service';
 })
 export class FreeField2Service extends BasicService {
   private apiUrl = `${environment.apiUrl}clients/person/contact-person/free-fields`;
-  private apiUrlpadrao = `${environment.apiUrl}`;
 
   constructor() {
     super();
@@ -28,22 +27,10 @@ export class FreeField2Service extends BasicService {
     return this.httpClient.get(this.apiUrl, { headers : this.headers, params });
   }
 
-  getProcessFreeField2s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
+  getSearchClientFreeField2s(limit: number, offset: number, isActive: boolean = true, search: any): Observable<any> {
+    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString()).set('search', search);
 
-    return this.httpClient.get(this.apiUrlpadrao + 'process/process-detail/free-field-2', { headers : this.headers, params });
-  }
-
-  getProcessFreeField1s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
-
-    return this.httpClient.get(this.apiUrlpadrao + 'process/process-detail/free-field-1', { headers : this.headers, params });
-  }
-
-  getProcessFreeField6s(limit: number, offset: number, isActive: boolean = true): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
-
-    return this.httpClient.get(this.apiUrlpadrao + 'process/process-detail/free-field-6', { headers : this.headers, params });
+    return this.httpClient.get(this.apiUrl, { headers : this.headers, params });
   }
 
 

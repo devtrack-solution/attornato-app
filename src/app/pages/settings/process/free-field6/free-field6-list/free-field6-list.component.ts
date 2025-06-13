@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FreeField6Service } from '../service/free-field6.service';
 import { Router } from '@angular/router';
 import { SweetAlertService, AlertIcon } from 'src/app/shared/service/sweet-alert.service';
@@ -16,7 +16,7 @@ import { TableModule } from 'primeng/table';
   selector: 'app-free-field6-list',
   standalone: true,
   imports: [CommonModule, SharedModule, TableModule, FreeField6NewComponent, FreeField6EditComponent,
-      PaginatorModule, ButtonModule, DialogModule],
+    PaginatorModule, ButtonModule, DialogModule],
   templateUrl: './free-field6-list.component.html',
   styleUrl: './free-field6-list.component.scss'
 })
@@ -26,7 +26,7 @@ export class FreeField6ListComponent implements OnInit {
   freeField6List: any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private freeField6Service: FreeField6Service) { }
@@ -97,5 +97,17 @@ export class FreeField6ListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.freeField6Service.getSearchFreeField6s(100, 0, true, name).subscribe((freeField6List: any) => {
+      this.freeField6List = freeField6List;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

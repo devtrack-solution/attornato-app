@@ -28,6 +28,12 @@ export class RoleService extends BasicService {
         return this.httpClient.get(this.apiUrl, { headers: this.headers, params });
     }
 
+    getSearchRoles(limit: number, offset: number, isActive: boolean = true, search: any): Observable<any> {
+        const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString()).set('search', search);
+
+        return this.httpClient.get(this.apiUrl, { headers: this.headers, params });
+    }
+
 
     async saveRole(body: any): Promise<void> {
         const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers: this.headers }));

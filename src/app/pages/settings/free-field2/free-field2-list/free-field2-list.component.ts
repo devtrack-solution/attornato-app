@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FreeField2Namespace } from 'src/app/shared/components/types/free-field2.type';
 import { SweetAlertService, AlertIcon } from 'src/app/shared/service/sweet-alert.service';
@@ -17,7 +17,7 @@ import { FreeField2Service } from '../service/free-field2.service';
   selector: 'app-free-field2-list',
   standalone: true,
   imports: [CommonModule, SharedModule, TableModule, FreeField2EditComponent, FreeField2NewComponent,
-        PaginatorModule, ButtonModule, DialogModule],
+    PaginatorModule, ButtonModule, DialogModule],
   templateUrl: './free-field2-list.component.html',
   styleUrl: './free-field2-list.component.scss'
 })
@@ -27,13 +27,13 @@ export class FreeField2ListComponent implements OnInit {
   freeField2List: FreeField2Namespace.FreeField2List | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private freeField2Service: FreeField2Service) { }
 
   ngOnInit() {
-    this.freeField2Service.getClientFreeField2s (100, 0, true).subscribe((freeField2List: FreeField2Namespace.FreeField2List) => {
+    this.freeField2Service.getClientFreeField2s(100, 0, true).subscribe((freeField2List: FreeField2Namespace.FreeField2List) => {
       this.freeField2List = freeField2List;
     });
   }
@@ -98,5 +98,17 @@ export class FreeField2ListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.freeField2Service.getSearchClientFreeField2s(100, 0, true, name).subscribe((freeField2List: any) => {
+      this.freeField2List = freeField2List;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

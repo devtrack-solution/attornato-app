@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FreeField1NewComponent } from '../free-field1-new/free-field1-new.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,7 @@ export class FreeField1ListComponent implements OnInit {
   freeField1List: any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private freeField1Service: FreeField1Service) { }
@@ -97,5 +97,17 @@ export class FreeField1ListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.freeField1Service.getSearchFreeField1s(100, 0, true, name).subscribe((freeField1List: any) => {
+      this.freeField1List = freeField1List;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

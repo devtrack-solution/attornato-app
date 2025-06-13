@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
@@ -27,8 +27,7 @@ export class PracticeAreaListComponent implements OnInit {
   practiceAreaList: PracticeAreaNamespace.PracticeAreaList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
-
+  @ViewChild('name') nameInput!: ElementRef;
 
   constructor(private readonly sweetAlertService: SweetAlertService, private practiceAreaService: PracticeAreaService) { }
 
@@ -102,5 +101,17 @@ export class PracticeAreaListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.practiceAreaService.getSearchPracticeAreas(100, 0, true, name).subscribe((practiceAreaList: any) => {
+      this.practiceAreaList = practiceAreaList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

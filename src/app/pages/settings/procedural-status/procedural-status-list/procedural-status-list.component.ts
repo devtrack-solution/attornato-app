@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ProceduralStatusNamespace } from 'src/app/shared/components/types/procedural-status.type';
 import { ProceduralStatusService } from '../service/procedural-status.service';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
@@ -27,7 +27,7 @@ export class ProceduralStatusListComponent implements OnInit {
   proceduralStatusList: ProceduralStatusNamespace.ProceduralStatusList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private proceduralStatusService: ProceduralStatusService) { }
@@ -102,5 +102,17 @@ export class ProceduralStatusListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.proceduralStatusService.getSearchProceduralStatuss(100, 0, true, name).subscribe((proceduralStatusList: any) => {
+      this.proceduralStatusList = proceduralStatusList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

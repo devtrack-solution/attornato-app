@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { FreeField2Service } from '../service/free-field2.service';
 import { Router } from '@angular/router';
 import { SweetAlertService, AlertIcon } from 'src/app/shared/service/sweet-alert.service';
@@ -26,7 +26,7 @@ export class FreeField2ListComponent implements OnInit {
   freeField2List: any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private freeField2Service: FreeField2Service) { }
@@ -97,5 +97,17 @@ export class FreeField2ListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.freeField2Service.getSearchFreeField2s(100, 0, true, name).subscribe((freeField2List: any) => {
+      this.freeField2List = freeField2List;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

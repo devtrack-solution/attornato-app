@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LocatorEditComponent } from '../locator-edit/locator-edit.component';
 import { LocatorNewComponent } from '../locator-new/locator-new.component';
@@ -26,6 +26,7 @@ export class LocatorListComponent implements OnInit {
   locatorList: LocatorNamespace.LocatorList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private locatorService: LocatorService) { }
@@ -100,5 +101,17 @@ export class LocatorListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.locatorService.getSearchLocators(100, 0, true, name).subscribe((locatorList: any) => {
+      this.locatorList = locatorList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

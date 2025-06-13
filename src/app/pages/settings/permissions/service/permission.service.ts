@@ -1,9 +1,7 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
 import { firstValueFrom, Observable } from 'rxjs';
-import { v4 as uuidv4 } from 'uuid';
 import { environment } from 'src/environments/environment';
-import { AUTH_TOKEN, AUTH_TOKEN_ONBOARDING } from 'src/app/app.constant';
 import { BasicService } from 'src/app/core/services/basic-service.service';
 
 @Injectable({
@@ -30,6 +28,11 @@ export class PermissionService extends BasicService {
     return this.httpClient.get(this.apiUrl + '/to/selects', { headers : this.headers, params });
   }
 
+  getSearchPermissions(limit: number, offset: number, isActive: boolean = true, search: any): Observable<any> {
+    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString()).set('search', search);
+
+    return this.httpClient.get(this.apiUrl + '/to/selects', { headers : this.headers, params });
+  }
 
   async savePermission(body: any): Promise<void> {
     const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers : this.headers }));

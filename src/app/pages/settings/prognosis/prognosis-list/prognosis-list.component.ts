@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
@@ -8,7 +8,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PrognosisEditComponent } from '../prognosis-edit/prognosis-edit.component';
 import { PrognosisNewComponent } from '../prognosis-new/prognosis-new.component';
 import { PrognosisNamespace } from 'src/app/shared/components/types/prognosis.types';
-import { Router } from '@angular/router';
 import { SweetAlertService, AlertIcon } from 'src/app/shared/service/sweet-alert.service';
 import Swal from 'sweetalert2';
 import { PrognosisService } from '../service/prognosis.service';
@@ -27,7 +26,7 @@ export class PrognosisListComponent implements OnInit {
   prognosisList: PrognosisNamespace.PrognosisList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private prognosisService: PrognosisService) { }
@@ -102,5 +101,17 @@ export class PrognosisListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.prognosisService.getSearchPrognosiss(100, 0, true, name).subscribe((prognosisList: any) => {
+      this.prognosisList = prognosisList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

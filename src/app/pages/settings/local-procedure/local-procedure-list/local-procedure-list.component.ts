@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { LocalProcedureNewComponent } from '../local-procedure-new/local-procedure-new.component';
@@ -28,7 +28,7 @@ export class LocalProcedureListComponent implements OnInit {
   localProcedureList: LocalProcedureNamespace.LocalProcedureList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+    @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private localProcedureService: LocalProcedureService) { }
@@ -103,5 +103,17 @@ export class LocalProcedureListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.localProcedureService.getSearchLocalProcedures(100, 0, true, name).subscribe((localProcedureList: any) => {
+      this.localProcedureList = localProcedureList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = ''; 
+    this.ngOnInit()
   }
 }

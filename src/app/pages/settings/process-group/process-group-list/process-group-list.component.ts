@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TableModule } from 'primeng/table';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
@@ -28,7 +28,7 @@ export class ProcessGroupListComponent implements OnInit {
   processGroupList: ProcessGroupNamespace.ProcessGroupList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private processGroupsService: ProcessGroupService) { }
@@ -103,5 +103,17 @@ export class ProcessGroupListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.processGroupsService.getSearchProcessGroups(100, 0, true, name).subscribe((processGroupList: any) => {
+      this.processGroupList = processGroupList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = ''; 
+    this.ngOnInit()
   }
 }

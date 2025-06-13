@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -29,6 +29,7 @@ export class ProcessListComponent implements OnInit {
   private router = inject(Router);
   typeFilter: any = 'numeracao';
   tipoPessoa: 'judicial' | 'administrativo' = 'administrativo';
+    @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private processService: ProcessService) { }
@@ -86,7 +87,17 @@ export class ProcessListComponent implements OnInit {
   }
 
   async searchProcess(name: any) {
-    console.log('olha o nome', name)
+    this.processService.getProcessSearch(100, 0, true, 'administrative', name).subscribe((processAdministrativoList: any) => {
+      this.processAdministrativoList = processAdministrativoList;
+    });
+    this.processService.getProcessSearch(100, 0, true, 'judicials', name).subscribe((processJudicialList: any) => {
+      this.processJudicialList = processJudicialList;
+    });
+  }
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = ''; 
+    this.ngOnInit()
   }
 
   async confirmForRemove(id: string): Promise<any> {

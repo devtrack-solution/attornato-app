@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AlertIcon, SweetAlertService } from 'src/app/shared/service/sweet-alert.service';
@@ -17,6 +17,7 @@ export class RoleListComponent implements OnInit {
   private router = inject(Router);
   typeFilter: any = 'customers';
   tipoPessoa: 'fisica' | 'juridica' = 'fisica';
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private roleService: RoleService) { }
@@ -89,8 +90,18 @@ export class RoleListComponent implements OnInit {
     await this.showView.openLg(role);
   }
 
+  async filter(name: any): Promise<void> {
+    this.roleService.getSearchRoles(100, 0, true, name).subscribe((rolesList: any) => {
+      this.rolesList = rolesList;
+    });
+  }
 
-  
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
+  }
+
 
 
 }

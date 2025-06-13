@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { PhaseEditComponent } from '../phase-edit/phase-edit.component';
 import { PhaseNewComponent } from '../phase-new/phase-new.component';
@@ -26,6 +26,7 @@ export class PhaseListComponent implements OnInit {
   phaseList: PhaseNamespace.PhaseList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private phaseService: PhaseService) { }
@@ -96,5 +97,17 @@ export class PhaseListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.phaseService.getSearchPhases(100, 0, true, name).subscribe((phaseList: any) => {
+      this.phaseList = phaseList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

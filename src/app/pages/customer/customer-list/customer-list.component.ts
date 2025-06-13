@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
@@ -26,6 +26,7 @@ export class CustomerListComponent implements OnInit {
   customersIndividualList: any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
+  @ViewChild('name') nameInput!: ElementRef;
   private router = inject(Router);
   typeFilter: any = 'customers';
   tipoPessoa: 'fisica' | 'juridica' = 'fisica';
@@ -87,9 +88,21 @@ export class CustomerListComponent implements OnInit {
     await this.confirmForRemove(customer.id, type);
   }
 
-  async searchCustomers(name: any) {
-    console.log('olha o nome', name)
+  async filter(name: any): Promise<void> {
+    this.customerService.getCustomersSearch(100, 0, true, 'legal', name).subscribe((customersLegalList: any) => {
+      this.customersLegalList = customersLegalList;
+    });
+    this.customerService.getCustomersSearch(100, 0, true, 'individual', name).subscribe((customersIndividualList: any) => {
+      this.customersIndividualList = customersIndividualList;
+    });
   }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = ''; 
+    this.ngOnInit()
+  }
+  
 
   async confirmForRemove(id: string, type: string): Promise<any> {
     this.sweetAlertService.confirmAlert({

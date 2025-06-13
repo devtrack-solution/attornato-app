@@ -7,18 +7,14 @@
             <div class="p-col-12">
                 <p-radioButton name="customers" value="customers" [(ngModel)]="typeFilter" inputId="customers"
                     label="Cliente"></p-radioButton>
-                <p-radioButton name="adverso" value="adverso" [(ngModel)]="typeFilter" inputId="adverso" label="Adverso"
-                    class="ml-4"></p-radioButton>
-                <p-radioButton name="numeracao" value="numeracao" [(ngModel)]="typeFilter" inputId="numeracao"
-                    label="Númeração" class="ml-4"></p-radioButton>
-                <p-radioButton name="folder" value="folder" [(ngModel)]="typeFilter" inputId="folder" label="Pasta/IDs"
-                    class="ml-4"></p-radioButton>
                 <br />
             </div>
             <br />
-            <input placeholder="Informe o termo" pInputText id="name" type="text" class="p-inputtext formSearch"
+            <input placeholder="Informe o nome" pInputText id="name" type="text" class="p-inputtext formSearch"
                 #name />
-            <button pButton icon="pi pi-search" (click)="this.searchCustomers(name.value)" label="Pesquisar"
+            <button pButton icon="pi pi-search" (click)="this.filter(name.value)" label="Pesquisar"
+                class="p-button p-button-help search" style="margin-left: 1%;"></button>
+            <button pButton icon="pi pi-eraser" (click)="this.cleanFilter()" label="Limpar Filtro"
                 class="p-button p-button-help search" style="margin-left: 1%;"></button>
         </div>
         <br /><br />

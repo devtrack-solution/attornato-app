@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -18,17 +18,17 @@ import { ContactTypesNamespace } from 'src/app/shared/components/types/contact-t
   selector: 'app-contact-types-list',
   standalone: true,
   imports: [CommonModule, SharedModule, TableModule, ContactTypesEditComponent, ContactTypesNewComponent,
-        PaginatorModule, ButtonModule, DialogModule],
+    PaginatorModule, ButtonModule, DialogModule],
   templateUrl: './contact-types-list.component.html',
   styleUrl: './contact-types-list.component.scss'
 })
-export class ContactTypesListComponent implements OnInit{
+export class ContactTypesListComponent implements OnInit {
 
   display: boolean = false
   contactTypesList: ProcessGroupNamespace.ProcessGroupList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private contactTypesService: ContactTypeService) { }
@@ -103,5 +103,17 @@ export class ContactTypesListComponent implements OnInit{
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.contactTypesService.getSearchContactTypes(100, 0, true, name).subscribe((contactTypesList: any) => {
+      this.contactTypesList = contactTypesList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

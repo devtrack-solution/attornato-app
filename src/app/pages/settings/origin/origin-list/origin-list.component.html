@@ -4,6 +4,16 @@
         <h4>LISTA DE ORIGEM</h4> 
         <br/>
         <div style="width: 100%;" class="d-flex justify-content-end">
+            
+            <input placeholder="Informe o nome" pInputText id="name" type="text" class="p-inputtext formSearch"
+                #name />
+            <button pButton icon="pi pi-search" (click)="this.filter(name.value)" label="Pesquisar"
+                class="p-button p-button-help search" style="margin-left: 1%;"></button>
+            <button pButton icon="pi pi-eraser" (click)="this.cleanFilter()" label="Limpar Filtro"
+                class="p-button p-button-help search" style="margin-left: 1%;"></button>
+        </div>
+        <br /><br />
+        <div style="width: 100%;" class="d-flex justify-content-end">
             <button pButton iconPos="right" class="p-button-help ml-auto mt-3 border-round"  (click)="openCreateOrigin()" title="Nova Origem"><i class="pi pi-plus"></i></button>
         </div>
         <br/>         

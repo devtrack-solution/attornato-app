@@ -34,6 +34,12 @@ export class CustomerService extends BasicService {
     return this.httpClient.get(`${this.apiUrl}`, { headers: this.headers, params });
   }
 
+  getCustomersSearch(limit: number, offset: number, isActive: boolean = true, type: any, search: any): Observable<any> {
+    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString()).set('search', search.toString());
+
+    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers: this.headers, params });
+  }
+
 
   async saveCustomer(body: any, type: string): Promise<void> {
     const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers: this.headers }));

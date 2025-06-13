@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ObjectActionEditComponent } from '../object-action-edit/object-action-edit.component';
 import { ObjectActionNewComponent } from '../object-action-new/object-action-new.component';
@@ -26,6 +26,7 @@ export class ObjectActionListComponent implements OnInit {
   objectActionList: ObjectActionNamespace.ObjectActionList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private objectActiionService: ObjectActionService) { }
@@ -96,6 +97,18 @@ export class ObjectActionListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.objectActiionService.getSearchObjectActions(100, 0, true, name).subscribe((objectActionList: any) => {
+      this.objectActionList = objectActionList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }
 

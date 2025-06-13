@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { SubjectsEditComponent } from '../subjects-edit/subjects-edit.component';
 import { SubjectsNewComponent } from '../subjects-new/subjects-new.component';
@@ -26,6 +26,7 @@ export class SubjectsListComponent implements OnInit {
   subjectsList: SubjectsNamespace.SubjectsList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private subjectsService: SubjectService) { }
@@ -100,5 +101,17 @@ export class SubjectsListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.subjectsService.getSearchSubjects(100, 0, true, name).subscribe((subjectsList: any) => {
+      this.subjectsList = subjectsList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

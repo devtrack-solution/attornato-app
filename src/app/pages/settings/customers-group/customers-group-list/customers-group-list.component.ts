@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -18,7 +18,7 @@ import { CustomersGroupNamespace } from 'src/app/shared/components/types/custome
   selector: 'app-customers-group-list',
   standalone: true,
   imports: [CommonModule, SharedModule, TableModule, CustomersGroupEditComponent, CustomersGroupNewComponent,
-      PaginatorModule, ButtonModule, DialogModule
+    PaginatorModule, ButtonModule, DialogModule
   ],
   templateUrl: './customers-group-list.component.html',
   styleUrl: './customers-group-list.component.scss'
@@ -29,7 +29,7 @@ export class CustomersGroupListComponent {
   customersGroupList: ProcessGroupNamespace.ProcessGroupList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
-  private router = inject(Router);
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private customersGroupsService: CustomersGroupService) { }
@@ -104,5 +104,17 @@ export class CustomersGroupListComponent {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.customersGroupsService.getSearchCustomersGroups(100, 0, true, name).subscribe((customersGroupList: any) => {
+      this.customersGroupList = customersGroupList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }

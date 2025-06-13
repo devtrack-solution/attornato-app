@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { PaginatorModule } from 'primeng/paginator';
@@ -26,6 +26,7 @@ export class PartnerListComponent implements OnInit {
   partnerList: PartnerNamespace.PartnerList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
+      @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private partnerService: PartnerService) { }
@@ -100,5 +101,17 @@ export class PartnerListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.partnerService.getSearchPartners(100, 0, true, name).subscribe((partnerList: any) => {
+      this.partnerList = partnerList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = ''; 
+    this.ngOnInit()
   }
 }

@@ -28,6 +28,14 @@ export class ProcessService extends BasicService {
     return this.httpClient.get(`${this.apiUrl}/${type}`, { headers: this.headers, params });
   }
 
+
+  getProcessSearch(limit: number, offset: number, isActive: boolean = true, type: any, search: any): Observable<any> {
+    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString()).set('search', search.toString());
+
+    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers: this.headers, params });
+  }
+
+
   async saveIdentifyCustomer(body: any, type: any): Promise<any> {
     try {
       const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers: this.headers }));

@@ -11,14 +11,14 @@
                     class="ml-4"></p-radioButton>
                 <p-radioButton name="customers" value="customers" [(ngModel)]="typeFilter" inputId="customers"
                     label="Cliente" class="ml-4"></p-radioButton>
-                <p-radioButton name="adverso" value="adverso" [(ngModel)]="typeFilter" inputId="adverso" label="Adverso"
-                    class="ml-4"></p-radioButton>
                 <br />
             </div>
             <br />
-            <input placeholder="Informe o termo" pInputText id="name" type="text" class="p-inputtext formSearch"
+            <input placeholder="Pesquisa.." pInputText id="name" type="text" class="p-inputtext formSearch"
                 #name />
             <button pButton icon="pi pi-search" (click)="this.searchProcess(name.value)" label="Pesquisar"
+                class="p-button p-button-help search" style="margin-left: 1%;"></button>
+            <button pButton icon="pi pi-eraser" (click)="this.cleanFilter()" label="Limpar Filtro"
                 class="p-button p-button-help search" style="margin-left: 1%;"></button>
         </div>
         <br /><br/>
@@ -39,7 +39,6 @@
                         <th style="width: 250px;">Númeração</th>
                         <th>Cliente</th>
                         <th style="width: 250px;">Pasta</th>
-                        <th style="width: 250px;">Adverso</th>
                         <th class="text-center" style="width: 180px;">Ações</th>
                     </tr>
                 </ng-template>
@@ -48,7 +47,6 @@
                         <td>{{ process?.processNumber }}</td>
                         <td>{{ process?.client?.name }}</td>
                         <td>{{ process?.folder }}</td>
-                        <td>{{ process?.adverso }}</td>
                         <td class="text-center" style="width: 200px;">
                             <div class="action-buttons">
                                 <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar(process, 'administrativo')"
@@ -80,7 +78,6 @@
                         <th style="width: 250px;">Númeração</th>
                         <th>Cliente</th>
                         <th style="width: 250px;">Pasta</th>
-                        <th style="width: 250px;">Adverso</th>
                         <th class="text-center" style="width: 180px;">Ações</th>
                     </tr>
                 </ng-template>
@@ -89,7 +86,6 @@
                         <td>{{ process?.processNumber }}</td>
                         <td>{{ process?.client?.name }}</td>
                         <td>{{ process?.folder }}</td>
-                        <td>{{ process?.adverso }}</td>
                         <td class="text-center" style="width: 200px;">
                             <div class="action-buttons">
                                 <button pButton class="p-button p-button-sm p-button-help m-1" (click)="editar(process, 'judicial')"

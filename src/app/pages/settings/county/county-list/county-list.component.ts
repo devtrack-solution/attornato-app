@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CountyEditComponent } from '../county-edit/county-edit.component';
 import { CountyNewComponent } from '../county-new/county-new.component';
@@ -26,6 +26,7 @@ export class CountyListComponent implements OnInit {
   countyList: CountyNamespace.CountyList | any
   @ViewChild('showUpdate') showUpdate: any;
   @ViewChild('showCreate', { static: false }) showCreate: any;
+  @ViewChild('name') nameInput!: ElementRef;
 
 
   constructor(private readonly sweetAlertService: SweetAlertService, private countyService: CountysService) { }
@@ -96,5 +97,17 @@ export class CountyListComponent implements OnInit {
         }
       }
     });
+  }
+
+  async filter(name: any): Promise<void> {
+    this.countyService.getSearchCountys(100, 0, true, name).subscribe((countyList: any) => {
+      this.countyList = countyList;
+    });
+  }
+
+
+  cleanFilter(): void {
+    this.nameInput.nativeElement.value = '';
+    this.ngOnInit()
   }
 }
