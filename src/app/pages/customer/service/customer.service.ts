@@ -23,43 +23,40 @@ export class CustomerService extends BasicService {
    * @returns Observable com a resposta da API
    */
   getCustomers(limit: number, offset: number, isActive: boolean = true, type: any): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
-
-    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers: this.headers, params });
+    const params = { isActive, limit, offset };
+    return this.httpClient.get(`${this.apiUrl}/${type}`, this.getRequestOptions(params));
   }
 
   getCustomersAll(limit: number, offset: number, isActive: boolean = true): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
-
-    return this.httpClient.get(`${this.apiUrl}`, { headers: this.headers, params });
+    const params = { isActive, limit, offset };
+    return this.httpClient.get(this.apiUrl, this.getRequestOptions(params));
   }
 
-  getCustomersSearch(limit: number, offset: number, isActive: boolean = true, type: any, search: any): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString()).set('search', search.toString());
-
-    return this.httpClient.get(`${this.apiUrl}/${type}`, { headers: this.headers, params });
+  getCustomersSearch(limit: number, offset: number, isActive: boolean = true, type: any, search : any): Observable<any> {
+    const params = { isActive, limit, offset, search : search };
+    return this.httpClient.get(`${this.apiUrl}/${type}`, this.getRequestOptions(params));
   }
 
 
   async saveCustomer(body: any, type: string): Promise<void> {
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, { headers: this.headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl + '/' + type, body, this.getRequestOptions()));
     console.log('resultado', response);
   }
 
 
   async saveIdentifyCustomer(body: any, type: any): Promise<any> {
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, { headers: this.headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + type, body, this.getRequestOptions()));
     console.log('resultado', response)
     return response
   }
 
   async ediCustomer(id: any, body: any, type: string): Promise<void> {
-    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, { headers: this.headers }));
+    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${type}/${id}`, body, this.getRequestOptions()));
     console.log('resultado', response);
   }
 
   async deleteCustomer(id: any, type: string): Promise<void> {
-    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${type}/${id}`, { headers: this.headers }));
+    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${type}/${id}`, this.getRequestOptions()));
   }
 
   setCustomer(customer: any, type: string) {

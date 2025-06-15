@@ -22,29 +22,29 @@ export class LocalProcedureService extends BasicService{
    * @returns Observable com a resposta da API
    */
   getLocalProcedures(limit: number, offset: number, isActive: boolean = true): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString());
+    const params = { isActive, limit, offset };
 
-    return this.httpClient.get(this.apiUrl, { headers : this.headers, params });
+    return this.httpClient.get(this.apiUrl, this.getRequestOptions(params));
   }
 
   getSearchLocalProcedures(limit: number, offset: number, isActive: boolean = true, search: any): Observable<any> {
-    const params: HttpParams = new HttpParams().set('isActive', isActive).set('limit', limit.toString()).set('offset', offset.toString()).set('search', search);
+    const params = { isActive, limit, offset, search : search };
 
-    return this.httpClient.get(this.apiUrl, { headers : this.headers, params });
+    return this.httpClient.get(this.apiUrl, this.getRequestOptions(params));
   }
 
 
   async saveLocalProcedure(body: any): Promise<void> {
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers : this.headers }));
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, this.getRequestOptions()));
     console.log('resultado', response);
   }
 
   async ediLocalProcedure(id: any, body: any): Promise<void> {
-    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${id}`, body, { headers : this.headers }));
+    const response = await firstValueFrom(this.httpClient.patch(`${this.apiUrl}/${id}`, body, this.getRequestOptions()));
     console.log('resultado', response);
   }
 
   async deleteLocalProcedure(id: any): Promise<void> {
-    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${id}`, { headers : this.headers }));
+    await firstValueFrom(this.httpClient.delete(`${this.apiUrl}/${id}`, this.getRequestOptions()));
   }
 }

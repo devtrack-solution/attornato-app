@@ -28,19 +28,21 @@ export class AuthService extends BasicService {
   }
 
   async login(body: any): Promise<any> {
-    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers: this.headers, responseType: 'text' }));
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+    const response = await firstValueFrom(this.httpClient.post(this.apiUrl, body, { headers, responseType: 'text' }));
     return response
   }
 
   async forgotPassword(url: any, body: any): Promise<any> {
-    await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + url, body, { headers: this.headers }));
+    await firstValueFrom(this.httpClient.post(this.apiUrlPadrao + url, body, this.getRequestOptions()));
   }
 
 
   async newPassword(url: any, body: any, username: any, code: any): Promise<any> {
-    const params: HttpParams = new HttpParams().set('username', username).set('code', code);
-
-    await firstValueFrom(this.httpClient.patch(this.apiUrlPadrao + url, body, { headers: this.headers, params }));
+    const params = { username, code };
+    await firstValueFrom(this.httpClient.patch(this.apiUrlPadrao + url, body, this.getRequestOptions(params)));
   }
 
 
